@@ -1,10 +1,10 @@
 # SGI 2022/2023
 
-## Group T0xG0y
+## Group T06G01
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+| Carlos Gomes | 201906622 | up201906622@edu.fe.up.pt |
+| Luís Lucas | 201904624 | up201904624@fe.up.pt |
 
 ----
 
