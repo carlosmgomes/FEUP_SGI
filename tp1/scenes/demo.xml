@@ -1,5 +1,5 @@
 <sxs>
-    <scene root="demoRoot" axis_length="5"/>
+    <scene root="demoRoot" axis_length="5" />
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
@@ -16,7 +16,7 @@
     <lights>
         <omni id="demoLight" enabled="1">
             <location x="9.8" y="11.9" z="10" w="1.0" />
-            <ambient r="0" g="0" b="0" a="1.0" />
+            <ambient r="1" g="1" b="1" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </omni>
@@ -47,6 +47,18 @@
         <primitive id="demoRectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
+        <primitive id="demoCylinder">
+            <cylinder base="0.5" top="0.5" height="5" slices="50" stacks="12" />
+        </primitive>
+        <primitive id="demoTriangle">
+            <triangle x1="0" y1="0" z1="0" x2="4" y2="0" z2="0" x3="0" y3="3" z3="0" />
+        </primitive>
+        <primitive id="demoSphere">
+            <sphere radius="1" slices="112" stacks="112" />
+        </primitive>
+        <primitive id="demoTorus">
+            <torus inner="0.25" outer="4" slices="110" loops="111" />
+        </primitive>
     </primitives>
 
     <components>
@@ -58,9 +70,14 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture"/>
+            <texture id="demoTexture" />
             <children>
                 <primitiveref id="demoRectangle" />
+                <primitiveref id="demoCylinder" />
+                <primitiveref id="demoTriangle" />
+                <primitiveref id="demoSphere" />
+                <primitiveref id="demoTorus" />
+
             </children>
         </component>
     </components>
