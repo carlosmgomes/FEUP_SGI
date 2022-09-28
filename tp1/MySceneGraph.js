@@ -4,6 +4,7 @@ import { MyCylinder } from './MyCylinder.js';
 import { MyTriangle } from './MyTriangle.js';
 import { MySphere } from './MySphere.js';
 import { MyTorus } from './MyTorus.js';
+import { MyNode } from './MyNode.js';
 
 
 var DEGREE_TO_RAD = Math.PI / 180;
@@ -447,7 +448,6 @@ export class MySceneGraph {
      * @param {transformations block element} transformationsNode
      */
     parseTransformations(transformationsNode) {
-        console.log(transformationsNode);
         var children = transformationsNode.children;
 
         this.transformations = [];
@@ -472,7 +472,6 @@ export class MySceneGraph {
                 return "ID must be unique for each transformation (conflict: ID = " + transformationID + ")";
 
             grandChildren = children[i].children;
-            console.log(grandChildren);
             // Specifications for the current transformation.
 
             var transfMatrix = mat4.create();
@@ -520,7 +519,6 @@ export class MySceneGraph {
             }
             this.transformations[transformationID] = transfMatrix;
         }
-
         this.log("Parsed transformations");
         return null;
     }
@@ -741,7 +739,6 @@ export class MySceneGraph {
         var grandgrandChildren = [];
         var nodeNames = [];
 
-        console.log(children);
 
         // Any number of components.
         for (var i = 0; i < children.length; i++) {
@@ -760,6 +757,8 @@ export class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
+            this.nodes[componentID] = new MyNode(componentID);
+
             grandChildren = children[i].children;
 
             nodeNames = [];
@@ -774,23 +773,20 @@ export class MySceneGraph {
 
             // Transformations
             var transformations = grandChildren[transformationIndex].children;
-            console.log(transformations);
-           
-            var transfMatrix = mat4.create();
-
+        
             for (var j = 0; j < transformations.length; j++) {
                 switch (transformations[j].nodeName) {
                     case 'translate':
                         var coordinates = this.parseCoordinates3D(transformations[j], "translate transformation for ID" + componentID);
                         if (!Array.isArray(coordinates))
                             return coordinates;
-                        transfMatrix = mat4.translate(transformations[j], transfMatrix, coordinates);
+                        mat4.translate(this.nodes[componentID].transfMatrix, this.nodes[componentID], coordinates);
                         break;
                     case 'scale':
                         var coordinates = this.parseCoordinates3D(transformations[j], "scale transformation for ID" + componentID);
                         if (!Array.isArray(coordinates))
                             return coordinates;
-                        transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);
+                        mat4.scale(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, coordinates);
                         break;
                     case 'rotate':
                         var axis = this.reader.getString(transformations[j], 'axis');
@@ -801,13 +797,13 @@ export class MySceneGraph {
                             return "unable to parse angle of the rotate transformation for ID = " + componentID;
                         switch (axis) {
                             case 'x':
-                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [1,0,0]);
+                                transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [1,0,0]);
                                 break;
                             case 'y':
-                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [0, 1, 0]);
+                                transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [0, 1, 0]);
                                 break;
                             case 'z':
-                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [0, 0, 1]);
+                                transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [0, 0, 1]);
                                 break;
                             default:
                                 return "unable to parse axis of the rotate transformation for ID = " + componentID;
@@ -961,30 +957,6 @@ export class MySceneGraph {
 
     displaySceneRecursive(nodeID) {
         var node = this.nodes[nodeID];
-        var transfMatrix = node.transfMatrix;
-        var material = node.material;
-        var texture = node.texture;
-        var children = node.children;
-
-        this.scene.pushMatrix();
-        this.scene.multMatrix(transfMatrix);
-
-        if (material != "null") {
-            this.materials[material].apply();
-        }
-
-        if (texture != "null") {
-            this.textures[texture].apply();
-        }
-
-        for (var i = 0; i < children.length; i++) {
-            if (this.primitives[children[i]] != null) {
-                this.primitives[children[i]].display();
-            }
-            else {
-                this.displaySceneRecursive(children[i]);
-            }
-        }
-        this.scene.popMatrix();
+        console.log(node);
     }
 }
