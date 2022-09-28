@@ -447,6 +447,7 @@ export class MySceneGraph {
      * @param {transformations block element} transformationsNode
      */
     parseTransformations(transformationsNode) {
+        console.log(transformationsNode);
         var children = transformationsNode.children;
 
         this.transformations = [];
@@ -471,6 +472,7 @@ export class MySceneGraph {
                 return "ID must be unique for each transformation (conflict: ID = " + transformationID + ")";
 
             grandChildren = children[i].children;
+            console.log(grandChildren);
             // Specifications for the current transformation.
 
             var transfMatrix = mat4.create();
@@ -485,11 +487,34 @@ export class MySceneGraph {
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
                     case 'scale':
-                        this.onXMLMinorError("To do: Parse scale transformations.");
+                        var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID ", transformationID);
+                        if (!Array.isArray(coordinates)) 
+                            return coordinates;
+                        transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);
                         break;
                     case 'rotate':
-                        // angle
-                        this.onXMLMinorError("To do: Parse rotate transformations.");
+                        var axis = this.reader.getString(grandChildren[j], 'axis');
+                        var angle = this.reader.getFloat(grandChildren[j], 'angle');
+                        if (axis == null)
+                            return "no axis defined for rotation transformation for ID " + transformationID;
+                        if (!(angle != null && !isNaN(angle)))
+                            return "unable to parse angle of the rotation transformation for ID " + transformationID;
+                        switch (axis) {
+                            case 'x':
+                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [1,0,0]);
+                                break;
+                            case 'y':
+                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [0, 1, 0]);
+                                break;
+                            case 'z':
+                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [0, 0, 1]);
+                                break;
+                            default:
+                                return "unable to parse axis of the rotate transformation for ID = " + componentID;
+                        }
+                        break;
+                    default:
+                        this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
                         break;
                 }
             }
@@ -928,7 +953,38 @@ export class MySceneGraph {
         //this.primitives['demoTriangle'].display();
         //this.primitives['demoSphere'].display();
         //this.primitives['demoTorus'].display();
+
+        this.displaySceneRecursive(this.idRoot);
         
 
+    }
+
+    displaySceneRecursive(nodeID) {
+        var node = this.nodes[nodeID];
+        var transfMatrix = node.transfMatrix;
+        var material = node.material;
+        var texture = node.texture;
+        var children = node.children;
+
+        this.scene.pushMatrix();
+        this.scene.multMatrix(transfMatrix);
+
+        if (material != "null") {
+            this.materials[material].apply();
+        }
+
+        if (texture != "null") {
+            this.textures[texture].apply();
+        }
+
+        for (var i = 0; i < children.length; i++) {
+            if (this.primitives[children[i]] != null) {
+                this.primitives[children[i]].display();
+            }
+            else {
+                this.displaySceneRecursive(children[i]);
+            }
+        }
+        this.scene.popMatrix();
     }
 }
