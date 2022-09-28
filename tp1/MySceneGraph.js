@@ -776,13 +776,13 @@ export class MySceneGraph {
                             return "unable to parse angle of the rotate transformation for ID = " + componentID;
                         switch (axis) {
                             case 'x':
-                                transfMatrix = mat4.rotateX(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD);
+                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [1,0,0]);
                                 break;
                             case 'y':
-                                transfMatrix = mat4.rotateY(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD);
+                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [0, 1, 0]);
                                 break;
                             case 'z':
-                                transfMatrix = mat4.rotateZ(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD);
+                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [0, 0, 1]);
                                 break;
                             default:
                                 return "unable to parse axis of the rotate transformation for ID = " + componentID;
