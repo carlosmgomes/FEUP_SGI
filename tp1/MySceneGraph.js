@@ -1,4 +1,4 @@
-import { CGFXMLreader, CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader} from "../lib/CGF.js";
+import { CGFXMLreader, CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader } from "../lib/CGF.js";
 import { MyRectangle } from './primitives/MyRectangle.js';
 import { MyCylinder } from './primitives/MyCylinder.js';
 import { MyTriangle } from './primitives/MyTriangle.js';
@@ -441,7 +441,7 @@ export class MySceneGraph {
     parseMaterials(materialsNode) {
         var children = materialsNode.children;
 
-        this.materials = [];
+        this.materials = new Map();
 
         var grandChildren = [];
         var nodeNames = [];
@@ -463,11 +463,33 @@ export class MySceneGraph {
             if (this.materials[materialID] != null)
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
-            //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            // Get shininess of the current material.
+            var shininess = Number(this.reader.getString(children[i], 'shininess'));
+            
+            if (shininess == null || isNaN(shininess))
+                return "Material '" + materialID + "' -> Unable to parse 'shininess' value";
+
+
+            grandChildren = children[i].children;
+
+            nodeNames = [];
+            for (var j = 0; j < grandChildren.length; j++) {
+                nodeNames.push(grandChildren[j].nodeName);
+            }
+
+            var emission = this.parseColor(grandChildren[nodeNames.indexOf("emission")], "EmissionColor");
+            var ambient = this.parseColor(grandChildren[nodeNames.indexOf("ambient")], "Ambient Color");
+            var diffuse = this.parseColor(grandChildren[nodeNames.indexOf("diffuse")], "Diffuse Color");
+            var specular = this.parseColor(grandChildren[nodeNames.indexOf("specular")], "Specular Color");
+
+
+
+            this.materials.set(materialID, { shininess: shininess, emission: emission, ambient: ambient, diffuse: diffuse, specular: specular });
         }
 
-        //this.log("Parsed materials");
+        console.log(this.materials);
+
+        this.log("Parsed materials");
         return null;
     }
 
@@ -744,10 +766,6 @@ export class MySceneGraph {
                 var tor = new MyTorus(this.scene, inner, outer, slices, loops);
                 this.primitives[primitiveId] = sph;
             }
-
-            else {
-                console.warn("To do: Parse other primitives.");
-            }
         }
 
         this.log("Parsed primitives");
@@ -1001,7 +1019,7 @@ export class MySceneGraph {
         //this.primitives['demoSphere'].display();
         //this.primitives['demoTorus'].display();
         this.displaySceneRecursive(this.idRoot);
-        
+
 
     }
 
@@ -1015,10 +1033,10 @@ export class MySceneGraph {
 
         //Visit children recursively
         for (var i = 0; i < children.length; i++) {
-                console.log(this.primitives[children[i]]);
-                this.primitives[children[i]].display();
+            //console.log(this.primitives[children[i]]);
+            this.primitives[children[i]].display();
         }
 
-      
+
     }
 }
