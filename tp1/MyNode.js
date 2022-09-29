@@ -1,11 +1,11 @@
 /**
  * Node class, represents a graph node.
  */
-export class MyNode {
+export class MyNode{
    /**
     * @constructor
     */
-    constructor(id) {
+    constructor( id) {
         this.id = id;
         this.materials = [];
         this.texture = [];
@@ -24,5 +24,4 @@ export class MyNode {
     addChild(child) {
         this.children.push(child);
     }
-
 }
