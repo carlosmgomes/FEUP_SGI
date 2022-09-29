@@ -1,9 +1,9 @@
-import { CGFXMLreader } from '../lib/CGF.js';
-import { MyRectangle } from './MyRectangle.js';
-import { MyCylinder } from './MyCylinder.js';
-import { MyTriangle } from './MyTriangle.js';
-import { MySphere } from './MySphere.js';
-import { MyTorus } from './MyTorus.js';
+import { CGFXMLreader, CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader} from "../lib/CGF.js";
+import { MyRectangle } from './primitives/MyRectangle.js';
+import { MyCylinder } from './primitives/MyCylinder.js';
+import { MyTriangle } from './primitives/MyTriangle.js';
+import { MySphere } from './primitives/MySphere.js';
+import { MyTorus } from './primitives/MyTorus.js';
 import { MyNode } from './MyNode.js';
 
 
@@ -400,9 +400,37 @@ export class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
+        var children = texturesNode.children;
 
-        //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        this.textures = [];
+
+
+        // Any number of textures.
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "texture") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // Get id of the current texture.
+            var textureID = this.reader.getString(children[i], 'id');
+            if (textureID == null)
+                return "no ID defined for texture";
+
+            // Checks for repeated IDs.
+            if (this.textures[textureID] != null)
+                return "ID must be unique for each light (conflict: ID = " + textureID + ")";
+
+            let file = this.reader.getString(children[i], 'file');
+
+            if (file == null) {
+                this.onXMLMinorError("File not found");
+                continue;
+            }
+
+            this.textures[textureID] = new CGFtexture(this.scene, file);
+        }
+        console.log("Parsed Textures");
         return null;
     }
 
@@ -487,7 +515,7 @@ export class MySceneGraph {
                         break;
                     case 'scale':
                         var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for ID ", transformationID);
-                        if (!Array.isArray(coordinates)) 
+                        if (!Array.isArray(coordinates))
                             return coordinates;
                         transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);
                         break;
@@ -500,7 +528,7 @@ export class MySceneGraph {
                             return "unable to parse angle of the rotation transformation for ID " + transformationID;
                         switch (axis) {
                             case 'x':
-                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [1,0,0]);
+                                transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [1, 0, 0]);
                                 break;
                             case 'y':
                                 transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, [0, 1, 0]);
@@ -713,7 +741,7 @@ export class MySceneGraph {
                     return "unable to parse loops of the primitive coordinates for ID = " + primitiveId;
 
 
-                var sph = new MyTorus(this.scene, inner,outer, slices, loops);
+                var tor = new MyTorus(this.scene, inner, outer, slices, loops);
                 this.primitives[primitiveId] = sph;
             }
 
@@ -727,9 +755,9 @@ export class MySceneGraph {
     }
 
     /**
-   * Parses the <components> block.
-   * @param {components block element} componentsNode
-   */
+    * Parses the <components> block.
+    * @param {components block element} componentsNode
+    */
     parseComponents(componentsNode) {
         var children = componentsNode.children;
 
@@ -773,7 +801,7 @@ export class MySceneGraph {
 
             // Transformations
             var transformations = grandChildren[transformationIndex].children;
-            if (transformationIndex != -1){
+            if (transformationIndex != -1) {
                 for (var j = 0; j < transformations.length; j++) {
                     switch (transformations[j].nodeName) {
                         case 'translate':
@@ -797,7 +825,7 @@ export class MySceneGraph {
                                 return "unable to parse angle of the rotate transformation for ID = " + componentID;
                             switch (axis) {
                                 case 'x':
-                                    transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [1,0,0]);
+                                    transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [1, 0, 0]);
                                     break;
                                 case 'y':
                                     transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [0, 1, 0]);
@@ -812,18 +840,18 @@ export class MySceneGraph {
                         default:
                             this.onXMLMinorError("unknown tag <" + transformations[j].nodeName + ">");
                             break;
-            
+
                     }
                 }
             }
-            
+
 
             // Materials
 
             // Texture
 
             // Children
-            if (childrenIndex != -1){
+            if (childrenIndex != -1) {
                 var children = grandChildren[childrenIndex].children;
                 for (var j = 0; j < children.length; j++) {
                     switch (children[j].nodeName) {
