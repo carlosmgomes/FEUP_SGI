@@ -11,6 +11,7 @@ export class MyNode{
         this.texture = [];
         this.children = [];
         this.transfMatrix = mat4.create();
+        mat4.identity(this.transfMatrix);
     }
 
     addMaterial(material) {

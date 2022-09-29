@@ -64,14 +64,6 @@
     </primitives>
 
     <components>
-        <component id="testRectangle">
-            <transformation>
-                <translate x="0" y="0" z="0" />
-            </transformation>
-            <primitive id="testRectangle">
-                <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
-            </primitive>
-        </component>
         <component id="demoRoot">
             <transformation>
                 <translate x="0" y="0" z="1" />

@@ -778,18 +778,16 @@ export class MySceneGraph {
     */
     parseComponents(componentsNode) {
         var children = componentsNode.children;
-
         this.components = [];
 
         var grandChildren = [];
         var grandgrandChildren = [];
         var nodeNames = [];
 
-
         // Any number of components.
         for (var i = 0; i < children.length; i++) {
-
-            if (children[i].nodeName != "component") {
+            console.log(children[i].nodeName);
+            if (children[i].nodeName != "component") {  
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
@@ -826,7 +824,7 @@ export class MySceneGraph {
                             var coordinates = this.parseCoordinates3D(transformations[j], "translate transformation for ID" + componentID);
                             if (!Array.isArray(coordinates))
                                 return coordinates;
-                            mat4.translate(this.nodes[componentID].transfMatrix, this.nodes[componentID], coordinates);
+                            mat4.translate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, coordinates);
                             break;
                         case 'scale':
                             var coordinates = this.parseCoordinates3D(transformations[j], "scale transformation for ID" + componentID);
@@ -863,11 +861,10 @@ export class MySceneGraph {
                 }
             }
 
-
             // Materials
 
             // Texture
-
+            
             // Children
             if (childrenIndex != -1) {
                 var children = grandChildren[childrenIndex].children;
@@ -881,6 +878,7 @@ export class MySceneGraph {
                             break;
                         case 'primitiveref':
                             var primitiveID = this.reader.getString(children[j], 'id');
+                            console.log(primitiveID)
                             if (primitiveID == null)
                                 return "unable to parse primitive ID of the primitiveref for ID = " + componentID;
                             this.nodes[componentID].children.push(primitiveID);
@@ -1028,13 +1026,12 @@ export class MySceneGraph {
         var node = this.nodes[nodeID];
         var children = node.children;
 
-        //Transformations
-        this.scene.multMatrix(node.transfMatrix);
-
         //Visit children recursively
         for (var i = 0; i < children.length; i++) {
-            //console.log(this.primitives[children[i]]);
+            this.scene.pushMatrix();
+            this.scene.multMatrix(node.transfMatrix);
             this.primitives[children[i]].display();
+            this.scene.popMatrix();
         }
 
 
