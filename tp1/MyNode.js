@@ -9,7 +9,8 @@ export class MyNode{
         this.id = id;
         this.materials = [];
         this.texture = [];
-        this.children = [];
+        this.children_primitives=[];
+        this.children_components=[];
         this.transfMatrix = mat4.create();
         mat4.identity(this.transfMatrix);
     }
@@ -21,8 +22,10 @@ export class MyNode{
     addTexture(texture) {
         this.texture.push(texture);
     }
-
-    addChild(child) {
-        this.children.push(child);
+    addPrimitive(primitive) {
+        this.children_primitives.push(primitive);
+    }
+    addComponent(component) {
+        this.children_components.push(component);
     }
 }

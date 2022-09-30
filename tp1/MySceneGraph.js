@@ -783,10 +783,8 @@ export class MySceneGraph {
         var grandChildren = [];
         var grandgrandChildren = [];
         var nodeNames = [];
-
         // Any number of components.
         for (var i = 0; i < children.length; i++) {
-            console.log(children[i].nodeName);
             if (children[i].nodeName != "component") {  
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -864,27 +862,26 @@ export class MySceneGraph {
             // Materials
 
             // Texture
-            
+
             // Children
             if (childrenIndex != -1) {
-                var children = grandChildren[childrenIndex].children;
-                for (var j = 0; j < children.length; j++) {
-                    switch (children[j].nodeName) {
+                var component_children = grandChildren[childrenIndex].children;
+                for (var j = 0; j < component_children.length; j++) {
+                    switch (component_children[j].nodeName) {
                         case 'componentref':
-                            var componentID = this.reader.getString(children[j], 'id');
-                            if (componentID == null)
-                                return "unable to parse component ID of the componentref for ID = " + componentID;
-                            this.nodes[componentID].children.push(componentID);
+                            var componentID_children = this.reader.getString(component_children[j], 'id');
+                            if (componentID_children == null)
+                                return "unable to parse component ID of the componentref for ID = " + componentID_children;
+                            this.nodes[componentID].addComponent(componentID_children);
                             break;
                         case 'primitiveref':
-                            var primitiveID = this.reader.getString(children[j], 'id');
-                            console.log(primitiveID)
-                            if (primitiveID == null)
+                            var primitiveID_children = this.reader.getString(component_children[j], 'id');
+                            if (primitiveID_children == null)
                                 return "unable to parse primitive ID of the primitiveref for ID = " + componentID;
-                            this.nodes[componentID].children.push(primitiveID);
+                            this.nodes[componentID].addPrimitive(primitiveID_children);
                             break;
                         default:
-                            this.onXMLMinorError("unknown tag <" + children[j].nodeName + ">");
+                            this.onXMLMinorError("unknown tag <" + component_children[j].nodeName + ">");
                             break;
                     }
                 }
@@ -1016,22 +1013,31 @@ export class MySceneGraph {
         //this.primitives['demoTriangle'].display();
         //this.primitives['demoSphere'].display();
         //this.primitives['demoTorus'].display();
+        this.scene.pushMatrix();
         this.displaySceneRecursive(this.idRoot);
-
+        this.scene.popMatrix();
 
     }
 
     displaySceneRecursive(nodeID) {
-        var i = 0;
         var node = this.nodes[nodeID];
-        var children = node.children;
+        var children_primitives = node.children_primitives;
+        var children_components = node.children_components;
 
-        //Visit children recursively
-        for (var i = 0; i < children.length; i++) {
+        //Visit children primitives
+        for (var i = 0; i < children_primitives.length; i++) {
             this.scene.pushMatrix();
             this.scene.multMatrix(node.transfMatrix);
-            this.primitives[children[i]].display();
+            this.primitives[children_primitives[i]].display();
             this.scene.popMatrix();
+        }
+
+        //Visit components recursively
+        for (var i = 0; i < children_components.length; i++){
+            this.scene.pushMatrix();
+            this.displaySceneRecursive(children_components[i]);
+            this.scene.popMatrix();
+
         }
 
 

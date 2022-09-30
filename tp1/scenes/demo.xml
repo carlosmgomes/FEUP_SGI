@@ -74,13 +74,24 @@
             </materials>
             <texture id="demoTexture" />
             <children>
-                <primitiveref id="demoRectangle" />
-                <primitiveref id="demoCylinder" />
-                <primitiveref id="demoTriangle" />
-                <primitiveref id="demoSphere" />
-                <primitiveref id="demoTorus" />
-
+                <componentref id="demoTree" />
             </children>
         </component>
+
+        <component id = "demoTree">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="leaves" />
+            <children>
+                <primitiveref id="demoCylinder" />
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+        
     </components>
 </sxs>
