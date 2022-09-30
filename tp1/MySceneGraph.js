@@ -763,7 +763,7 @@ export class MySceneGraph {
 
 
                 var tor = new MyTorus(this.scene, inner, outer, slices, loops);
-                this.primitives[primitiveId] = sph;
+                this.primitives[primitiveId] = tor;
             }
         }
 
@@ -838,13 +838,13 @@ export class MySceneGraph {
                                 return "unable to parse angle of the rotate transformation for ID = " + componentID;
                             switch (axis) {
                                 case 'x':
-                                    transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [1, 0, 0]);
+                                    mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [1, 0, 0]);
                                     break;
                                 case 'y':
-                                    transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [0, 1, 0]);
+                                    mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [0, 1, 0]);
                                     break;
                                 case 'z':
-                                    transfMatrix = mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [0, 0, 1]);
+                                    mat4.rotate(this.nodes[componentID].transfMatrix, this.nodes[componentID].transfMatrix, angle * DEGREE_TO_RAD, [0, 0, 1]);
                                     break;
                                 default:
                                     return "unable to parse axis of the rotate transformation for ID = " + componentID;
@@ -1017,11 +1017,7 @@ export class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         //To test the parsing/creation of the primitives, call the display function directly
-        //this.primitives['demoRectangle'].display();
-        //this.primitives['demoCylinder'].display();
-        //this.primitives['demoTriangle'].display();
-        //this.primitives['demoSphere'].display();
-        //this.primitives['demoTorus'].display();
+
         this.scene.pushMatrix();
         this.displaySceneRecursive(this.idRoot);
         this.scene.popMatrix();
@@ -1033,17 +1029,13 @@ export class MySceneGraph {
         var children_primitives = node.children_primitives;
         var children_components = node.children_components;
 
-        //Visit children primitives
+        //Visit children primitives     
+        this.scene.multMatrix(node.transfMatrix);
+
+
         for (var i = 0; i < children_primitives.length; i++) {
-            this.scene.pushMatrix();
-            this.scene.multMatrix(node.transfMatrix);
-            /*
-            for (var j = 0; j < node.materials.length; j++){
-                console.log(this.materials.get(node.materials[j]))
-            }
-            */
+
             this.primitives[children_primitives[i]].display();
-            this.scene.popMatrix();
         }
 
         //Visit components recursively

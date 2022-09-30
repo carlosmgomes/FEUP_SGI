@@ -16,7 +16,7 @@
     <lights>
         <omni id="demoLight" enabled="1">
             <location x="9.8" y="11.9" z="10" w="1.0" />
-            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </omni>
@@ -49,7 +49,10 @@
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
         <primitive id="demoCylinder">
-            <cylinder base="0.5" top="0.5" height="5" slices="50" stacks="12" />
+            <cylinder base="0.5" top="0.5" height="3" slices="50" stacks="12" />
+        </primitive>
+        <primitive id="basketCylinder">
+            <cylinder base="1" top="1.5" height="2.4" slices="50" stacks="12" />
         </primitive>
         <primitive id="demoTriangle">
             <triangle x1="0" y1="0" z1="0" x2="4" y2="0" z2="0" x3="0" y3="3" z3="0" />
@@ -66,7 +69,6 @@
         <component id="demoRoot">
             <transformation>
                 <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -74,6 +76,9 @@
             <texture id="demoTexture" />
             <children>
                 <componentref id="table" />
+                <componentref id="floor" />
+                <componentref id="basket" />
+
             </children>
         </component>
 
@@ -146,11 +151,28 @@
                 <primitiveref id="demoRectangle" />
             </children>
         </component>
+        <component id="tableBottom">
+            <transformation>
+                <translate x="1.5" y="2" z="0" />
+                <scale x="4.5" y="3.5" z="3.5" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
 
         <component id="table">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="2" y="0" z="0" />
                 <scale x="1" y="1" z="1" />
+                <rotate axis="x" angle="90" />
+                <translate x="2" y="7" z="-3" />
+
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -161,8 +183,69 @@
                 <componentref id="tableLeg2" />
                 <componentref id="tableLeg3" />
                 <componentref id="tableLeg4" />
+                <componentref id="tableBottom" />
                 <componentref id="tableTop" />
             </children>
-        
+        </component>
+
+        <component id="floor">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <scale x="10" y="10" z="10" />
+
+                <translate x="0.5" y="-0.9" z="0" />
+
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+
+        <component id="basketWall">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5.5" y="-1" z="0" />
+                <scale x = "0.5" y="0.5" z="0.5" />
+
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <primitiveref id="basketCylinder" />
+            </children>
+        </component>
+        <component id="basketTop">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5.5" y="-1" z="1.2" />
+                <scale x = "0.2" y="0.2" z="0.2" />
+
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <primitiveref id="demoTorus" />
+            </children>
+        </component>
+        <component id="basket">
+            <transformation></transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <componentref id="basketWall" />
+                <componentref id="basketTop" />
+            </children>
+        </component>
     </components>
 </sxs>
