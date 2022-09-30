@@ -25,7 +25,6 @@
     <textures>
         <texture id="demoTexture" file="scenes/images/vidral.jpg" />
         <texture id="leaves" file="scenes/images/leaves.jpg" />
-
     </textures>
 
     <materials>
@@ -74,11 +73,53 @@
             </materials>
             <texture id="demoTexture" />
             <children>
-                <componentref id="demoTree" />
+                <componentref id="table" />
             </children>
         </component>
 
-        <component id = "demoTree">
+        <component id="tableLeg1">
+            <transformation>
+                <translate x="0" y="4" z="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tableLeg2">
+            <transformation>
+                <translate x="3" y="4" z="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tableLeg3">
+            <transformation>
+                <translate x="3" y="0" z="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tableLeg4">
             <transformation>
                 <translate x="0" y="0" z="0" />
                 <scale x="1" y="1" z="1" />
@@ -86,12 +127,42 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="leaves" />
+            <texture id="demoTexture" />
             <children>
                 <primitiveref id="demoCylinder" />
-                <primitiveref id="demoSphere" />
             </children>
         </component>
+
+        <component id="tableTop">
+            <transformation>
+                <translate x="1.5" y="2" z="0" />
+                <scale x="4.5" y="3.5" z="3.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id="table">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture" />
+            <children>
+                <componentref id="tableLeg1" />
+                <componentref id="tableLeg2" />
+                <componentref id="tableLeg3" />
+                <componentref id="tableLeg4" />
+                <componentref id="tableTop" />
+            </children>
         
     </components>
 </sxs>

@@ -860,6 +860,16 @@ export class MySceneGraph {
 
             // Materials
 
+            var materials = grandChildren[materialsIndex].children;
+            if (materialsIndex != -1) {
+                for (var j = 0; j < materials.length; j++) {
+                    var materialID = this.reader.getString(materials[j], 'id');
+                    if (materialID == null)
+                        return "unable to parse material ID of the materials for ID = " + componentID;
+                    this.nodes[componentID].addMaterial(materialID);
+                }
+            }
+
             // Texture
 
             // Children
@@ -1027,6 +1037,11 @@ export class MySceneGraph {
         for (var i = 0; i < children_primitives.length; i++) {
             this.scene.pushMatrix();
             this.scene.multMatrix(node.transfMatrix);
+            /*
+            for (var j = 0; j < node.materials.length; j++){
+                console.log(this.materials.get(node.materials[j]))
+            }
+            */
             this.primitives[children_primitives[i]].display();
             this.scene.popMatrix();
         }
@@ -1038,7 +1053,6 @@ export class MySceneGraph {
             this.scene.popMatrix();
 
         }
-
 
     }
 }
