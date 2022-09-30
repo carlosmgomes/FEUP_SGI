@@ -488,7 +488,6 @@ export class MySceneGraph {
         }
 
 
-
         this.log("Parsed materials");
         return null;
     }
