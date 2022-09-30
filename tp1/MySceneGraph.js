@@ -487,7 +487,6 @@ export class MySceneGraph {
             this.materials.set(materialID, { shininess: shininess, emission: emission, ambient: ambient, diffuse: diffuse, specular: specular });
         }
 
-        console.log(this.materials);
 
         this.log("Parsed materials");
         return null;
