@@ -5,10 +5,10 @@ export class MyNode{
    /**
     * @constructor
     */
-    constructor( id) {
+    constructor(id) {
         this.id = id;
         this.materials = [];
-        this.texture = [];
+        this.texture = null;
         this.children_primitives=[];
         this.children_components=[];
         this.transfMatrix = mat4.create();
@@ -19,9 +19,6 @@ export class MyNode{
         this.materials.push(material);
     }
 
-    addTexture(texture) {
-        this.texture.push(texture);
-    }
     addPrimitive(primitive) {
         this.children_primitives.push(primitive);
     }
