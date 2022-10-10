@@ -880,7 +880,18 @@ export class MySceneGraph {
             var textureId = this.reader.getString(grandChildren[textureIndex], 'id');
             if (textureId == null)
                 return "unable to parse texture ID of the texture for ID = " + componentID;
-            this.nodes[componentID].texture = textureId;
+            if (textureId != "none" && textureId != "inherit") {
+                var textureLengthS = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
+                if (!(textureLengthS != null && !isNaN(textureLengthS)))
+                    return "unable to parse texture length_s of the texture for ID = " + componentID;
+                var textureLengthT = this.reader.getFloat(grandChildren[textureIndex], 'length_t');
+                if (!(textureLengthT != null && !isNaN(textureLengthT)))
+                    return "unable to parse texture length_t of the texture for ID = " + componentID;
+                this.nodes[componentID].addTexture(textureId, textureLengthS, textureLengthT);
+            }
+            else {
+                this.nodes[componentID].addTexture(textureId, 1, 1);
+            }
 
             // Children
             if (childrenIndex != -1) {
@@ -1029,7 +1040,7 @@ export class MySceneGraph {
         //To test the parsing/creation of the primitives, call the display function directly
 
         this.scene.pushMatrix();
-        this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].textures);
+        this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].texture);
         this.scene.popMatrix();
 
     }
@@ -1046,7 +1057,7 @@ export class MySceneGraph {
         else
             materials = node.materials;
 
-        if (node.texture == "inherit")
+        if (node.texture[0] == "inherit")
             texture = FatherTexture;
         else 
             texture = node.texture;
@@ -1062,13 +1073,16 @@ export class MySceneGraph {
         }
 
         var currAppearance = this.materials.get(materials[0]);
-        var currTexture = (texture == "null") ? null : this.textures[texture];
+        var currTexture = (texture[0] == "none") ? null : this.textures[texture[0]];
+        var length_s = texture[1];
+        var length_t = texture[2];
         currAppearance.setTexture(currTexture);
         
         currAppearance.apply();
 
         for (var i = 0; i < children_primitives.length; i++) {
             this.scene.pushMatrix();
+            //this.primitives[children_primitives[i]].updateTexCords(length_s, length_t);
             this.primitives[children_primitives[i]].display();
             this.scene.popMatrix();
         }

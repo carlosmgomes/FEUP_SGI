@@ -73,7 +73,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="table" />
                 <componentref id="floor" />
@@ -90,7 +90,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -104,7 +104,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -118,7 +118,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -132,7 +132,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoCylinder" />
             </children>
@@ -146,7 +146,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -160,7 +160,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -177,7 +177,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="tableLeg1" />
                 <componentref id="tableLeg2" />
@@ -199,7 +199,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -216,7 +216,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="basketCylinder" />
             </children>
@@ -231,7 +231,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -241,7 +241,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" />
+            <texture id="demoTexture" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="basketWall" />
                 <componentref id="basketTop" />
