@@ -77,13 +77,13 @@ export class MyCylinder extends CGFobject {
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
   }
+  
   /**
      * Called when user interacts with GUI to change object's complexity.
      * @param {integer} complexity - changes number of slices
      */
    updateBuffers(complexity){
     this.slices = Math.round(complexity); //complexity varies 3-16, so slices varies 3-16
-
     // reinitialize buffers
     this.initBuffers();
     this.initNormalVizBuffers();

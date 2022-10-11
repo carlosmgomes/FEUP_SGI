@@ -62,7 +62,6 @@ export class MyTriangle extends CGFobject {
 		// sin^2(alpha) + cos^2(alpha)=1
 		var sin_alpha = Math.sqrt(1 - Math.pow(cos_alpha, 2));
 
-		// TODO ????????
 		this.texCoords = [
 			0, 0,
 			a/(c*cos_alpha+a-c*cos_alpha), 0,
@@ -77,8 +76,12 @@ export class MyTriangle extends CGFobject {
 	 * Updates the list of texture coordinates of the rectangle
 	 * @param {Array} coords - Array of texture coordinates
 	 */
-	updateTexCoords(coords) {
-		this.texCoords = [...coords];
+	updateTexCoords(length_s, length_t) {
+		this.texCoords = [
+			0, 0,
+			this.a / length_s, 0,
+			(this.c * Math.cos(this.alpha)) / length_s, (this.c * Math.sin(this.alpha)) / length_t
+		];
 		this.updateTexCoordsGLBuffers();
 	}
 }

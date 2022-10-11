@@ -1082,7 +1082,8 @@ export class MySceneGraph {
 
         for (var i = 0; i < children_primitives.length; i++) {
             this.scene.pushMatrix();
-            //this.primitives[children_primitives[i]].updateTexCords(length_s, length_t);
+            if (this.primitives[children_primitives[i]] instanceof MyRectangle || this.primitives[children_primitives[i]] instanceof MyTriangle)
+                this.primitives[children_primitives[i]].updateTexCoords(length_s, length_t);
             this.primitives[children_primitives[i]].display();
             this.scene.popMatrix();
         }
