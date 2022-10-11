@@ -236,8 +236,140 @@ export class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseView(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+        this.views = [];
+        this.scene.viewsIds=[];
+        var children = viewsNode.children;
+        var defaultFound =false;
+ 
+        this.defaultId = this.reader.getString(viewsNode, 'default');
 
+        if (this.defaultId == null)
+            this.onXMLMinorError("default id error");
+
+
+        for (var i = 0; i < children.length; i++) {
+            var camera;
+            var id = this.reader.getString(children[i], 'id');
+            if (id == null)
+                return "no ID defined for camera";
+
+            // Checks for repeated IDs.
+            if (this.views[id] != null)
+                return "ID must be unique for each camera (conflict: ID = " + id + ")";
+
+            // perpective parser   
+            if (children[i].nodeName == "perspective") {
+                var near = this.reader.getFloat(children[i], 'near');
+                if (isNaN(near)) {
+                    this.onXMLMinorError("unable to parse 'near' value ; using default value for near = 0.1");
+                    near = 0.1;
+                }
+                var far = this.reader.getFloat(children[i], 'far');
+                if (isNaN(far)) {
+                    this.onXMLMinorError("unable to parse 'far' value ; using default value for far = 500");
+                    far = 500;
+                }
+                var angle = this.reader.getFloat(children[i], 'angle');
+                if (isNaN(angle)) {
+                    this.onXMLMinorError("unable to parse 'angle' value ; using default value for angle = 45");
+                    angle = 45;
+                }
+
+
+                // Field of view angle of the camera (in radians).
+
+                angle *= DEGREE_TO_RAD;
+
+                var grandChildren = children[i].children;
+                var nodeNames = [];
+
+                for (var j = 0; j < grandChildren.length; j++) {
+                    nodeNames.push(grandChildren[j].nodeName);
+                }
+
+                var fromID = nodeNames.indexOf('from');
+                var fromCoordinates = this.parseCoordinates3D(grandChildren[fromID], ' "from" coordinates from the camera: ' + id);
+
+                var toID = nodeNames.indexOf("to");
+                var toCoordinates = this.parseCoordinates3D(grandChildren[toID], ' "to" coordinates from the camera: ' + id);
+
+                camera = new CGFcamera(angle, near, far, fromCoordinates, toCoordinates);
+               
+            }
+            // ortho parser
+            else if (children[i].nodeName == "ortho") {
+                var near = this.reader.getFloat(children[i], 'near');
+                if (isNaN(far)) {
+                    this.onXMLMinorError("unable to parse 'near' value ; using default value for near = 500");
+                    far = 500;
+                }
+                var far = this.reader.getFloat(children[i], 'far');
+                if (isNaN(near)) {
+                    this.onXMLMinorError("unable to parse 'far' value ; using default value for far = 500");
+                    near = 500;
+                }
+                var left = this.reader.getFloat(children[i], 'left');
+                if (isNaN(left)) {
+                    this.onXMLMinorError("unable to parse 'left' value ; using default value for left = 500");
+                    left = 500;
+                }
+                var right = this.reader.getFloat(children[i], 'right');
+                if (isNaN(right)) {
+                    this.onXMLMinorError("unable to parse 'right' value ; using default value for right = 500");
+                    right = 500;
+                }
+                var top = this.reader.getFloat(children[i], 'top');
+                if (isNaN(top)) {
+                    this.onXMLMinorError("unable to parse 'top' value ; using default value for top = 500");
+                    top = 500;
+                }
+                var bottom = this.reader.getFloat(children[i], 'bottom');
+                if (isNaN(bottom)) {
+                    this.onXMLMinorError("unable to parse 'bottom' value ; using default value for bottom = 500");
+                    bottom = 500;
+                }
+
+                var grandChildren = children[i].children;
+                var nodeNames = [];
+
+                for (var j = 0; j < grandChildren.length; j++) {
+                    nodeNames.push(grandChildren[j].nodeName);
+                }
+
+                var fromID = nodeNames.indexOf('from');
+                var fromCoordinates = this.parseCoordinates3D(grandChildren[fromID], ' "from" coordinates from the camera: ' + id);
+
+                var toID = nodeNames.indexOf("to");
+                var toCoordinates = this.parseCoordinates3D(grandChildren[toID], ' "to" coordinates from the camera: ' + id);
+
+                var upID = nodeNames.indexOf("up");
+                var upCoordinates = this.parseCoordinates3D(grandChildren[upID], ' "up" coordinates from the camera: ' + id);
+
+                camera = new CGFcameraOrtho(left, right, bottom, top, near, far, fromCoordinates, toCoordinates, upCoordinates);
+
+
+            }
+
+            // neither perspective or ortho types found
+            else {
+                this.onXMLMinorError("Camera type " + children[i].nodeName + " is not valid (use 'perspective' or 'ortho')");
+                continue;
+            }
+            this.views[id] = camera;
+            this.scene.viewsIds.push(id);
+            
+            // Set the initial camera
+            if (id == this.defaultId) {
+                this.scene.camera = camera;
+                this.scene.interface.setActiveCamera(camera);
+                this.scene.selectedCamera = id;
+                defaultFound = true;
+            }
+        }
+        if (!defaultFound)
+            return "unable to find a camera ID equal to Default ID";
+
+        this.log("Parsed views");
         return null;
     }
 
@@ -465,7 +597,7 @@ export class MySceneGraph {
 
             // Get shininess of the current material.
             var shininess = Number(this.reader.getString(children[i], 'shininess'));
-            
+
             if (shininess == null || isNaN(shininess))
                 return "Material '" + materialID + "' -> Unable to parse 'shininess' value";
 
@@ -476,7 +608,7 @@ export class MySceneGraph {
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
             }
-            
+
             var emission = this.parseColor(grandChildren[nodeNames.indexOf("emission")], "EmissionColor");
             var ambient = this.parseColor(grandChildren[nodeNames.indexOf("ambient")], "Ambient Color");
             var diffuse = this.parseColor(grandChildren[nodeNames.indexOf("diffuse")], "Diffuse Color");
@@ -789,7 +921,7 @@ export class MySceneGraph {
         var nodeNames = [];
         // Any number of components.
         for (var i = 0; i < children.length; i++) {
-            if (children[i].nodeName != "component") {  
+            if (children[i].nodeName != "component") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
@@ -1059,13 +1191,13 @@ export class MySceneGraph {
 
         if (node.texture[0] == "inherit")
             texture = FatherTexture;
-        else 
+        else
             texture = node.texture;
 
         this.scene.multMatrix(node.transfMatrix);
 
         //Visit components recursively
-        for (var i = 0; i < children_components.length; i++){
+        for (var i = 0; i < children_components.length; i++) {
             this.scene.pushMatrix();
             this.displaySceneRecursive(children_components[i]);
             this.scene.popMatrix();
@@ -1077,7 +1209,7 @@ export class MySceneGraph {
         var length_s = texture[1];
         var length_t = texture[2];
         currAppearance.setTexture(currTexture);
-        
+
         currAppearance.apply();
 
         for (var i = 0; i < children_primitives.length; i++) {
