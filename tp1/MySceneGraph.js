@@ -1196,21 +1196,14 @@ export class MySceneGraph {
 
         this.scene.multMatrix(node.transfMatrix);
 
-        //Visit components recursively
-        for (var i = 0; i < children_components.length; i++) {
-            this.scene.pushMatrix();
-            this.displaySceneRecursive(children_components[i]);
-            this.scene.popMatrix();
-
-        }
-
         var currAppearance = this.materials.get(materials[0]);
         var currTexture = (texture[0] == "none") ? null : this.textures[texture[0]];
         var length_s = texture[1];
         var length_t = texture[2];
         currAppearance.setTexture(currTexture);
-
+        currAppearance.setTextureWrap('REPEAT', 'REPEAT');
         currAppearance.apply();
+
 
         for (var i = 0; i < children_primitives.length; i++) {
             this.scene.pushMatrix();
@@ -1220,5 +1213,12 @@ export class MySceneGraph {
             this.scene.popMatrix();
         }
 
+        //Visit components recursively
+        for (var i = 0; i < children_components.length; i++) {
+            this.scene.pushMatrix();
+            this.displaySceneRecursive(children_components[i], materials, texture);
+            this.scene.popMatrix();
+
+        }
     }
 }

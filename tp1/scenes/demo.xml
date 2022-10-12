@@ -103,7 +103,7 @@
             </transformation>
             <materials>
                 <material id="demoMaterial" />
-            </materials>
+            </materials>texture
             <texture id="demoTexture" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoCylinder" />
@@ -138,7 +138,7 @@
             </children>
         </component>
 
-        <component id="tableTop">
+        <component id="tableBottom">
             <transformation>
                 <translate x="1.5" y="2" z="0" />
                 <scale x="4.5" y="3.5" z="3.5" />
@@ -146,12 +146,13 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture" length_s="1.0" length_t="1.0" />
+            <texture id="leaves" length_s="1.0" length_t="1.0"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
         </component>
-        <component id="tableBottom">
+        
+        <component id="tableTop">tableTop
             <transformation>
                 <translate x="1.5" y="2" z="0" />
                 <scale x="4.5" y="3.5" z="3.5" />
