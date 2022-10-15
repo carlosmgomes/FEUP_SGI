@@ -1014,11 +1014,15 @@ export class MySceneGraph {
                 return "unable to parse texture ID of the texture for ID = " + componentID;
             if (textureId != "none" && textureId != "inherit") {
                 var textureLengthS = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
-                if (!(textureLengthS != null && !isNaN(textureLengthS)))
+                if (textureLengthS == null)
+                    textureLengthS = 1;
+                if (isNaN(textureLengthS))
                     return "unable to parse texture length_s of the texture for ID = " + componentID;
                 var textureLengthT = this.reader.getFloat(grandChildren[textureIndex], 'length_t');
-                if (!(textureLengthT != null && !isNaN(textureLengthT)))
-                    return "unable to parse texture length_t of the texture for ID = " + componentID;
+                if (textureLengthT == null)
+                    textureLengthT = 1;
+                if (isNaN(textureLengthT))
+                    return "unable to parse texture length_s of the texture for ID = " + componentID;
                 this.nodes[componentID].addTexture(textureId, textureLengthS, textureLengthT);
             }
             else {
@@ -1196,6 +1200,7 @@ export class MySceneGraph {
 
         this.scene.multMatrix(node.transfMatrix);
 
+
         var currAppearance = this.materials.get(materials[0]);
         var currTexture = (texture[0] == "none") ? null : this.textures[texture[0]];
         var length_s = texture[1];
@@ -1204,7 +1209,7 @@ export class MySceneGraph {
         currAppearance.setTextureWrap('REPEAT', 'REPEAT');
         currAppearance.apply();
 
-
+        //Draw primitives
         for (var i = 0; i < children_primitives.length; i++) {
             this.scene.pushMatrix();
             if (this.primitives[children_primitives[i]] instanceof MyRectangle || this.primitives[children_primitives[i]] instanceof MyTriangle)
