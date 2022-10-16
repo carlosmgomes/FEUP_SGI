@@ -85,6 +85,16 @@ export class XMLscene extends CGFscene {
         }
     }
 
+    lightVisibility(lightID, visibility) {
+        if (visibility) {
+            this.lights[lightID].enable();
+        }
+        else {
+            this.lights[lightID].disable();
+        }
+        this.lights[lightID].update();
+    }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);

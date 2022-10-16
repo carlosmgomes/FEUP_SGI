@@ -23,6 +23,14 @@ export class MyInterface extends CGFinterface {
 
         this.gui = new dat.GUI();
 
+        //add a folder for lights in the interface
+        this.lightsFolder = this.gui.addFolder("Lights");
+
+        for(let i = 0; i < this.scene.lights.length; i++){
+            this.lightsFolder.add(this.scene.lights[i], 'enabled').name("Light " + i).onChange(val => {this.scene.lightVisibility(i, val);});
+        }
+
+
         // add a group of controls (and open/expand by defult)
 
         this.initKeys();
