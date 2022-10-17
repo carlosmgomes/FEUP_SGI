@@ -348,26 +348,22 @@ export class MySceneGraph {
 
 
             }
-
             // neither perspective or ortho types found
             else {
                 this.onXMLMinorError("Camera type " + children[i].nodeName + " is not valid (use 'perspective' or 'ortho')");
                 continue;
             }
+
             this.views[id] = camera;
             this.scene.viewsIds.push(id);
             
             // Set the initial camera
             if (id == this.defaultId) {
-                this.scene.camera = camera;
-                this.scene.interface.setActiveCamera(camera);
-                this.scene.selectedCamera = id;
                 defaultFound = true;
             }
         }
         if (!defaultFound)
             return "unable to find a camera ID equal to Default ID";
-        this.scene.interface.gui.add(this.scene, 'selectedCamera', this.scene.viewsIds).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
 
         this.log("Parsed views");
         return null;
@@ -423,7 +419,7 @@ export class MySceneGraph {
         var grandChildren = [];
         var nodeNames = [];
 
-        // Any number of lights.
+        // Any number of lights.Lights
         for (var i = 0; i < children.length; i++) {
 
             // Storing light information
@@ -456,7 +452,7 @@ export class MySceneGraph {
             if (!(aux != null && !isNaN(aux) && (aux == true || aux == false)))
                 this.onXMLMinorError("unable to parse value component of the 'enable light' field for ID = " + lightId + "; assuming 'value = 1'");
 
-            enableLight = aux || 1;
+            enableLight = aux;
 
             //Add enabled boolean and type name to light info
             global.push(enableLight);
@@ -953,7 +949,7 @@ export class MySceneGraph {
             // Transformations
             var transformations = grandChildren[transformationIndex].children;
             if (transformationIndex != -1) {
-                for (var j = 0; j < transformations.length; j++) {
+                for (var j = 0; j < transformations.length; j++) {  
                     switch (transformations[j].nodeName) {
                         case 'translate':
                             var coordinates = this.parseCoordinates3D(transformations[j], "translate transformation for ID" + componentID);
@@ -987,6 +983,14 @@ export class MySceneGraph {
                                 default:
                                     return "unable to parse axis of the rotate transformation for ID = " + componentID;
                             }
+                            break;
+                        case 'transformationref':
+                            var transfID = this.reader.getString(transformations[j], 'id');
+                            if (transfID == null)
+                                return "unable to parse id of the transformationref for ID = " + componentID;
+                            if (this.transformations[transfID] == null)
+                                return "no transformation with ID = " + transfID + " was found";
+                            this.nodes[componentID].transfMatrix = this.transformations[transfID];
                             break;
                         default:
                             this.onXMLMinorError("unknown tag <" + transformations[j].nodeName + ">");

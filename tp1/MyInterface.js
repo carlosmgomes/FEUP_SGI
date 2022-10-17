@@ -21,19 +21,6 @@ export class MyInterface extends CGFinterface {
         // init GUI. For more information on the methods, check:
         //  http://workshop.chromeexperiments.com/examples/gui
 
-        this.gui = new dat.GUI();
-        this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-
-
-
-        //add a folder for lights in the interface
-        this.lightsFolder = this.gui.addFolder("Lights");
-
-        for (let i = 0; i < this.scene.lights.length; i++) {
-            this.lightsFolder.add(this.scene.lights[i], 'enabled').name("Light " + i).onChange(val => { this.scene.lightVisibility(i, val); });
-        }
-
-
         // add a group of controls (and open/expand by defult)
 
         this.initKeys();
@@ -60,5 +47,25 @@ export class MyInterface extends CGFinterface {
 
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
+    }
+
+    startInterface(){
+        this.gui = new dat.GUI();
+        this.gui.add(this.scene, 'displayAxis').name('Display Axis');
+
+
+
+        //add a folder for lights in the interface
+        this.lightsFolder = this.gui.addFolder("Lights");
+        for (let i = 0; i < this.scene.lights.length; i++) {
+            console.log(this.scene.lights[i]);
+            this.lightsFolder.add(this.scene.lights[i], 'enabled').name("Light " + this.scene.lightsIds[i]).onChange(val => { this.scene.lightVisibility(i, val); });
+        }
+
+        this.camerasFolder = this.gui.addFolder("Cameras");
+        this.camerasFolder.add(this.scene, 'selectedCamera', this.scene.viewsIds).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
+        
+
+
     }
 }
