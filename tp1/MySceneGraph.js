@@ -1,4 +1,4 @@
-import { CGFXMLreader, CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader } from "../lib/CGF.js";
+import { CGFXMLreader, CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader,CGFcameraOrtho } from "../lib/CGF.js";
 import { MyRectangle } from './primitives/MyRectangle.js';
 import { MyCylinder } from './primitives/MyCylinder.js';
 import { MyTriangle } from './primitives/MyTriangle.js';
@@ -235,7 +235,7 @@ export class MySceneGraph {
      * Parses the <views> block.
      * @param {view block element} viewsNode
      */
-    parseView(viewsNode) {
+     parseView(viewsNode) {
         this.views = [];
         this.scene.viewsIds=[];
         var children = viewsNode.children;
@@ -294,41 +294,40 @@ export class MySceneGraph {
                 var toCoordinates = this.parseCoordinates3D(grandChildren[toID], ' "to" coordinates from the camera: ' + id);
 
                 camera = new CGFcamera(angle, near, far, fromCoordinates, toCoordinates);
-               
+
             }
             // ortho parser
             else if (children[i].nodeName == "ortho") {
                 var near = this.reader.getFloat(children[i], 'near');
                 if (isNaN(far)) {
-                    this.onXMLMinorError("unable to parse 'near' value ; using default value for near = 500");
-                    far = 500;
+                    this.onXMLMinorError("unable to parse 'near' value ; using default value for near = -5");
+                    far = -5;
                 }
                 var far = this.reader.getFloat(children[i], 'far');
                 if (isNaN(near)) {
-                    this.onXMLMinorError("unable to parse 'far' value ; using default value for far = 500");
-                    near = 500;
+                    this.onXMLMinorError("unable to parse 'far' value ; using default value for far = 5");
+                    near = 5;
                 }
                 var left = this.reader.getFloat(children[i], 'left');
                 if (isNaN(left)) {
-                    this.onXMLMinorError("unable to parse 'left' value ; using default value for left = 500");
-                    left = 500;
+                    this.onXMLMinorError("unable to parse 'left' value ; using default value for left = -5");
+                    left = -5;
                 }
                 var right = this.reader.getFloat(children[i], 'right');
                 if (isNaN(right)) {
-                    this.onXMLMinorError("unable to parse 'right' value ; using default value for right = 500");
-                    right = 500;
+                    this.onXMLMinorError("unable to parse 'right' value ; using default value for right = 5");
+                    right = 5;
                 }
                 var top = this.reader.getFloat(children[i], 'top');
                 if (isNaN(top)) {
-                    this.onXMLMinorError("unable to parse 'top' value ; using default value for top = 500");
-                    top = 500;
+                    this.onXMLMinorError("unable to parse 'top' value ; using default value for top = -5");
+                    top = -5;
                 }
                 var bottom = this.reader.getFloat(children[i], 'bottom');
                 if (isNaN(bottom)) {
-                    this.onXMLMinorError("unable to parse 'bottom' value ; using default value for bottom = 500");
-                    bottom = 500;
+                    this.onXMLMinorError("unable to parse 'bottom' value ; using default value for bottom = 5");
+                    bottom = 5;
                 }
-
                 var grandChildren = children[i].children;
                 var nodeNames = [];
 
@@ -368,10 +367,12 @@ export class MySceneGraph {
         }
         if (!defaultFound)
             return "unable to find a camera ID equal to Default ID";
+        this.scene.interface.gui.add(this.scene, 'selectedCamera', this.scene.viewsIds).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
 
         this.log("Parsed views");
         return null;
     }
+
 
     /**
      * Parses the <ambient> node.

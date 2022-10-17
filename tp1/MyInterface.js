@@ -22,12 +22,15 @@ export class MyInterface extends CGFinterface {
         //  http://workshop.chromeexperiments.com/examples/gui
 
         this.gui = new dat.GUI();
+        this.gui.add(this.scene, 'displayAxis').name('Display Axis');
+
+
 
         //add a folder for lights in the interface
         this.lightsFolder = this.gui.addFolder("Lights");
 
-        for(let i = 0; i < this.scene.lights.length; i++){
-            this.lightsFolder.add(this.scene.lights[i], 'enabled').name("Light " + i).onChange(val => {this.scene.lightVisibility(i, val);});
+        for (let i = 0; i < this.scene.lights.length; i++) {
+            this.lightsFolder.add(this.scene.lights[i], 'enabled').name("Light " + i).onChange(val => { this.scene.lightVisibility(i, val); });
         }
 
 
@@ -42,17 +45,17 @@ export class MyInterface extends CGFinterface {
      * initKeys
      */
     initKeys() {
-        this.scene.gui=this;
-        this.processKeyboard=function(){};
-        this.activeKeys={};
+        this.scene.gui = this;
+        this.processKeyboard = function () { };
+        this.activeKeys = {};
     }
 
     processKeyDown(event) {
-        this.activeKeys[event.code]=true;
+        this.activeKeys[event.code] = true;
     };
 
     processKeyUp(event) {
-        this.activeKeys[event.code]=false;
+        this.activeKeys[event.code] = false;
     };
 
     isKeyPressed(keyCode) {

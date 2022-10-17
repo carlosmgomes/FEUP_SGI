@@ -1,5 +1,5 @@
 import { CGFscene } from '../lib/CGF.js';
-import { CGFaxis,CGFcamera } from '../lib/CGF.js';
+import { CGFaxis, CGFcamera } from '../lib/CGF.js';
 
 
 var DEGREE_TO_RAD = Math.PI / 180;
@@ -27,6 +27,7 @@ export class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
+        this.initInterfaceObjects();
         this.initCameras();
 
         this.enableTextures(true);
@@ -45,6 +46,11 @@ export class XMLscene extends CGFscene {
      */
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+    }
+
+    updateCamera() {
+        this.camera = this.graph.views[this.selectedCamera];
+        this.interface.setActiveCamera(this.camera);
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -94,6 +100,9 @@ export class XMLscene extends CGFscene {
         }
         this.lights[lightID].update();
     }
+    initInterfaceObjects() {
+        this.displayAxis = false;
+    }
 
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -121,7 +130,6 @@ export class XMLscene extends CGFscene {
      */
     display() {
         // ---- BEGIN Background, camera and axis setup
-
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -134,7 +142,9 @@ export class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-        this.axis.display();
+
+        if (this.displayAxis)
+            this.axis.display();
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
