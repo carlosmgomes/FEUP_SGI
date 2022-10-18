@@ -1191,12 +1191,16 @@ export class MySceneGraph {
         var children_primitives = node.children_primitives;
         var children_components = node.children_components;
 
-        var materials;
+        var materials = [];
         var texture;
-        if (node.materials[0] == "inherit")
-            materials = FatherMaterial;
-        else
-            materials = node.materials;
+        for (var i = 0; i < node.materials.length; i++) {
+            if (node.materials[i] == "inherit") {
+                materials = materials.concat(FatherMaterial);
+            }
+            else {
+                materials.push(node.materials[i]);
+            }
+        }
 
         if (node.texture[0] == "inherit")
             texture = FatherTexture;
@@ -1205,8 +1209,11 @@ export class MySceneGraph {
 
         this.scene.multMatrix(node.transfMatrix);
 
-
-        var currAppearance = this.materials.get(materials[0]);
+        var currAppearance = this.materials.get(materials[this.scene.M_counter % materials.length]);
+        if (currAppearance == null) {
+            console.log(materials);
+            console.log(materials[this.scene.M_counter % materials.length]);
+        }
         var currTexture = (texture[0] == "none") ? null : this.textures[texture[0]];
         var length_s = texture[1];
         var length_t = texture[2];

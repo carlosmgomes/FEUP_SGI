@@ -39,6 +39,8 @@ export class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
+
+        this.M_counter = 0;
     }
 
     /**
@@ -141,6 +143,24 @@ export class XMLscene extends CGFscene {
         this.interface.startInterface();
 
     }
+
+    /**
+     * Check if key was pressed
+     */
+    checkKeys() {
+        if (this.gui.isKeyPressed("KeyM")) {
+            this.M_counter++;
+        }
+    }
+
+    /**
+     * Periodecally checks if keys were pressed
+     * @param {*} t 
+     */
+    update(t) {
+        this.checkKeys();
+    }
+
 
     /**
      * Displays the scene.
