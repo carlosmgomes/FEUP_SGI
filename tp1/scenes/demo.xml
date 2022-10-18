@@ -40,13 +40,13 @@
     </lights>
 
     <textures>
-        <texture id="glass" file="scenes/images/vidral.jpg" />
-        <texture id="leaves" file="scenes/images/leaves.jpg" />
         <texture id="bank" file="scenes/images/bank.jpg" />
+        <texture id="fire" file="scenes/images/fire.jpg" />
         <texture id="floor_text" file="scenes/images/floor.png" />
         <texture id="trash" file="scenes/images/trash.jpg" />
         <texture id="wood_table" file="scenes/images/wood.jpg" />
         <texture id="wood_legs" file="scenes/images/legs.jpg" />
+        <texture id="steel" file="scenes/images/steel.jpg" />
 
 
     </textures>
@@ -98,12 +98,12 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="glass" length_s="1.0" length_t="1.0" />
+            <texture id="none" />
             <children>
                 <componentref id="table" />
-                <componentref id="floor" />
                 <componentref id="basket" />
-                <componentref id="walls" />
+                <componentref id="structure" />
+                <componentref id="fireplace" />
 
             </children>
         </component>
@@ -116,7 +116,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"  />
             <children>
                 <primitiveref id="tableLegsCylinder" />
             </children>
@@ -130,7 +130,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="tableLegsCylinder" />
             </children>
@@ -144,7 +144,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="tableLegsCylinder" />
             </children>
@@ -158,7 +158,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="tableLegsCylinder" />
             </children>
@@ -172,7 +172,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -187,7 +187,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -202,7 +202,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -217,7 +217,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -231,7 +231,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -245,7 +245,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -260,7 +260,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -275,7 +275,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -289,7 +289,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -303,7 +303,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="inherit" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -360,23 +360,6 @@
             </children>
         </component>
 
-        <component id="floor">
-            <transformation>
-                <rotate axis="x" angle="270" />
-                <scale x="20" y="10" z="1" />
-                <translate x="0.5" y="-1" z="0" />
-
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="floor_text" length_s="2" length_t="2" />
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component>
-
-
         <component id="basketWall">
             <transformation>
                 <rotate axis="x" angle="270" />
@@ -387,7 +370,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="trash" length_s="0.01" length_t="0.01" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="basketCylinder" />
             </children>
@@ -402,7 +385,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="trash" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="demoTorus" />
             </children>
@@ -412,7 +395,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="glass" length_s="1.0" length_t="1.0" />
+            <texture id="trash" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="basketWall" />
                 <componentref id="basketTop" />
@@ -482,7 +465,22 @@
             </children>
         </component>
 
-        <component id="walls">
+        <component id="floor">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <scale x="20" y="10" z="1" />
+                <translate x="0.5" y="-1" z="0" />
+
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="floor_text" length_s="2" length_t="2" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id="structure">
             <transformation>
                 <translate x="0" y="0" z="0" />
                 <scale x="1" y="1" z="1" />
@@ -496,6 +494,125 @@
                 <componentref id="wall2" />
                 <componentref id="wall3" />
                 <componentref id="wall4" />
+                <componentref id="floor" />
+            </children>
+        </component>
+
+        <component id="fp_wall1">
+            <transformation>
+                <rotate axis="y" angle="180" />
+                <translate x="-18.75" y="1.5" z="-17" />
+                <scale x="2.5" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id="fp_wall2">
+            <transformation>
+                <rotate axis="y" angle="270" />
+                <translate x="18.5" y="1.5" z="-17.5" />
+                <scale x="3" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id="fp_wall3">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="18.75" y="-18.5" z="3" />
+                <scale x="2.5" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id="fp_wall4">
+            <transformation>
+                <rotate axis="y" angle="0" />
+                <translate x="18.75" y="1.5" z="20" />
+                <scale x="2.5" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id="fp_wall5">
+            <transformation>
+                <rotate axis="y" angle="90" />
+                <translate x="-18.5" y="1.5" z="20" />
+                <scale x="3" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id="fp_fire">
+            <transformation>
+                <rotate axis="y" angle="270" />
+                <translate x="18.5" y="1.5" z="-17.49" />
+                <scale x="2" y="1" z="0.66" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="fire" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id="fp_chimney">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <scale x="1" y="1" z="3" />
+                <translate x="19" y="-19" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+        <component id="fireplace">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <scale x="1" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="steel" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="fp_wall1" />
+                <componentref id="fp_wall2" />
+                <componentref id="fp_wall3" />
+                <componentref id="fp_wall4" />
+                <componentref id="fp_wall5" />
+                <componentref id="fp_fire" />
+                <componentref id="fp_chimney" />
             </children>
         </component>
     </components>
