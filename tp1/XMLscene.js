@@ -113,6 +113,7 @@ export class XMLscene extends CGFscene {
 
     initInterfaceObjects() {
         this.displayAxis = false;
+        this.scaleFactor = 1;
     }
 
     setDefaultAppearance() {
@@ -158,7 +159,7 @@ export class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
-
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         if (this.displayAxis)
             this.axis.display();
 

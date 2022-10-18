@@ -57,7 +57,9 @@ export class MyCylinder extends CGFobject {
           
           this.indices.push(current + 1, current, next);
           this.indices.push(current + 1, next, next +1);
-
+          
+          this.indices.push(next, current, current+1);
+          this.indices.push(next + 1, next, current +1);
 
         }
         this.texCoords.push(slice/this.slices, stack*(this.height));
