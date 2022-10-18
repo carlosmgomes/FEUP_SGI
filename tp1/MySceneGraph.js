@@ -1201,6 +1201,7 @@ export class MySceneGraph {
                 materials.push(node.materials[i]);
             }
         }
+        materials = [...new Set(materials)];
 
         if (node.texture[0] == "inherit")
             texture = FatherTexture;
@@ -1210,10 +1211,6 @@ export class MySceneGraph {
         this.scene.multMatrix(node.transfMatrix);
 
         var currAppearance = this.materials.get(materials[this.scene.M_counter % materials.length]);
-        if (currAppearance == null) {
-            console.log(materials);
-            console.log(materials[this.scene.M_counter % materials.length]);
-        }
         var currTexture = (texture[0] == "none") ? null : this.textures[texture[0]];
         var length_s = texture[1];
         var length_t = texture[2];
