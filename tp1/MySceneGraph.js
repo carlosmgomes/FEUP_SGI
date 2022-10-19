@@ -198,7 +198,6 @@ export class MySceneGraph {
         else {
             if (index != COMPONENTS_INDEX)
                 this.onXMLMinorError("tag <components> out of order");
-
             //Parse components block
             if ((error = this.parseComponents(nodes[index])) != null)
                 return error;
@@ -1008,6 +1007,8 @@ export class MySceneGraph {
                     var materialID = this.reader.getString(materials[j], 'id');
                     if (materialID == null)
                         return "unable to parse material ID of the materials for ID = " + componentID;
+                    if (this.materials.get(materialID) == null)
+                        return "no material with ID = " + materialID + " was found";
                     this.nodes[componentID].addMaterial(materialID);
                 }
             }
@@ -1018,6 +1019,8 @@ export class MySceneGraph {
             if (textureId == null)
                 return "unable to parse texture ID of the texture for ID = " + componentID;
             if (textureId != "none" && textureId != "inherit") {
+                if (this.textures[textureId] == null)
+                    return "no texture with ID = " + textureId + " was found";
                 var textureLengthS = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
                 if (textureLengthS == null)
                     textureLengthS = 1;
@@ -1030,7 +1033,9 @@ export class MySceneGraph {
                     return "unable to parse texture length_s of the texture for ID = " + componentID;
                 this.nodes[componentID].addTexture(textureId, textureLengthS, textureLengthT);
             }
-            else {
+            else if (textureId != "none") {
+                if (this.textures[textureId] == null)
+                    return "no texture with ID = " + textureId + " was found";
                 this.nodes[componentID].addTexture(textureId, 1, 1);
             }
 
@@ -1043,6 +1048,8 @@ export class MySceneGraph {
                             var componentID_children = this.reader.getString(component_children[j], 'id');
                             if (componentID_children == null)
                                 return "unable to parse component ID of the componentref for ID = " + componentID_children;
+                            if (this.nodes[componentID_children] == null)
+                                return "no component with ID = " + componentID_children + " was found";
                             this.nodes[componentID].addComponent(componentID_children);
                             break;
                         case 'primitiveref':

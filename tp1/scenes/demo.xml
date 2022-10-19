@@ -127,7 +127,6 @@
             </children>
         </component>
 
-
         <component id="football">
             <transformation>
                 <rotate axis="z" angle="180" />
@@ -443,7 +442,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="wood_legs" />
+            <texture id="trash" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="chairLegs" />
                 <componentref id="chairTop" />
