@@ -101,6 +101,7 @@ export class MySceneGraph {
         if ((index = nodeNames.indexOf("scene")) == -1)
             return "tag <scene> missing";
         else {
+            console.log(nodeNames);
             if (index != SCENE_INDEX)
                 this.onXMLMinorError("tag <scene> out of order " + index);
 
@@ -215,7 +216,6 @@ export class MySceneGraph {
         var root = this.reader.getString(sceneNode, 'root')
         if (root == null)
             return "no root defined for scene";
-
         this.idRoot = root;
 
         // Get axis length        

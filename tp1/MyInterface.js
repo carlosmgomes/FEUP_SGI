@@ -59,7 +59,6 @@ export class MyInterface extends CGFinterface {
         //add a folder for lights in the interface
         this.lightsFolder = this.gui.addFolder("Lights");
         for (let i = 0; i < this.scene.lights.length; i++) {
-            console.log(this.scene.lights[i]);
             this.lightsFolder.add(this.scene.lights[i], 'enabled').name("Light " + this.scene.lightsIds[i]).onChange(val => { this.scene.lightVisibility(i, val); });
         }
 
