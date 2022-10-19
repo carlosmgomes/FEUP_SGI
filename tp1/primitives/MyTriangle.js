@@ -27,6 +27,14 @@ export class MyTriangle extends CGFobject {
 		this.z1 = z1;
 		this.z2 = z2;
 		this.z3 = z3;
+		this.a = Math.sqrt(Math.pow((this.x2 - this.x1), 2) + Math.pow((this.y2 - this.y1), 2) + Math.pow((this.z2 - this.z1), 2));
+		this.b = Math.sqrt(Math.pow((this.x3 - this.x2), 2) + Math.pow((this.y3 - this.y2), 2) + Math.pow((this.z3 - this.z2), 2))
+		this.c = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2) + Math.pow((this.z1 - this.z3), 2));
+
+		// slide 4
+		this.cos_alpha = (Math.pow(this.a, 2) - Math.pow(this.b, 2) + Math.pow(this.c, 2)) / 2 * this.a * this.c;
+		// sin^2(alpha) + cos^2(alpha)=1
+		this.sin_alpha = Math.sqrt(1 - Math.pow(this.cos_alpha, 2));
 
 		this.initBuffers();
 	}
@@ -52,20 +60,12 @@ export class MyTriangle extends CGFobject {
 
 		// CoordTexturasTriangulos.pdf 
 		// slide 3
-		var a = Math.sqrt(Math.pow((this.x2 - this.x1), 2) + Math.pow((this.y2 - this.y1), 2) + Math.pow((this.z2 - this.z1), 2));
-		var b = Math.sqrt(Math.pow((this.x3 - this.x2), 2) + Math.pow((this.y3 - this.y2), 2) + Math.pow((this.z3 - this.z2), 2))
-		var c = Math.sqrt(Math.pow((this.x1 - this.x3), 2) + Math.pow((this.y1 - this.y3), 2) + Math.pow((this.z1 - this.z3), 2));
-
-		// slide 4
-		var cos_alpha = (Math.pow(a, 2) - Math.pow(b, 2) + Math.pow(c, 2)) / 2 * a * c;
-		// sin^2(alpha) + cos^2(alpha)=1
-		var sin_alpha = Math.sqrt(1 - Math.pow(cos_alpha, 2));
 
 		this.texCoords = [
-			0, 0,
-			a/(c*cos_alpha+a-c*cos_alpha), 0,
-			(c*cos_alpha)/(c*cos_alpha+a-c*cos_alpha), (c*sin_alpha)/(Math.sqrt(Math.pow(c*cos_alpha,2)+Math.pow(c*sin_alpha,2)))
-		];
+			0,1,
+			1,1,
+			this.c*this.cos_alpha,this.c*this.sin_alpha
+		]
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	}
@@ -77,9 +77,9 @@ export class MyTriangle extends CGFobject {
 	 */
 	updateTexCoords(length_s, length_t) {
 		this.texCoords = [
-			0, 0,
-			this.a / length_s, 0,
-			(this.c * Math.cos(this.alpha)) / length_s, (this.c * Math.sin(this.alpha)) / length_t
+			0,1,
+			this.a / length_s, 1,
+			(this.c * this.cos_alpha) / length_s,1-( (this.c * this.sin_alpha) / length_t)
 		];
 		this.updateTexCoordsGLBuffers();
 	}
