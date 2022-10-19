@@ -3,26 +3,33 @@
 
     <views default="Camera 1">
         <perspective id="Camera 1" near="0.1" far="500" angle="45">
-            <from x="30" y="15" z="30" />
-            <to x="0" y="-2" z="0" />
+            <from x="10" y="15" z="40" />
+            <to x="10" y="0" z="0" />
         </perspective>
         <perspective id="Camera 2" near="0.1" far="500" angle="45">
-            <from x="15" y="15" z="30" />
-            <to x="0" y="-2" z="0" />
+            <from x="10" y="15" z="-20" />
+            <to x="10" y="0" z="10" />
         </perspective>
-        <perspective id="Camera 3" near="0.1" far="500" angle="45">
-            <from x="30" y="15" z="15" />
-            <to x="0" y="-2" z="0" />
+        <perspective id="Camera 3" near="0.01" far="700" angle="70">
+            <from x="0" y="20" z="20" />
+            <to x="20" y="0" z="0" />
         </perspective>
-        <ortho id="orthoCamera" near="0.01" far="500" left="-5" right="5" top="-5" bottom="5">
-
-            <from x="20" y="10" z="30" />
-
-            <to x="10" y="-2" z="0" />
-
-            <up x="0" y="4" z="0" /> <!-- opcional, default 0,1,0 -->
-
+        <ortho id="Ortho Front" near="0.1" far="10" left="-8.5" right="8.5" top="7" bottom="-5">
+            <from x="10" y="3" z="3" />
+            <to x="0" y="3" z="3" />
+            <up x="0" y="1" z="0" />
         </ortho>
+        <ortho id="Ortho Side" near="0.1" far="10" left="-5" right="7" top="6.5" bottom="-3.5">
+            <from x="3" y="3" z="10" />
+            <to x="3" y="3" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+        <ortho id="Ortho Top" near="0.1" far="10" left="-7.5" right="5.5" top="6" bottom="-4">
+            <from x="3" y="10" z="3" />
+            <to x="3" y="0" z="3" />
+            <up x="0" y="0" z="1" />
+        </ortho>
+
     </views>
 
     <ambient>
@@ -47,6 +54,8 @@
         <texture id="wood_table" file="scenes/images/wood.jpg" />
         <texture id="wood_legs" file="scenes/images/legs.jpg" />
         <texture id="steel" file="scenes/images/steel.jpg" />
+        <texture id="ball" file="scenes/images/ball.jpg" />
+
 
 
     </textures>
@@ -93,6 +102,9 @@
         <primitive id="basketTorus">
             <torus inner="0.25" outer="4" slices="110" loops="111" />
         </primitive>
+        <primitive id="basketFloorTorus">
+            <torus inner="1" outer="1" slices="110" loops="111" />
+        </primitive>
         <primitive id="chairSemiTorus">
             <torus inner="0.5" outer="3" slices="55" loops="111" />
         </primitive>
@@ -111,11 +123,25 @@
                 <componentref id="structure" />
                 <componentref id="fireplace" />
                 <componentref id="chair" />
-
+                <componentref id="football" />
             </children>
         </component>
 
 
+        <component id="football">
+            <transformation>
+                <rotate axis="z" angle="180" />
+                <translate x="-15" y="-0.65" z="6" />
+                <scale x=".75" y=".75" z=".75" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="ball"/>
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
         <component id="chairLeg1">
             <transformation>
                 <translate x="12" y="4" z="1.5" />
@@ -358,9 +384,9 @@
         <component id="chairTop">
             <transformation></transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
-            <texture id="wood_legs" />
+            <texture id="inherit" />
             <children>
                 <componentref id="chairBackLower" />
                 <componentref id="chairBackRest" />
@@ -372,7 +398,7 @@
                 <rotate axis="x" angle="90" />
                 <rotate axis="z" angle="180" />
                 <translate x="-11.5" y="-1.5" z="-4.15" />
-                <scale x = "0.2" y = "0.2" z = "0.2"/>
+                <scale x="0.2" y="0.2" z="0.2" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -387,7 +413,7 @@
                 <rotate axis="x" angle="90" />
                 <rotate axis="z" angle="180" />
                 <translate x="-11.5" y="-1.5" z="-2.8" />
-                <scale x = "0.2" y = "0.2" z = "0.2"/>
+                <scale x="0.2" y="0.2" z="0.2" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -402,22 +428,22 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="wood_legs" />
+            <texture id="inherit" />
             <children>
-                <componentref id ="chairArmLeft"/>
-                <componentref id ="chairArmRight"/>
+                <componentref id="chairArmLeft" />
+                <componentref id="chairArmRight" />
             </children>
         </component>
 
         <component id="chair">
             <transformation>
                 <rotate axis="x" angle="90" />
-                <translate x = "-4" y="5.5" z = "-3"/> 
+                <translate x="-4" y="5.5" z="-3" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="none" />
+            <texture id="wood_legs" />
             <children>
                 <componentref id="chairLegs" />
                 <componentref id="chairTop" />
@@ -483,7 +509,7 @@
 
         <component id="tableBottom">
             <transformation>
-                <translate x="1.5" y="2" z="0" />
+                <translate x="1.5" y="2" z="0.4" />
                 <scale x="4.5" y="3.5" z="3.5" />
             </transformation>
             <materials>
@@ -707,15 +733,30 @@
                 <primitiveref id="basketTorus" />
             </children>
         </component>
+        <component id="basketFloor">
+            <transformation>
+                <rotate axis="x" angle="90" />
+                <translate x="5.5" y="1" z="0" />
+                <scale x="0.3" y="0.3" z="0.01" /> 
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="basketFloorTorus" />
+            </children>
+        </component>
         <component id="basket">
             <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="trash" length_s="1.0" length_t="1.0" />
+            <texture id="trash" />
             <children>
                 <componentref id="basketWall" />
                 <componentref id="basketTop" />
+                <componentref id = "basketFloor"/>
             </children>
         </component>
 
