@@ -38,11 +38,19 @@
     </ambient>
 
     <lights>
-        <omni id="demoLight" enabled="1">
-            <location x="5" y="5" z="5" w="1.0" />
+        <omni id="Light 1" enabled="1">
+            <location x="1.2" y="5.2" z="10" w="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="0.0" linear="0.0" quadratic="1.0"/>
+        </omni>
+        <omni id="Light 2" enabled="1">
+            <location x="18.9" y="5.2" z="10" w="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="0.0" linear="0.0" quadratic="1.0"/>
         </omni>
         <omni id="fireplace" enabled="1">
             <location x="17" y="1" z="18.5" w="1.0"/>
@@ -64,12 +72,14 @@
         <texture id="steel" file="scenes/images/steel.jpg" />
         <texture id="ball" file="scenes/images/ball.jpg" />
         <texture id="frame" file="scenes/images/frame.jpg" />
+        <texture id="light" file="scenes/images/light.jpg" />
+
     </textures>
 
     <materials>
         <material id="demoMaterial" shininess="10">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
-            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />
             <specular r="0.4" g="0.4" b="0.4" a="1.0" />
         </material>
@@ -1381,7 +1391,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="steel" length_s="1.0" length_t="1.0" />
+            <texture id="light" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="lamp_support_front"/>
                 <componentref id="lamp_support_right"/>
@@ -1392,10 +1402,27 @@
             </children>
         </component>
 
-        <component id="lamp">
+        <component id="lamp1">
             <transformation>
                 <rotate axis="y" angle="90" />
                 <translate x="-10" y="6" z="0.1" />
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="lamp_support_wood"/>
+                <componentref id="lamp_support_steel_horizontal"/>
+                <componentref id="lamp_support_steel_vertical"/>
+            </children>
+        </component>
+
+        <component id="lamp2">
+            <transformation>
+                <rotate axis="y" angle="270" />
+                <translate x="10" y="6" z="-20" />
                 <scale x="0.5" y="0.5" z="0.5" />
             </transformation>
             <materials>
@@ -1422,7 +1449,8 @@
                 <componentref id="fireplace" />
                 <componentref id="chair" />
                 <componentref id="shelf" />
-                <componentref id="lamp" />
+                <componentref id="lamp1" />
+                <componentref id="lamp2" />
             </children>
         </component>
     </components>
