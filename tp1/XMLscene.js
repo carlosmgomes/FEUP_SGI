@@ -104,6 +104,7 @@ export class XMLscene extends CGFscene {
             this.lights.pop();
         }
     }
+    
     lightVisibility(lightID, visibility) {
         if (visibility) {
             this.lights[lightID].enable();
