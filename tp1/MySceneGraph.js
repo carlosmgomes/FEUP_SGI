@@ -569,7 +569,7 @@ export class MySceneGraph {
     parseMaterials(materialsNode) {
         var children = materialsNode.children;
 
-        this.materials = new Map();
+        this.materials = [];
 
         var grandChildren = [];
         var nodeNames = [];
@@ -617,7 +617,7 @@ export class MySceneGraph {
             appearance.setDiffuse(...diffuse);
             appearance.setAmbient(...ambient);
             appearance.setEmission(...emission);
-            this.materials.set(materialID, appearance);
+            this.materials[materialID] = appearance;
         }
 
 
@@ -1007,7 +1007,7 @@ export class MySceneGraph {
                     var materialID = this.reader.getString(materials[j], 'id');
                     if (materialID == null)
                         return "unable to parse material ID of the materials for ID = " + componentID;
-                    if (this.materials.get(materialID) == null)
+                    if (materialID != "inherit" && this.materials[materialID] == null)
                         return "no material with ID = " + materialID + " was found";
                     this.nodes[componentID].addMaterial(materialID);
                 }
@@ -1015,12 +1015,12 @@ export class MySceneGraph {
 
             // Texture
 
-            var textureId = this.reader.getString(grandChildren[textureIndex], 'id');
-            if (textureId == null)
+            var textureID = this.reader.getString(grandChildren[textureIndex], 'id');
+            if (textureID == null)
                 return "unable to parse texture ID of the texture for ID = " + componentID;
-            if (textureId != "none" && textureId != "inherit") {
-                if (this.textures[textureId] == null)
-                    return "no texture with ID = " + textureId + " was found";
+            if (textureID != "none" && textureID != "inherit") {
+                if (this.textures[textureID] == null)
+                    return "no texture with ID = " + textureID + " was found";
                 var textureLengthS = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
                 if (textureLengthS == null)
                     textureLengthS = 1;
@@ -1031,12 +1031,12 @@ export class MySceneGraph {
                     textureLengthT = 1;
                 if (isNaN(textureLengthT))
                     return "unable to parse texture length_s of the texture for ID = " + componentID;
-                this.nodes[componentID].addTexture(textureId, textureLengthS, textureLengthT);
+                this.nodes[componentID].addTexture(textureID, textureLengthS, textureLengthT);
             }
-            else if (textureId != "none") {
-                if (this.textures[textureId] == null)
-                    return "no texture with ID = " + textureId + " was found";
-                this.nodes[componentID].addTexture(textureId, 1, 1);
+            else if (textureID != "none") {
+                if (textureID != "inherit" && this.textures[textureID] == null)
+                    return "no texture with ID = " + textureID + " was found";
+                this.nodes[componentID].addTexture(textureID, 1, 1);
             }
 
             // Children
@@ -1216,8 +1216,8 @@ export class MySceneGraph {
             texture = node.texture;
 
         this.scene.multMatrix(node.transfMatrix);
-
-        var currAppearance = this.materials.get(materials[this.scene.M_counter % materials.length]);
+        var materialIndex = materials[this.scene.M_counter % materials.length];
+        var currAppearance = this.materials[materialIndex];
         var currTexture = (texture[0] == "none") ? null : this.textures[texture[0]];
         var length_s = texture[1];
         var length_t = texture[2];

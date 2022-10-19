@@ -111,22 +111,6 @@
     </primitives>
 
     <components>
-        <component id="demoRoot">
-            <transformation></transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="table" />
-                <componentref id="basket" />
-                <componentref id="structure" />
-                <componentref id="fireplace" />
-                <componentref id="chair" />
-                <componentref id="football" />
-            </children>
-        </component>
-
         <component id="football">
             <transformation>
                 <rotate axis="z" angle="180" />
@@ -970,6 +954,21 @@
                 <componentref id="fp_wall5" />
                 <componentref id="fp_fire" />
                 <componentref id="fp_chimney" />
+            </children>
+        </component>
+        <component id="demoRoot">
+            <transformation></transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table" />
+                <componentref id="basket" />
+                <componentref id="structure" />
+                <componentref id="fireplace" />
+                <componentref id="chair" />
+                <componentref id="football" />
             </children>
         </component>
     </components>
