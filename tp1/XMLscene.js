@@ -47,11 +47,11 @@ export class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        if (this.sceneInited == true){
+        if (this.sceneInited == true) {
             this.camera = this.graph.views[this.graph.defaultId];
             this.interface.setActiveCamera(this.camera);
         }
-        else{
+        else {
             this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(20, 20, 20), vec3.fromValues(0, 0, 0));
             this.interface.setActiveCamera(this.camera);
         }
@@ -67,7 +67,6 @@ export class XMLscene extends CGFscene {
     initLights() {
         var i = 0;
         // Lights index.
-        this.lightsIds = [];
 
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
@@ -101,8 +100,10 @@ export class XMLscene extends CGFscene {
                 i++;
             }
         }
+        while (this.lights.length > this.graph.numLights) {
+            this.lights.pop();
+        }
     }
-
     lightVisibility(lightID, visibility) {
         if (visibility) {
             this.lights[lightID].enable();
