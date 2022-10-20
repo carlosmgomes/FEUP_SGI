@@ -43,21 +43,21 @@
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <attenuation constant="0.0" linear="0.0" quadratic="1.0"/>
+            <attenuation constant="0.0" linear="0.0" quadratic="1.0" />
         </omni>
         <omni id="Light 2" enabled="1">
             <location x="18.9" y="5.2" z="10" w="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <attenuation constant="0.0" linear="0.0" quadratic="1.0"/>
+            <attenuation constant="0.0" linear="0.0" quadratic="1.0" />
         </omni>
         <omni id="fireplace" enabled="0">
-            <location x="17" y="1" z="18.5" w="1.0"/>
-            <ambient r="0" g="0" b="0" a="1.0"/>
-            <diffuse r="0.5" g="0.125" b="0.0" a="1.0"/>
-            <specular r="0.5" g="0.125" b="0.0"  a="1.0"/>
-            <attenuation constant="0.0" linear="0.0" quadratic="1.0"/>
+            <location x="17" y="1" z="18.5" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="0.5" g="0.125" b="0.0" a="1.0" />
+            <specular r="0.5" g="0.125" b="0.0" a="1.0" />
+            <attenuation constant="0.0" linear="0.0" quadratic="1.0" />
         </omni>
     </lights>
 
@@ -72,9 +72,8 @@
         <texture id="steel" file="scenes/images/steel.jpg" />
         <texture id="ball" file="scenes/images/ball.jpg" />
         <texture id="frame" file="scenes/images/frame.jpg" />
-        <texture id="light" file="scenes/images/light.jpg" />
         <texture id="lamp" file="scenes/images/lamp.jpg" />
-
+        <texture id="grey" file="scenes/images/grey.jpg" />
 
 
     </textures>
@@ -243,8 +242,7 @@
             </children>
         </component>
         <component id="chairBase">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -287,8 +285,7 @@
             </children>
         </component>
         <component id="chairBackLower">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -835,8 +832,7 @@
             </children>
         </component>
         <component id="structure">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
@@ -951,8 +947,7 @@
         </component>
 
         <component id="fireplace">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
@@ -978,7 +973,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle"/>
+                <primitiveref id="demoRectangle" />
             </children>
         </component>
 
@@ -992,7 +987,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle"/>
+                <primitiveref id="demoRectangle" />
             </children>
         </component>
 
@@ -1006,7 +1001,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle"/>
+                <primitiveref id="demoRectangle" />
             </children>
         </component>
 
@@ -1021,7 +1016,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle"/>
+                <primitiveref id="demoRectangle" />
             </children>
         </component>
 
@@ -1037,7 +1032,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle"/>
+                <primitiveref id="demoRectangle" />
             </children>
         </component>
 
@@ -1049,15 +1044,15 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <componentref id="shelf_structure_front"/>
-                <componentref id="shelf_structure_right"/>
-                <componentref id="shelf_structure_left"/>
-                <componentref id="shelf_structure_top"/>
-                <componentref id="shelf_structure_bottom"/>
+                <componentref id="shelf_structure_front" />
+                <componentref id="shelf_structure_right" />
+                <componentref id="shelf_structure_left" />
+                <componentref id="shelf_structure_top" />
+                <componentref id="shelf_structure_bottom" />
             </children>
         </component>
 
-        <component id= "shelf_left">
+        <component id="shelf_left">
             <transformation></transformation>
             <materials>
                 <material id="inherit" />
@@ -1068,7 +1063,7 @@
             </children>
         </component>
 
-        <component id= "shelf_right">
+        <component id="shelf_right">
             <transformation>
                 <translate x="2" y="0" z="0" />
             </transformation>
@@ -1081,7 +1076,7 @@
             </children>
         </component>
 
-        <component id= "shelf_middle_vertical">
+        <component id="shelf_middle_vertical">
             <transformation>
                 <translate x="1" y="0" z="0" />
             </transformation>
@@ -1094,7 +1089,7 @@
             </children>
         </component>
 
-        <component id= "shelf_middle_horizontal">
+        <component id="shelf_middle_horizontal">
             <transformation>
                 <translate x="1" y="0" z="0" />
                 <rotate axis="z" angle="90" />
@@ -1108,7 +1103,7 @@
             </children>
         </component>
 
-        <component id= "shelf_top">
+        <component id="shelf_top">
             <transformation>
                 <translate x="1" y="1" z="0" />
                 <rotate axis="z" angle="90" />
@@ -1122,7 +1117,7 @@
             </children>
         </component>
 
-        <component id= "shelf_bottom">
+        <component id="shelf_bottom">
             <transformation>
                 <translate x="1" y="-1" z="0" />
                 <rotate axis="z" angle="90" />
@@ -1145,13 +1140,13 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="ball"/>
+            <texture id="ball" />
             <children>
                 <primitiveref id="demoSphere" />
             </children>
         </component>
 
-                <component id ="frame_front">
+        <component id="frame_front">
             <transformation>
                 <translate x="0" y="1.9" z="1.5" />
                 <scale x="6" y="2" z="2" />
@@ -1166,7 +1161,7 @@
             </children>
         </component>
 
-        <component id ="frame_back">
+        <component id="frame_back">
             <transformation>
                 <translate x="0" y="1.9" z="1.5" />
                 <scale x="6" y="2" z="2" />
@@ -1182,19 +1177,18 @@
             </children>
         </component>
 
-        <component id ="frame_support_1">
-            <transformation>
-            </transformation>
+        <component id="frame_support_1">
+            <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="frameTriangle" />
             </children>
         </component>
 
-        <component id ="frame_support_2">
+        <component id="frame_support_2">
             <transformation>
                 <rotate axis="y" angle="180" />
                 <rotate axis="z" angle="180" />
@@ -1202,7 +1196,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="frameTriangle" />
             </children>
@@ -1282,7 +1276,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -1296,7 +1290,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -1311,7 +1305,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -1326,7 +1320,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -1340,7 +1334,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="inherit" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -1355,12 +1349,12 @@
             </materials>
             <texture id="wood" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="lamp_support_front"/>
-                <componentref id="lamp_support_right"/>
-                <componentref id="lamp_support_left"/>
-                <componentref id="lamp_support_top"/>
-                <componentref id="lamp_support_bottom"/>
-                <componentref id="lamp_support_back"/>
+                <componentref id="lamp_support_front" />
+                <componentref id="lamp_support_right" />
+                <componentref id="lamp_support_left" />
+                <componentref id="lamp_support_top" />
+                <componentref id="lamp_support_bottom" />
+                <componentref id="lamp_support_back" />
             </children>
         </component>
 
@@ -1375,12 +1369,12 @@
             </materials>
             <texture id="steel" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="lamp_support_front"/>
-                <componentref id="lamp_support_right"/>
-                <componentref id="lamp_support_left"/>
-                <componentref id="lamp_support_top"/>
-                <componentref id="lamp_support_bottom"/>
-                <componentref id="lamp_support_back"/>
+                <componentref id="lamp_support_front" />
+                <componentref id="lamp_support_right" />
+                <componentref id="lamp_support_left" />
+                <componentref id="lamp_support_top" />
+                <componentref id="lamp_support_bottom" />
+                <componentref id="lamp_support_back" />
             </children>
         </component>
 
@@ -1389,26 +1383,26 @@
                 <translate x="0" y="-0.7" z="1.9" />
                 <rotate axis="z" angle="90" />
                 <scale x="1.5" y="0.2" z="0.2" />
-                
+
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="light" length_s="1.0" length_t="1.0" />
+            <texture id="steel" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="lamp_support_front"/>
-                <componentref id="lamp_support_right"/>
-                <componentref id="lamp_support_left"/>
-                <componentref id="lamp_support_top"/>
-                <componentref id="lamp_support_bottom"/>
-                <componentref id="lamp_support_back"/>
+                <componentref id="lamp_support_front" />
+                <componentref id="lamp_support_right" />
+                <componentref id="lamp_support_left" />
+                <componentref id="lamp_support_top" />
+                <componentref id="lamp_support_bottom" />
+                <componentref id="lamp_support_back" />
             </children>
         </component>
 
         <component id="lamp">
             <transformation>
                 <scale x="0.3" y="0.3" z="0.3" />
-                <translate x="0" y="-5" z="6.3" />              
+                <translate x="0" y="-5" z="6.3" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1430,10 +1424,10 @@
             </materials>
             <texture id="none" />
             <children>
-                <componentref id="lamp_support_wood"/>
-                <componentref id="lamp_support_steel_horizontal"/>
-                <componentref id="lamp_support_steel_vertical"/>
-                <componentref id="lamp"/>
+                <componentref id="lamp_support_wood" />
+                <componentref id="lamp_support_steel_horizontal" />
+                <componentref id="lamp_support_steel_vertical" />
+                <componentref id="lamp" />
             </children>
         </component>
 
@@ -1448,10 +1442,94 @@
             </materials>
             <texture id="none" />
             <children>
-                <componentref id="lamp_support_wood"/>
-                <componentref id="lamp_support_steel_horizontal"/>
-                <componentref id="lamp_support_steel_vertical"/>
-                <componentref id="lamp"/>
+                <componentref id="lamp_support_wood" />
+                <componentref id="lamp_support_steel_horizontal" />
+                <componentref id="lamp_support_steel_vertical" />
+                <componentref id="lamp" />
+            </children>
+        </component>
+
+        <component id="lamp_base">
+            <transformation>
+                <rotate axis = "x" angle = "90" />
+                <scale x="0.2" y="0.2" z="0.01" />
+                <translate x="25" y="35" z="-300" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="basketFloorTorus" />
+            </children>
+        </component>
+        <component id="lamp_top_structure">
+            <transformation>
+                <rotate axis = "x" angle= "45"/>
+                <scale x="0.2" y="0.2" z="0.2" />
+                <translate x="25" y="40" z="10" />
+
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="basketCylinder" />
+            </children>
+        </component>
+        <component id="lamp_top_cover">
+            <transformation>
+                <rotate axis = "x" angle= "45"/>
+                <scale x="0.2" y="0.2" z="0.1" />
+                <translate x="25" y="40" z="20" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="basketFloorTorus" />
+            </children>
+        </component>
+        <component id="lamp_top">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="lamp_top_structure" />
+                <componentref id="lamp_top_cover" />
+            </children>
+        </component>
+        <component id="lamp_support">
+            <transformation>
+                <rotate axis = "x" angle = "270" />
+                <scale x="0.2" y="0.2" z="0.51" />
+                <translate x="25" y="-35" z="5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="tableLamp">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="grey" />
+            <children>
+                <componentref id="lamp_base" />
+                <componentref id="lamp_support" />
+                <componentref id="lamp_top" />
             </children>
         </component>
 
@@ -1470,6 +1548,7 @@
                 <componentref id="shelf" />
                 <componentref id="lamp1" />
                 <componentref id="lamp2" />
+                <componentref id="tableLamp" />
             </children>
         </component>
     </components>
