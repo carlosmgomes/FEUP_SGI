@@ -15,19 +15,40 @@ export class MyNode{
         mat4.identity(this.transfMatrix);
     }
 
+    /**
+     * Adds a material to the node.
+     * @param {string id} material 
+     */
     addMaterial(material) {
+        console.log(material)
         this.materials.push(material);
     }
 
-    addTexture(textureId, length_s, length_t) {
-        this.texture.push(textureId);
+    /**
+     * Adds a texture to the node.
+     * @param {string id} texture 
+     * @param {number} length_s 
+     * @param {number} length_t 
+     */
+    addTexture(texture, length_s, length_t) {
+        this.texture.push(texture);
         this.texture.push(length_s);
         this.texture.push(length_t);
     }
 
+
+    /**
+     * Adds a primitive to the node.
+     * @param {string id} primitive
+    */
     addPrimitive(primitive) {
         this.children_primitives.push(primitive);
     }
+
+    /**
+     * Adds a component to the node.
+     * @param {string id} component
+    */
     addComponent(component) {
         this.children_components.push(component);
     }

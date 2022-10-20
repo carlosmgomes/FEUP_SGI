@@ -1015,7 +1015,6 @@ export class MySceneGraph {
             }
 
             // Texture
-
             var textureID = this.reader.getString(grandChildren[textureIndex], 'id');
             if (textureID == null)
                 return "unable to parse texture ID of the texture for ID = " + componentID;
@@ -1181,7 +1180,7 @@ export class MySceneGraph {
     }
 
     /**
-     * Displays the scene, processing each node, starting in the root node.
+     * Displays the scene
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph
@@ -1194,6 +1193,12 @@ export class MySceneGraph {
 
     }
 
+    /**
+     * Displays the scene, processing each node, starting in the root node.
+     * @param {string id} nodeID
+     * @param {list containing all father's materials} FatherMaterial 
+     * @param {list containing fathers's texture length_s and length_t} FatherTexture 
+     */
     displaySceneRecursive(nodeID, FatherMaterial, FatherTexture) {
         var node = this.nodes[nodeID];
         var children_primitives = node.children_primitives;

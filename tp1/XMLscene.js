@@ -104,7 +104,12 @@ export class XMLscene extends CGFscene {
             this.lights.pop();
         }
     }
-    
+
+    /**
+     * Turn on/off the light
+     * @param {string id} lightID 
+     * @param {boolean} visibility 
+     */
     lightVisibility(lightID, visibility) {
         if (visibility) {
             this.lights[lightID].enable();
@@ -157,7 +162,7 @@ export class XMLscene extends CGFscene {
 
     /**
      * Periodecally checks if keys were pressed
-     * @param {*} t 
+     * @param {time} t 
      */
     update(t) {
         this.checkKeys();
