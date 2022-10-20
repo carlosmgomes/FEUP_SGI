@@ -101,7 +101,6 @@ export class MySceneGraph {
         if ((index = nodeNames.indexOf("scene")) == -1)
             return "tag <scene> missing";
         else {
-            console.log(nodeNames);
             if (index != SCENE_INDEX)
                 this.onXMLMinorError("tag <scene> out of order " + index);
 
@@ -985,6 +984,9 @@ export class MySceneGraph {
                             }
                             break;
                         case 'transformationref':
+                            if (j != 0 || transformations.length != 1){
+                                return "transformationref must be the only transformation of the component";
+                            }
                             var transfID = this.reader.getString(transformations[j], 'id');
                             if (transfID == null)
                                 return "unable to parse id of the transformationref for ID = " + componentID;
@@ -1001,7 +1003,6 @@ export class MySceneGraph {
             }
 
             // Materials
-
             var materials = grandChildren[materialsIndex].children;
             if (materialsIndex != -1) {
                 for (var j = 0; j < materials.length; j++) {

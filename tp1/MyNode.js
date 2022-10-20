@@ -20,7 +20,6 @@ export class MyNode{
      * @param {string id} material 
      */
     addMaterial(material) {
-        console.log(material)
         this.materials.push(material);
     }
 

@@ -105,6 +105,28 @@
             <rotate axis="x" angle="-45" />
             <rotate axis="z" angle="-45" />
         </transformation>
+        <transformation id="wall1_transformation">
+            <scale x="20" y="4" z="1" />
+            <translate x="0.5" y="1" z="0" />
+        </transformation>
+        <transformation id="wall2_transformation">
+            <rotate axis="y" angle="90" />
+            <rotate axis="z" angle="90" />
+            <scale x="8" y="10" z="1" />
+            <translate x="0.5" y="1" z="0" />
+        </transformation>
+        <transformation id="wall3_transformation">
+            <rotate axis="z" angle="180" />
+            <rotate axis="y" angle="90" />
+            <rotate axis="z" angle="90" />
+            <scale x="8" y="10" z="1" />
+            <translate x="-0.5" y="1" z="-20" />
+        </transformation>
+        <transformation id="wall4_transformation">
+            <rotate axis="y" angle="180" />
+            <scale x="20" y="4" z="1" />
+            <translate x="-0.5" y="1" z="-20" />
+        </transformation>
     </transformations>
 
     <primitives>
@@ -755,8 +777,7 @@
 
         <component id="wall1">
             <transformation>
-                <scale x="20" y="4" z="1" />
-                <translate x="0.5" y="1" z="0" />
+                <transformationref id="wall1_transformation"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -769,10 +790,7 @@
 
         <component id="wall2">
             <transformation>
-                <rotate axis="y" angle="90" />
-                <rotate axis="z" angle="90" />
-                <scale x="8" y="10" z="1" />
-                <translate x="0.5" y="1" z="0" />
+                <transformationref id="wall2_transformation"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -786,11 +804,7 @@
 
         <component id="wall3">
             <transformation>
-                <rotate axis="z" angle="180" />
-                <rotate axis="y" angle="90" />
-                <rotate axis="z" angle="90" />
-                <scale x="8" y="10" z="1" />
-                <translate x="-0.5" y="1" z="-20" />
+                <transformationref id="wall3_transformation"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -803,9 +817,7 @@
 
         <component id="wall4">
             <transformation>
-                <rotate axis="y" angle="180" />
-                <scale x="20" y="4" z="1" />
-                <translate x="-0.5" y="1" z="-20" />
+                <transformationref id="wall4_transformation"/>
             </transformation>
             <materials>
                 <material id="demoMaterial" />
