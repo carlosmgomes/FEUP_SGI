@@ -52,7 +52,7 @@
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <attenuation constant="0.0" linear="0.0" quadratic="1.0"/>
         </omni>
-        <omni id="fireplace" enabled="1">
+        <omni id="fireplace" enabled="0">
             <location x="17" y="1" z="18.5" w="1.0"/>
             <ambient r="0" g="0" b="0" a="1.0"/>
             <diffuse r="0.5" g="0.125" b="0.0" a="1.0"/>
@@ -73,6 +73,9 @@
         <texture id="ball" file="scenes/images/ball.jpg" />
         <texture id="frame" file="scenes/images/frame.jpg" />
         <texture id="light" file="scenes/images/light.jpg" />
+        <texture id="lamp" file="scenes/images/lamp.jpg" />
+
+
 
     </textures>
 
@@ -1383,7 +1386,7 @@
 
         <component id="lamp_support_steel_vertical">
             <transformation>
-                <translate x="0" y="-0.7" z="2.0" />
+                <translate x="0" y="-0.7" z="1.9" />
                 <rotate axis="z" angle="90" />
                 <scale x="1.5" y="0.2" z="0.2" />
                 
@@ -1402,6 +1405,20 @@
             </children>
         </component>
 
+        <component id="lamp">
+            <transformation>
+                <scale x="0.3" y="0.3" z="0.3" />
+                <translate x="0" y="-5" z="6.3" />              
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="lamp" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
         <component id="lamp1">
             <transformation>
                 <rotate axis="y" angle="90" />
@@ -1416,6 +1433,7 @@
                 <componentref id="lamp_support_wood"/>
                 <componentref id="lamp_support_steel_horizontal"/>
                 <componentref id="lamp_support_steel_vertical"/>
+                <componentref id="lamp"/>
             </children>
         </component>
 
@@ -1433,6 +1451,7 @@
                 <componentref id="lamp_support_wood"/>
                 <componentref id="lamp_support_steel_horizontal"/>
                 <componentref id="lamp_support_steel_vertical"/>
+                <componentref id="lamp"/>
             </children>
         </component>
 
