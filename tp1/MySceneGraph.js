@@ -1049,8 +1049,8 @@ export class MySceneGraph {
                             var componentID_children = this.reader.getString(component_children[j], 'id');
                             if (componentID_children == null)
                                 return "unable to parse component ID of the componentref for ID = " + componentID_children;
-                            //if (this.nodes[componentID_children] == null)
-                                //return "no component with ID = " + componentID_children + " was found";
+                            if (this.nodes[componentID_children] == null)
+                                return "no component with ID = " + componentID_children + " was found";
                             this.nodes[componentID].addComponent(componentID_children);
                             break;
                         case 'primitiveref':
