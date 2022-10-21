@@ -14,20 +14,20 @@
             <from x="0" y="20" z="20" />
             <to x="20" y="0" z="0" />
         </perspective>
-        <ortho id="Ortho Front" near="0.1" far="10" left="-8.5" right="8.5" top="7" bottom="-5">
-            <from x="10" y="3" z="3" />
-            <to x="0" y="3" z="3" />
+        <ortho id="Ortho Front" near="0.1" far="500" left="-10" right="10" bottom="-10" top="10">
+            <from x="10" y="10" z="40" />
+            <to x="10" y="10" z="0" />
             <up x="0" y="1" z="0" />
         </ortho>
-        <ortho id="Ortho Side" near="0.1" far="10" left="-5" right="7" top="6.5" bottom="-3.5">
-            <from x="3" y="3" z="10" />
-            <to x="3" y="3" z="0" />
+        <ortho id="Ortho Side" near="0.1" far="500" left="-10" right="10" bottom="-10" top="10">
+            <from x="40" y="10" z="10" />
+            <to x="0" y="10" z="10" />
             <up x="0" y="1" z="0" />
         </ortho>
-        <ortho id="Ortho Top" near="0.1" far="10" left="-7.5" right="5.5" top="6" bottom="-4">
-            <from x="3" y="10" z="3" />
-            <to x="3" y="0" z="3" />
-            <up x="0" y="0" z="1" />
+        <ortho id="Ortho Top" near="0.1" far="500" left="-10" right="10" bottom="-10" top="10">
+            <from x="10" y="40" z="10" />
+            <to x="10" y="0" z="10" />
+            <up x="0" y="0" z="-1" />   
         </ortho>
 
     </views>
@@ -43,29 +43,29 @@
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <attenuation constant="0.0" linear="0.0" quadratic="1.0" />
+            <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
         </omni>
         <omni id="Light 2" enabled="1">
             <location x="18.9" y="5.2" z="10" w="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <attenuation constant="0.0" linear="0.0" quadratic="1.0" />
+            <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
         </omni>
         <omni id="Fireplace" enabled="0">
             <location x="17" y="1" z="18.5" w="1.0" />
             <ambient r="0" g="0" b="0" a="1.0" />
             <diffuse r="0.5" g="0.125" b="0.0" a="1.0" />
             <specular r="0.5" g="0.125" b="0.0" a="1.0" />
-            <attenuation constant="0.0" linear="0.0" quadratic="1.0" />
+            <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
         </omni>
-        <spot id="Light Table" enabled="0" angle="15" exponent="64">
-            <location x="5" y="4" z="7.5" w="2" />
-            <target x="5" y="0" z="18" />
-            <ambient r="0.5" g="0.5" b="0.25" a="1.0"/>
-            <diffuse r="0.8" g="0.8" b="0.4" a="1.0"/>
-            <specular r="1.0" g="1.0" b="0.5" a="1.0"/>
-            <attenuation constant="0.0" linear="0.0" quadratic="1.0" />
+        <spot id="Light Table" enabled="1" angle="45" exponent="1">
+            <location x="5" y="4" z="7.5" w="1" />
+            <target x="5" y="3" z="8.5" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1.0" linear="0" quadratic="0" />
         </spot>
     </lights>
 
@@ -1543,7 +1543,7 @@
             <transformation>
                 <rotate axis = "x" angle = "270" />
                 <scale x="0.2" y="0.2" z="0.51" />
-                <translate x="25" y="-35" z="5" />
+                <translate x="25" y="-35" z="5.1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
