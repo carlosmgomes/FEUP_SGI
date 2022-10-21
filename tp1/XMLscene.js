@@ -190,10 +190,10 @@ export class XMLscene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            this.lights[i].enable();
-        }
+        //for (var i = 0; i < this.lights.length; i++) {
+        //    this.lights[i].setVisible(true);
+        //    this.lights[i].update();
+        //}
 
         if (this.sceneInited) {
             // Draw axis
