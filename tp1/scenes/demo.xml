@@ -70,41 +70,65 @@
     </lights>
 
     <textures>
+        <texture id="ball" file="scenes/images/ball.jpg" />
         <texture id="bank" file="scenes/images/bank.jpg" />
         <texture id="fire" file="scenes/images/fire.jpg" />
-        <texture id="floor_text" file="scenes/images/floor.png" />
+        <texture id="floor" file="scenes/images/floor.png" />
+        <texture id="frame" file="scenes/images/frame.jpg" />
+        <texture id="grey" file="scenes/images/grey.jpg" />
+        <texture id="lamp" file="scenes/images/lamp.jpg" />
+        <texture id="wood_legs" file="scenes/images/legs.jpg" />
+        <texture id="steel" file="scenes/images/steel.jpg" />
         <texture id="trash" file="scenes/images/trash.jpg" />
         <texture id="wood_table" file="scenes/images/wood.jpg" />
-        <texture id="wood_legs" file="scenes/images/legs.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
-        <texture id="steel" file="scenes/images/steel.jpg" />
-        <texture id="ball" file="scenes/images/ball.jpg" />
-        <texture id="frame" file="scenes/images/frame.jpg" />
-        <texture id="lamp" file="scenes/images/lamp.jpg" />
-        <texture id="grey" file="scenes/images/grey.jpg" />
 
 
     </textures>
 
     <materials>
-        <material id="demoMaterial" shininess="10">
+        <material id="demoMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />
             <specular r="0.4" g="0.4" b="0.4" a="1.0" />
         </material>
 
-        <material id="tableMaterial1" shininess="10">
+        <material id="tableMaterial1" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
             <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
             <specular r="0.4" g="0.4" b="0.4" a="1.0" />
         </material>
-        <material id="tableMaterial2" shininess="10">
+        <material id="tableMaterial2" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="0.0" g="0.0" b="0.1" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.4" a="1.0" />
             <specular r="0.0" g="0.0" b="0.4" a="1.0" />
+        </material>
+        <material id="wallMaterial_white" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+            <specular r="0.4" g="0.4" b="0.4" a="1.0" />
+        </material>
+        <material id="wallMaterial_red" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.1" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.4" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.4" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="wallMaterial_green" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.1" b="0.0" a="1.0" />
+            <diffuse r="0.0" g="0.4" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.4" b="0.0" a="1.0" />
+        </material>
+        <material id="wallMaterial_grey" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.1" g="0.1" b="0.1" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
         </material>
         <material id="fireplaceOn" shininess="1">
             <emission r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -730,7 +754,6 @@
                 <translate x="2" y="7" z="-3" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
                 <material id="tableMaterial1"/>
                 <material id="tableMaterial2"/>
             </materials>
@@ -803,7 +826,11 @@
                 <transformationref id="wall1_transformation"/>
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="wallMaterial_white" />
+                <material id="wallMaterial_red" />
+                <material id="wallMaterial_green" />
+                <material id="wallMaterial_grey" />
+
             </materials>
             <texture id="inherit" />
             <children>
@@ -816,7 +843,10 @@
                 <transformationref id="wall2_transformation"/>
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="wallMaterial_white" />
+                <material id="wallMaterial_red" />
+                <material id="wallMaterial_green" />
+                <material id="wallMaterial_grey" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -830,7 +860,10 @@
                 <transformationref id="wall3_transformation"/>
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="wallMaterial_white" />
+                <material id="wallMaterial_red" />
+                <material id="wallMaterial_green" />
+                <material id="wallMaterial_grey" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -843,7 +876,10 @@
                 <transformationref id="wall4_transformation"/>
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="wallMaterial_white" />
+                <material id="wallMaterial_red" />
+                <material id="wallMaterial_green" />
+                <material id="wallMaterial_grey" />
             </materials>
             <texture id="inherit" />
             <children>
@@ -861,7 +897,7 @@
             <materials>
                 <material id="demoMaterial" />
             </materials>
-            <texture id="floor_text" length_s="2" length_t="2" />
+            <texture id="floor" length_s="2" length_t="2" />
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
@@ -969,7 +1005,7 @@
         <component id="fp_chimney">
             <transformation>
                 <rotate axis="x" angle="270" />
-                <scale x="1" y="1" z="3" />
+                <scale x="1" y="1" z="2" />
                 <translate x="19" y="-19" z="1" />
             </transformation>
             <materials>
