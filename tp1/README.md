@@ -17,4 +17,4 @@
 ----
 ## Issues/Problems
 
-- **TODO**  (items describing unimplemented features, bugs, problems, etc.)
+- Even though all the features were implemented, we had some problems when creating the lights and materials, specifically choosing the right parameters for what we want to represent.
