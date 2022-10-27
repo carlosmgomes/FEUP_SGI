@@ -898,6 +898,59 @@ export class MySceneGraph {
                 var tor = new MyTorus(this.scene, inner, outer, slices, loops);
                 this.primitives[primitiveId] = tor;
             }
+            if (primitiveType == 'patch'){
+                // degreeU
+                var degreeU = this.reader.getFloat(grandChildren[0], 'degree_u');
+                if (!(degreeU != null && !isNaN(degreeU)))
+                    return "unable to parse degreeU  of the primitive coordinates for ID = " + primitiveId;
+
+                // partsU
+                var partsU = this.reader.getFloat(grandChildren[0], 'parts_u');
+                if (!(partsU != null && !isNaN(partsU)))
+                    return "unable to parse partsU of the primitive coordinates for ID = " + primitiveId;
+
+                // degreeV
+                var degreeV = this.reader.getFloat(grandChildren[0], 'degree_v');
+                if (!(degreeV != null && !isNaN(degreeV)))
+                    return "unable to parse degreeV of the primitive coordinates for ID = " + primitiveId;
+
+                // partsV    
+                var partsV = this.reader.getFloat(grandChildren[0], 'parts_v');
+                if (!(partsV != null && !isNaN(partsV)))
+                    return "unable to parse partsV of the primitive coordinates for ID = " + primitiveId;
+
+                //controlPoints
+                var controlPoints = [];
+                var controlPointsNode = grandChildren[0].children;
+
+                for (var j = 0; j < controlPointsNode.length; j++) {
+                    var controlPoint = [];
+                    var x = this.reader.getFloat(controlPointsNode[j], 'xx');
+                    if (!(x != null && !isNaN(x)))
+                        return "unable to parse xx of the primitive coordinates for ID = " + primitiveId;
+
+                    var y = this.reader.getFloat(controlPointsNode[j], 'yy');
+                    if (!(y != null && !isNaN(y)))
+                        return "unable to parse yy of the primitive coordinates for ID = " + primitiveId;
+
+                    var z = this.reader.getFloat(controlPointsNode[j], 'zz');
+                    if (!(z != null && !isNaN(z)))
+                        return "unable to parse zz of the primitive coordinates for ID = " + primitiveId;
+
+                    controlPoint.push(x);
+                    controlPoint.push(y);
+                    controlPoint.push(z);
+                    controlPoints.push(controlPoint);
+                }
+
+                var numControlPoints = (degreeU + 1) * (degreeV + 1);
+                if (numControlPoints != controlPoints.length)
+                    return "wrong number of control points for ID = " + primitiveId;
+
+                var patch = new MyPatch(this.scene, degreeU, degreeV, partsU, partsV, controlPoints);
+                this.primitives[primitiveId] = patch;
+            }
+            
         }
 
         this.log("Parsed primitives");
