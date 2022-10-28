@@ -727,10 +727,10 @@ export class MySceneGraph {
             var primitiveId = this.reader.getString(children[i], 'id');
             if (primitiveId == null)
                 return "no ID defined for texture";
-
             // Checks for repeated IDs.
-            if (this.primitives[primitiveId] != null)
+            if (this.primitives[primitiveId] != null){
                 return "ID must be unique for each primitive (conflict: ID = " + primitiveId + ")";
+            }
             grandChildren = children[i].children;
 
             // Validate the primitive type
@@ -914,35 +914,27 @@ export class MySceneGraph {
                 // partsV    
                 var partsV = this.reader.getFloat(grandChildren[0], 'parts_v');
                 if (!(partsV != null && !isNaN(partsV)))
-                    return "unable to parse partsV of the primitive coordinates for ID = " + primitiveId;
+                    return "unable to parse partsV of the primitive coordinates for ID = " + primitiveId;  
 
                 //controlPoints
                 var controlPoints = [];
                 var controlPointsNode = grandChildren[0].children;
-                for (var j = 0; j < controlPointsNode.length; j++) {
-                    var controlPoint = [];
-                    var x = this.reader.getFloat(controlPointsNode[j], 'x');
-                    if (!(x != null && !isNaN(x)))
-                        return "unable to parse xx of the primitive coordinates for ID = " + primitiveId;
-
-                    var y = this.reader.getFloat(controlPointsNode[j], 'y');
-                    if (!(y != null && !isNaN(y)))
-                        return "unable to parse yy of the primitive coordinates for ID = " + primitiveId;
-
-                    var z = this.reader.getFloat(controlPointsNode[j], 'z');
-                    if (!(z != null && !isNaN(z)))
-                        return "unable to parse zz of the primitive coordinates for ID = " + primitiveId;
-
-                    controlPoint.push(x);
-                    controlPoint.push(y);
-                    controlPoint.push(z);
-                    controlPoints.push(controlPoint);
+                for (var u = 0; u < degreeU + 1; u++) {
+                    var arr = [];
+                    for (var v = 0; v < degreeV + 1; v++) {
+                        var idx = u * (degreeV + 1) + v;
+                        var point = this.parseCoordinates3D(controlPointsNode[idx], "controlPoint " + i + " for ID = " + primitiveId);
+                        if (!Array.isArray(point))
+                            return point;
+                        point.push(1);
+                        arr.push(point);
+                    }
+                    controlPoints.push(arr);
                 }
 
-                var numControlPoints = (degreeU + 1) * (degreeV + 1);
-                if (numControlPoints != controlPoints.length)
-                    return "wrong number of control points for ID = " + primitiveId;
-
+                if (controlPoints.length != degreeU + 1 || controlPoints[0].length != degreeV + 1)
+                    return "unable to parse controlPoints of the primitive coordinates for ID = " + primitiveId;
+                               
                 var patch = new MyPatch(this.scene, degreeU, degreeV, partsU, partsV, controlPoints);
                 this.primitives[primitiveId] = patch;
             }

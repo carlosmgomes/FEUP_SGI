@@ -82,6 +82,7 @@
         <texture id="trash" file="scenes/images/trash.jpg" />
         <texture id="wood_table" file="scenes/images/wood.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
+        <texture id="texture2" file = "scenes/images/texture2.png" />
 
 
     </textures>
@@ -1614,13 +1615,26 @@
             </children>
         </component>
 
+        <component id="testPatch">
+            <transformation>
+                <translate x="5" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="texture2" />
+            <children>
+                <primitiveref id="demoPatch" />
+            </children>
+        </component>
+
         <component id="demoRoot">
             <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="none" />
-            <children>
+            <children> 
                 <componentref id="table" />
                 <componentref id="basket" />
                 <componentref id="structure" />
@@ -1630,6 +1644,7 @@
                 <componentref id="lamp1" />
                 <componentref id="lamp2" />
                 <componentref id="tableLamp" />
+                <componentref id="testPatch"/>
             </children>
         </component>
     </components>

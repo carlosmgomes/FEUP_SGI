@@ -21,9 +21,10 @@ export class MyPatch extends CGFobject {
     }
 
     initBuffers() {
-        var nurbsSurface = new CGFnurbsSurface(this.degreeU , this.degreeV, this.controlvertexes);
-        this.obj = new CGFnurbsObject(this.scene, this.partsU, this.partsV, nurbsSurface);
+        var nurbsSurface = new CGFnurbsSurface(this.degreeU, this.degreeV, this.controlvertexes);
+		this.obj = new CGFnurbsObject(this.scene, this.partsU, this.partsV, nurbsSurface);    
     }
+
 
     display() {
         this.obj.display();
