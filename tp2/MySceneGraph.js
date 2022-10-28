@@ -4,6 +4,7 @@ import { MyCylinder } from './primitives/MyCylinder.js';
 import { MyTriangle } from './primitives/MyTriangle.js';
 import { MySphere } from './primitives/MySphere.js';
 import { MyTorus } from './primitives/MyTorus.js';
+import { MyPatch } from './primitives/MyPatch.js';
 import { MyNode } from './MyNode.js';
 
 
@@ -186,7 +187,6 @@ export class MySceneGraph {
         else {
             if (index != PRIMITIVES_INDEX)
                 this.onXMLMinorError("tag <primitives> out of order");
-
             //Parse primitives block
             if ((error = this.parsePrimitives(nodes[index])) != null)
                 return error;
@@ -718,7 +718,6 @@ export class MySceneGraph {
 
         // Any number of primitives.
         for (var i = 0; i < children.length; i++) {
-
             if (children[i].nodeName != "primitive") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -732,17 +731,15 @@ export class MySceneGraph {
             // Checks for repeated IDs.
             if (this.primitives[primitiveId] != null)
                 return "ID must be unique for each primitive (conflict: ID = " + primitiveId + ")";
-
             grandChildren = children[i].children;
 
             // Validate the primitive type
             if (grandChildren.length != 1 ||
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
-                    grandChildren[0].nodeName != 'torus')) {
-                return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere or torus)"
+                    grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'patch')) {
+                return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere, torus or patch)";
             }
-
             // Specifications for the current primitive.
             var primitiveType = grandChildren[0].nodeName;
 
@@ -922,18 +919,17 @@ export class MySceneGraph {
                 //controlPoints
                 var controlPoints = [];
                 var controlPointsNode = grandChildren[0].children;
-
                 for (var j = 0; j < controlPointsNode.length; j++) {
                     var controlPoint = [];
-                    var x = this.reader.getFloat(controlPointsNode[j], 'xx');
+                    var x = this.reader.getFloat(controlPointsNode[j], 'x');
                     if (!(x != null && !isNaN(x)))
                         return "unable to parse xx of the primitive coordinates for ID = " + primitiveId;
 
-                    var y = this.reader.getFloat(controlPointsNode[j], 'yy');
+                    var y = this.reader.getFloat(controlPointsNode[j], 'y');
                     if (!(y != null && !isNaN(y)))
                         return "unable to parse yy of the primitive coordinates for ID = " + primitiveId;
 
-                    var z = this.reader.getFloat(controlPointsNode[j], 'zz');
+                    var z = this.reader.getFloat(controlPointsNode[j], 'z');
                     if (!(z != null && !isNaN(z)))
                         return "unable to parse zz of the primitive coordinates for ID = " + primitiveId;
 

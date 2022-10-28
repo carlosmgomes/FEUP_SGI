@@ -1,4 +1,4 @@
-import { CGFobject } from '../../lib/CGF.js';
+import { CGFobject, CGFnurbsSurface, CGFnurbsObject } from '../../lib/CGF.js';
 
 export class MyPatch extends CGFobject {
     /**
@@ -23,5 +23,9 @@ export class MyPatch extends CGFobject {
     initBuffers() {
         var nurbsSurface = new CGFnurbsSurface(this.degreeU , this.degreeV, this.controlvertexes);
         this.obj = new CGFnurbsObject(this.scene, this.partsU, this.partsV, nurbsSurface);
+    }
+
+    display() {
+        this.obj.display();
     }
 }
