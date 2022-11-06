@@ -1098,6 +1098,8 @@ export class MySceneGraph {
                             var primitiveID_children = this.reader.getString(component_children[j], 'id');
                             if (primitiveID_children == null)
                                 return "unable to parse primitive ID of the primitiveref for ID = " + componentID;
+                            if (this.primitives[primitiveID_children] == null)
+                                return "no primitive with ID = " + primitiveID_children + " was found";
                             this.nodes[componentID].addPrimitive(primitiveID_children);
                             break;
                         default:
