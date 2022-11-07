@@ -228,19 +228,32 @@
                 <controlpoint x="1.8" y="0" z="6" />
 
                 <controlpoint x="1.8" y="2.4" z="0" />
-                <controlpoint x="3.4" y="4.533333333333333" z="2" />
-                <controlpoint x="3.4" y="4.533333333333333" z="4" />
+                <controlpoint x="3.4" y="4.5" z="2" />
+                <controlpoint x="3.4" y="4.5" z="4" />
                 <controlpoint x="1.8" y="2.4" z="6" />
 
                 <controlpoint x="-1.8" y="2.4" z="0" />
-                <controlpoint x="-3.4" y="4.533333333333333" z="2" />
-                <controlpoint x="-3.4" y="4.533333333333333" z="4" />
+                <controlpoint x="-3.4" y="4.5" z="2" />
+                <controlpoint x="-3.4" y="4.5" z="4" />
                 <controlpoint x="-1.8" y="2.4" z="6" />
 
                 <controlpoint x="-1.8" y="0" z="0" />
                 <controlpoint x="-3.4" y="0" z="2" />
                 <controlpoint x="-3.4" y="0" z="4" />
                 <controlpoint x="-1.8" y="0" z="6" />
+            </patch>
+        </primitive>
+        <primitive id="circleBarrel">
+            <patch degree_u="1" parts_u="20" degree_v="3" parts_v="20">
+                <controlpoint x="0" y="0" z="0" />
+                <controlpoint x="0" y="0" z="0" />
+                <controlpoint x="0" y="0" z="0" />
+                <controlpoint x="0" y="0" z="0" />
+                
+                <controlpoint x="-0.9" y="0" z="0" />
+                <controlpoint x="-0.9" y="0" z="1.2" />
+                <controlpoint x="0.9" y="0" z="1.2" />
+                <controlpoint x="0.9" y="0" z="0" />
             </patch>
         </primitive>
     </primitives>
@@ -1641,7 +1654,6 @@
 
         <component id="barrelSide1">
             <transformation>
-                
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1664,13 +1676,70 @@
                 <primitiveref id="semiBarrel" />
             </children>
         </component>
+    
+        <component id="semiBarrelBase1">
+            <transformation>
+                <rotate axis="z" angle="90" />
+                <rotate axis="x" angle="90" />
+                <scale x="2" y="2" z="2" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="barrel" />
+            <children>
+                <primitiveref id="circleBarrel" />
+            </children>
+        </component>
+
+        <component id="semiBarrelBase2">
+            <transformation>
+                <rotate axis="z" angle="270" />
+                <rotate axis="x" angle="90" />
+                <scale x="2" y="2" z="2" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="barrel" />
+            <children>
+                <primitiveref id="circleBarrel" />
+            </children>
+        </component>
+
+        <component id="barrelBaseTop">
+            <transformation>
+                <translate x="0" y="0" z="6" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="barrel" />
+            <children>
+                <componentref id="semiBarrelBase1" />
+                <componentref id="semiBarrelBase2" />
+            </children>
+        </component>
+
+        <component id="barrelBaseBottom">
+            <transformation>
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="barrel" />
+            <children>
+                <componentref id="semiBarrelBase1" />
+                <componentref id="semiBarrelBase2" />
+            </children>
+        </component>
 
         <component id="barrel">
             <transformation>
                 <scale x="0.5" y="0.5" z="0.5" />
                 <rotate axis="x" angle="-90" />
                 <translate x="4" y="-5" z="0" />
-
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1679,6 +1748,8 @@
             <children>
                 <componentref id="barrelSide1" />
                 <componentref id="barrelSide2" />
+                <componentref id="barrelBaseTop" />
+                <componentref id="barrelBaseBottom" />
             </children>
         </component>
 
