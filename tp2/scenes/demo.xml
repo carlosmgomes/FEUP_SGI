@@ -210,14 +210,23 @@
         <primitive id="chairSemiTorus">
             <torus inner="0.5" outer="3" slices="55" loops="111" />
         </primitive>
-        <primitive id="demoPatch">
-            <patch degree_u="2" parts_u="20" degree_v="1" parts_v="20">
-                <controlpoint x="-1.5" y="-1.5" z="0.0" />
-                <controlpoint x="-1.5" y="1.5" z="0.0" />
-                <controlpoint x="0.0" y="-1.5" z="3.0" />
-                <controlpoint x="0.0" y="1.5" z="3.0" />
-                <controlpoint x="1.5" y="-1.5" z="0.0" />
-                <controlpoint x="1.5" y="1.5" z="0.0" />
+        <primitive id="tent">
+            <patch degree_u="1" parts_u="20" degree_v="2" parts_v="20">
+                <controlpoint x="0" y="0" z="0" />
+                <controlpoint x="0" y="1" z="4" />
+                <controlpoint x="0" y="2" z="0" />
+
+                <controlpoint x="2" y="0" z="0" />
+                <controlpoint x="2" y="1" z="4" />
+                <controlpoint x="2" y="2" z="0" />
+            </patch>
+        </primitive>
+        <primitive id="rectangle_patch">
+            <patch degree_u="1" parts_u="20" degree_v="1" parts_v="20">
+                <controlpoint x="-1" y="-1" z="0.0" />
+                <controlpoint x="-1" y="1" z="0.0" />
+                <controlpoint x="1" y="-1" z="0.0" />
+                <controlpoint x="1" y="1" z="0.0" />
             </patch>
         </primitive>
         <primitive id="semiBarrel">
@@ -250,10 +259,10 @@
                 <controlpoint x="0" y="0" z="0" />
                 <controlpoint x="0" y="0" z="0" />
                 
-                <controlpoint x="-0.9" y="0" z="0" />
-                <controlpoint x="-0.9" y="0" z="1.2" />
-                <controlpoint x="0.9" y="0" z="1.2" />
-                <controlpoint x="0.9" y="0" z="0" />
+                <controlpoint x="-1.8" y="0" z="0" />
+                <controlpoint x="-1.8" y="0" z="2.4" />
+                <controlpoint x="1.8" y="0" z="2.4" />
+                <controlpoint x="1.8" y="0" z="0" />
             </patch>
         </primitive>
     </primitives>
@@ -1681,7 +1690,6 @@
             <transformation>
                 <rotate axis="z" angle="90" />
                 <rotate axis="x" angle="90" />
-                <scale x="2" y="2" z="2" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1696,7 +1704,6 @@
             <transformation>
                 <rotate axis="z" angle="270" />
                 <rotate axis="x" angle="90" />
-                <scale x="2" y="2" z="2" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1753,6 +1760,34 @@
             </children>
         </component>
 
+        <component id="tent">
+            <transformation>
+                <rotate axis="x" angle="-90" />
+                <translate x="12" y="-8" z="0" />
+                <rotate axis="z" angle="90" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="tent" />
+            </children>
+        </component>
+
+        <component id="rectangle_patch">
+            <transformation>
+                <translate x="15" y="1" z="8" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle_patch" />
+            </children>
+        </component>
+
         <component id="demoRoot">
             <transformation></transformation>
             <materials>
@@ -1770,6 +1805,8 @@
                 <componentref id="lamp2" />
                 <componentref id="tableLamp" />
                 <componentref id="barrel"/>
+                <componentref id="tent"/>
+                <componentref id="rectangle_patch"/>
             </children>
         </component>
     </components>
