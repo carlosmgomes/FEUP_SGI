@@ -985,6 +985,7 @@ export class MySceneGraph {
             var materialsIndex = nodeNames.indexOf("materials");
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
+            var highlightedIndex = nodeNames.indexOf("highlighted");
 
             // Transformations
             var transformations = grandChildren[transformationIndex].children;
@@ -1107,6 +1108,18 @@ export class MySceneGraph {
                             break;
                     }
                 }
+            }
+            // Hightlight
+            if (highlightedIndex != -1) {
+                var r = this.reader.getFloat(grandChildren[highlightedIndex], 'r');
+                var g = this.reader.getFloat(grandChildren[highlightedIndex], 'g');
+                var b = this.reader.getFloat(grandChildren[highlightedIndex], 'b');
+                var scale_h = this.reader.getFloat(grandChildren[highlightedIndex], 'scale_h');
+                if (r == null || g == null || b == null || scale_h == null)
+                    return "unable to parse highlighted for ID = " + componentID;
+                if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(scale_h))
+                    return "unable to parse highlighted for ID = " + componentID;
+                this.nodes[componentID].addHighlight(r, g, b, scale_h);
             }
         }
     }
@@ -1265,6 +1278,11 @@ export class MySceneGraph {
         else
             texture = node.texture;
 
+        var shader = null;
+        if (node.highlight.length > 0) {
+            shader = this.scene.shader;
+        }
+
         this.scene.multMatrix(node.transfMatrix);
         var materialIndex = materials[this.scene.M_counter % materials.length];
         var currAppearance = this.materials[materialIndex];
@@ -1275,11 +1293,16 @@ export class MySceneGraph {
         currAppearance.setTextureWrap('REPEAT', 'REPEAT');
         currAppearance.apply();
 
+        if (shader != null){
+            console.log(shader);
+            this.scene.setActiveShader(shader);
+        }
+
         //Draw primitives
         for (var i = 0; i < children_primitives.length; i++) {
             this.scene.pushMatrix();
             if (this.primitives[children_primitives[i]] instanceof MyRectangle || this.primitives[children_primitives[i]] instanceof MyTriangle)
-                this.primitives[children_primitives[i]].updateTexCoords(length_s, length_t);
+                this.primitives[children_primitives[i]].updateTexCoords(length_s, length_t);   
             this.primitives[children_primitives[i]].display();
             this.scene.popMatrix();
         }

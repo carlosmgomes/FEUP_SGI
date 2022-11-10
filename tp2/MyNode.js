@@ -8,6 +8,7 @@ export class MyNode{
     constructor(id) {
         this.id = id;
         this.materials = [];
+        this.highlight = [];
         this.texture = [];
         this.children_primitives=[];
         this.children_components=[];
@@ -51,4 +52,9 @@ export class MyNode{
     addComponent(component) {
         this.children_components.push(component);
     }
+
+    addHighlight(r, g, b, scale_h) {
+        this.highlight = [r, g, b, scale_h];
+    }
+
 }

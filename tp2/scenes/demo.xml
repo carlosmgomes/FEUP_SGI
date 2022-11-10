@@ -252,7 +252,7 @@
                 <controlpoint x="-1.8" y="0" z="6" />
             </patch>
         </primitive>
-        <primitive id="circleBarrel">
+        <primitive id="semiCircleBarrel">
             <patch degree_u="1" parts_u="20" degree_v="3" parts_v="20">
                 <controlpoint x="0" y="0" z="0" />
                 <controlpoint x="0" y="0" z="0" />
@@ -1696,7 +1696,7 @@
             </materials>
             <texture id="barrel" />
             <children>
-                <primitiveref id="circleBarrel" />
+                <primitiveref id="semiCircleBarrel" />
             </children>
         </component>
 
@@ -1710,7 +1710,7 @@
             </materials>
             <texture id="barrel" />
             <children>
-                <primitiveref id="circleBarrel" />
+                <primitiveref id="semiCircleBarrel" />
             </children>
         </component>
 
@@ -1758,6 +1758,7 @@
                 <componentref id="barrelBaseTop" />
                 <componentref id="barrelBaseBottom" />
             </children>
+            <highlighted r="200" g="200" b="200" scale_h="10" />
         </component>
 
         <component id="tent">
