@@ -1272,6 +1272,7 @@
             <children>
                 <primitiveref id="demoSphere" />
             </children>
+            <highlighted r="200" g="200" b="200" scale_h="2.0" />
         </component>
 
         <component id="frame_front">
@@ -1758,7 +1759,6 @@
                 <componentref id="barrelBaseTop" />
                 <componentref id="barrelBaseBottom" />
             </children>
-            <highlighted r="200" g="200" b="200" scale_h="10" />
         </component>
 
         <component id="tent">

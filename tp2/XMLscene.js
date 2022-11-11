@@ -45,7 +45,9 @@ export class XMLscene extends CGFscene {
         this.shader = new CGFshader(this.gl, "shaders/shaders.vert", "shaders/shaders.frag");
 
         this.shader.setUniformsValues({ uSampler2: 1 });
-        this.shader.setUniformsValues({ timeFactor: 0});
+        this.shader.setUniformsValues({ timeFactor: 0 });
+        this.shader.setUniformsValues({ normScale: 2.0 });
+        this.shader.setUniformsValues({ newColor: [120, 120, 0] });
     }
 
     /**

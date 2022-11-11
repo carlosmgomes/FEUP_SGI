@@ -1294,7 +1294,6 @@ export class MySceneGraph {
         currAppearance.apply();
 
         if (shader != null){
-            console.log(shader);
             this.scene.setActiveShader(shader);
         }
 
@@ -1305,6 +1304,10 @@ export class MySceneGraph {
                 this.primitives[children_primitives[i]].updateTexCoords(length_s, length_t);   
             this.primitives[children_primitives[i]].display();
             this.scene.popMatrix();
+        }
+
+        if (shader != null){
+            this.scene.setActiveShader(this.scene.defaultShader);
         }
 
         //Visit components recursively
