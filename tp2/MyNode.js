@@ -8,7 +8,7 @@ export class MyNode{
     constructor(id) {
         this.id = id;
         this.materials = [];
-        this.highlight = [];
+        this.shader = null;
         this.texture = [];
         this.children_primitives=[];
         this.children_components=[];
@@ -53,8 +53,8 @@ export class MyNode{
         this.children_components.push(component);
     }
 
-    addHighlight(r, g, b, scale_h) {
-        this.highlight = [r, g, b, scale_h];
+    addShader(shader) {
+        this.shader = shader;
     }
 
 }

@@ -1,4 +1,4 @@
-import { CGFXMLreader, CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader,CGFcameraOrtho } from "../lib/CGF.js";
+import { CGFXMLreader, CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture, CGFshader, CGFcameraOrtho } from "../lib/CGF.js";
 import { MyRectangle } from './primitives/MyRectangle.js';
 import { MyCylinder } from './primitives/MyCylinder.js';
 import { MyTriangle } from './primitives/MyTriangle.js';
@@ -952,6 +952,8 @@ export class MySceneGraph {
     parseComponents(componentsNode) {
         var children = componentsNode.children;
         this.components = [];
+        this.scene.highlights = [];
+        this.scene.highlightsIds = [];
 
         var grandChildren = [];
         var grandgrandChildren = [];
@@ -1119,7 +1121,16 @@ export class MySceneGraph {
                     return "unable to parse highlighted for ID = " + componentID;
                 if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(scale_h))
                     return "unable to parse highlighted for ID = " + componentID;
-                this.nodes[componentID].addHighlight(r, g, b, scale_h);
+                
+                var shader = new CGFshader(this.scene.gl, "shaders/shaders.vert", "shaders/shaders.frag");
+                shader.setUniformsValues({ r: r, g: g, b: b, scale_h: scale_h });
+                shader.setUniformsValues({ uSampler2: 1 });
+                shader.setUniformsValues({ timeFactor: 0 });
+                shader.setUniformsValues({ normScale: scale_h });
+                shader.setUniformsValues({ newColor: [r, g, b] });
+                this.nodes[componentID].addShader(shader);
+                this.scene.highlights.push(shader);
+                this.scene.highlightsIds.push(componentID);
             }
         }
     }
@@ -1279,8 +1290,8 @@ export class MySceneGraph {
             texture = node.texture;
 
         var shader = null;
-        if (node.highlight.length > 0) {
-            shader = this.scene.shader;
+        if (node.shader != null) {
+            shader = node.shader;
         }
 
         this.scene.multMatrix(node.transfMatrix);

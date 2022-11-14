@@ -41,13 +41,6 @@ export class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.M_counter = 0;
-
-        this.shader = new CGFshader(this.gl, "shaders/shaders.vert", "shaders/shaders.frag");
-
-        this.shader.setUniformsValues({ uSampler2: 1 });
-        this.shader.setUniformsValues({ timeFactor: 0 });
-        this.shader.setUniformsValues({ normScale: 2.0 });
-        this.shader.setUniformsValues({ newColor: [120, 120, 0] });
     }
 
     /**
@@ -171,7 +164,9 @@ export class XMLscene extends CGFscene {
      */
     update(t) {
         this.checkKeys();
-        this.shader.setUniformsValues({ timeFactor: t / 100 % 100 });
+        for (var key in this.highlights) {
+            this.highlights[key].setUniformsValues({ timeFactor: t / 100 % 100 });
+        }
 
     }
 
