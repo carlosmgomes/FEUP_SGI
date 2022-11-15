@@ -57,9 +57,6 @@ export class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
         this.gui.add(this.scene,'scaleFactor',0.5,3).name('Scale Factor');
         this.lightsFolder = this.gui.addFolder("Lights");
-        console.log(this.scene.lights)
-        console.log(this.scene.lightsIds)
-        console.log(this.scene.highlights.length)
         for (let i = 0; i < this.scene.lights.length; i++) {
             this.lightsFolder.add(this.scene.lights[i], 'enabled').name(this.scene.lightsIds[i]).onChange(val => { this.scene.lightVisibility(i, val);});
         }
@@ -68,7 +65,7 @@ export class MyInterface extends CGFinterface {
         
         this.highlightsFolder = this.gui.addFolder("Highlights");
         for (let i = 0; i < this.scene.highlights.length; i++) {
-            this.highlightsFolder.add(this.scene.highlights[i], 'enabled').name(this.scene.highlightsIds[i]).onChange(val => { console.log(val);});
+            this.highlightsFolder.add(this.scene.highlights[i], 'isHighlighted').name(this.scene.highlightsIds[i]).onChange(val => { this.scene.shaderVisibility(i, val);});
         }
 
     }

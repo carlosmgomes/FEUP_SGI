@@ -118,6 +118,15 @@ export class XMLscene extends CGFscene {
         this.lights[lightID].update();
     }
 
+    shaderVisibility(nodeID, visibility) {
+        if (visibility) {
+            this.highlights[nodeID].isHighlighted = true;
+        }
+        else {
+            this.highlights[nodeID].isHighlighted = false;
+        }
+    }
+
     initInterfaceObjects() {
         this.displayAxis = false;
         this.scaleFactor = 1;
@@ -165,7 +174,7 @@ export class XMLscene extends CGFscene {
     update(t) {
         this.checkKeys();
         for (var key in this.highlights) {
-            this.highlights[key].setUniformsValues({ timeFactor: t / 100 % 100 });
+            this.highlights[key].shader.setUniformsValues({ timeFactor: t / 100 % 100 });
         }
 
     }

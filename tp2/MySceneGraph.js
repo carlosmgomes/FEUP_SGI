@@ -1129,10 +1129,12 @@ export class MySceneGraph {
                 shader.setUniformsValues({ normScale: scale_h });
                 shader.setUniformsValues({ newColor: [r, g, b] });
                 this.nodes[componentID].addShader(shader);
-                this.scene.highlights.push(shader);
+                this.scene.highlights.push(this.nodes[componentID]);
                 this.scene.highlightsIds.push(componentID);
             }
+
         }
+
     }
 
 
@@ -1303,9 +1305,10 @@ export class MySceneGraph {
         currAppearance.setTexture(currTexture);
         currAppearance.setTextureWrap('REPEAT', 'REPEAT');
         currAppearance.apply();
-
         if (shader != null){
-            this.scene.setActiveShader(shader);
+            if (node.isHighlighted){
+                this.scene.setActiveShader(shader);
+            }
         }
 
         //Draw primitives

@@ -55,6 +55,7 @@ export class MyNode{
 
     addShader(shader) {
         this.shader = shader;
+        this.isHighlighted = false;
     }
 
 }
