@@ -1123,12 +1123,7 @@ export class MySceneGraph {
                     return "unable to parse highlighted for ID = " + componentID;
                 
                 var shader = new CGFshader(this.scene.gl, "shaders/shaders.vert", "shaders/shaders.frag");
-                shader.setUniformsValues({ r: r, g: g, b: b, scale_h: scale_h });
-                shader.setUniformsValues({ uSampler2: 1 });
-                shader.setUniformsValues({ timeFactor: 0 });
-                shader.setUniformsValues({ normScale: scale_h });
-                shader.setUniformsValues({ newColor: [r, g, b] });
-                this.nodes[componentID].addShader(shader);
+                this.nodes[componentID].addShaderValues([r, g, b, scale_h]);
                 this.scene.highlights.push(this.nodes[componentID]);
                 this.scene.highlightsIds.push(componentID);
             }
@@ -1291,11 +1286,6 @@ export class MySceneGraph {
         else
             texture = node.texture;
 
-        var shader = null;
-        if (node.shader != null) {
-            shader = node.shader;
-        }
-
         this.scene.multMatrix(node.transfMatrix);
         var materialIndex = materials[this.scene.M_counter % materials.length];
         var currAppearance = this.materials[materialIndex];
@@ -1305,10 +1295,11 @@ export class MySceneGraph {
         currAppearance.setTexture(currTexture);
         currAppearance.setTextureWrap('REPEAT', 'REPEAT');
         currAppearance.apply();
-        if (shader != null){
-            if (node.isHighlighted){
-                this.scene.setActiveShader(shader);
-            }
+        
+        if (node.isHighlighted){
+            this.scene.shader.setUniformsValues({ normScale: node.shaderValues[3] });
+            this.scene.shader.setUniformsValues({ newColor: [node.shaderValues[0], node.shaderValues[1], node.shaderValues[2]] });
+            this.scene.setActiveShader(this.scene.shader);
         }
 
         //Draw primitives
@@ -1320,7 +1311,7 @@ export class MySceneGraph {
             this.scene.popMatrix();
         }
 
-        if (shader != null){
+        if (node.isHighlighted){
             this.scene.setActiveShader(this.scene.defaultShader);
         }
 

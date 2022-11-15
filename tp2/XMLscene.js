@@ -31,7 +31,9 @@ export class XMLscene extends CGFscene {
         this.initCameras();
 
         this.enableTextures(true);
-
+        this.shader = new CGFshader(this.gl, "shaders/shaders.vert", "shaders/shaders.frag");
+        this.shader.setUniformsValues({ uSampler2: 1 });
+        this.shader.setUniformsValues({ timeFactor: 0 });
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);
@@ -173,10 +175,7 @@ export class XMLscene extends CGFscene {
      */
     update(t) {
         this.checkKeys();
-        for (var key in this.highlights) {
-            this.highlights[key].shader.setUniformsValues({ timeFactor: t / 100 % 100 });
-        }
-
+        this.shader.setUniformsValues({ timeFactor: t / 100 % 100 });
     }
 
 
