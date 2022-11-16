@@ -223,10 +223,10 @@
         </primitive>
         <primitive id="rectangle_patch">
             <patch degree_u="1" parts_u="20" degree_v="1" parts_v="20">
-                <controlpoint x="-1" y="-1" z="0.0" />
-                <controlpoint x="-1" y="1" z="0.0" />
-                <controlpoint x="1" y="-1" z="0.0" />
-                <controlpoint x="1" y="1" z="0.0" />
+                <controlpoint x="-0.5" y= "-1" z="0.0" />
+                <controlpoint x="-0.5" y="1" z="0.0" />
+                <controlpoint x="0.5" y="-1" z="0.0" />
+                <controlpoint x="0.5" y="1" z="0.0" />
             </patch>
         </primitive>
         <primitive id="semiBarrel">
@@ -668,6 +668,7 @@
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
+            <highlighted r="0.52" g="0.18" b="0.11" scale_h="2.0" />
         </component>
 
         <component id="tableSideFront2">
@@ -892,7 +893,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle" />
+                <primitiveref id="rectangle_patch" />
             </children>
         </component>
 
@@ -908,7 +909,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle" />
+                <primitiveref id="rectangle_patch" />
             </children>
         </component>
 
@@ -925,7 +926,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle" />
+                <primitiveref id="rectangle_patch" />
             </children>
         </component>
 
@@ -941,7 +942,7 @@
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="demoRectangle" />
+                <primitiveref id="rectangle_patch" />
             </children>
         </component>
 
@@ -1775,6 +1776,7 @@
             <children>
                 <primitiveref id="tent" />
             </children>
+            <highlighted r="0.18" g="0.11" b="0.52" scale_h="4.0" />
         </component>
 
         <component id="rectangle_patch">
