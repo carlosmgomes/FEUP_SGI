@@ -267,6 +267,18 @@
         </primitive>
     </primitives>
 
+    <animations>
+        <animation id="teste" >
+            <keyframe instant="1.0" >
+                <translate x="0.0" y="0.0" z="0.0" />
+            </keyframe>
+            
+            <keyframe instant="2.0" >
+                <translate x="0.0" y="0.0" z="0.0" />
+            </keyframe>
+        </animation>
+    </animations>
+
     <components>
         <component id="chairLeg1">
             <transformation>

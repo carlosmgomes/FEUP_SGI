@@ -14,7 +14,7 @@ uniform vec3 newColor;
 void main() {
 	vec4 currentColor = texture2D(uSampler, vTextureCoord);
 	vec4 newColor = vec4(newColor, 1.0);
-	if (sin(timeFactor) > 0.0) {
+	if (sin(timeFactor) > -0.5) {
 		gl_FragColor = newColor;
 	}
 	else {
