@@ -1,7 +1,7 @@
 /**
- * Node class, represents a graph node.
+ * Component class, represents a graph node.
  */
-export class MyNode{
+export class MyComponent{
    /**
     * @constructor
     */

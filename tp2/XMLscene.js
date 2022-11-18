@@ -175,7 +175,7 @@ export class XMLscene extends CGFscene {
      */
     update(t) {
         this.checkKeys();
-        this.shader.setUniformsValues({ timeFactor: t / 100 % 100 });
+        this.shader.setUniformsValues({ timeFactor: (t / 100 % 100) });
     }
 
 

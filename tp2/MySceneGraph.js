@@ -5,7 +5,7 @@ import { MyTriangle } from './primitives/MyTriangle.js';
 import { MySphere } from './primitives/MySphere.js';
 import { MyTorus } from './primitives/MyTorus.js';
 import { MyPatch } from './primitives/MyPatch.js';
-import { MyNode } from './MyNode.js';
+import { MyComponent } from './MyComponent.js';
 
 
 var DEGREE_TO_RAD = Math.PI / 180;
@@ -738,7 +738,7 @@ export class MySceneGraph {
             // Get id of the current primitive.
             var primitiveId = this.reader.getString(children[i], 'id');
             if (primitiveId == null)
-                return "no ID defined for texture";
+                return "no ID defined for primitive";
             // Checks for repeated IDs.
             if (this.primitives[primitiveId] != null){
                 return "ID must be unique for each primitive (conflict: ID = " + primitiveId + ")";
@@ -970,8 +970,29 @@ export class MySceneGraph {
         var nodeNames = [];
 
         for (var i = 0; i < children.length; i++) {
-            console.log(children[i].nodeName);
+            if (children[i].nodeName != "animation"){
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+            // Get id of the current animation.
+            var animationId = this.reader.getString(children[i], 'id');
+            if (animationId == null)
+                return "no ID defined for animation";
+            // Checks for repeated IDs.
+            if (this.animations[animationId] != null){
+                return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
+            }
+            grandChildren = children[i].children;
+            console.log(grandChildren.length);
+
+            for (var j = 0; j < grandChildren.length; j++) {
+                console.log(grandChildren[j].nodeName);
+            }
+
+
         }
+        
+
         return null;
     }
 
@@ -1004,7 +1025,7 @@ export class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
-            this.nodes[componentID] = new MyNode(componentID);
+            this.nodes[componentID] = new MyComponent(componentID);
 
             grandChildren = children[i].children;
 
