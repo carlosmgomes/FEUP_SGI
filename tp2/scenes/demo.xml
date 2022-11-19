@@ -1728,8 +1728,23 @@
                 <primitiveref id="semiCircleBarrel" />
             </children>
         </component>
+        <component id="barrelTorus">
+            <transformation>
+                <rotate axis="x" angle="90" />
+                <rotate axis="z" angle="270" />
+                <translate x="3" y="2.5" z="0" />
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="chairSemiTorus" />
+            </children>
+        </component>
 
-        <component id="barrelBaseTop">
+        <component id="barrelHandle">
             <transformation>
                 <translate x="0" y="0" z="6" />
             </transformation>
@@ -1738,8 +1753,7 @@
             </materials>
             <texture id="barrel" />
             <children>
-                <componentref id="semiBarrelBase1" />
-                <componentref id="semiBarrelBase2" />
+                 <componentref id="barrelTorus" />
             </children>
         </component>
 
@@ -1759,9 +1773,9 @@
 
         <component id="barrel">
             <transformation>
-                <scale x="0.5" y="0.5" z="0.5" />
+                <scale x="0.10" y="0.12" z="0.10" />
                 <rotate axis="x" angle="-90" />
-                <translate x="4" y="-5" z="0" />
+                <translate x="54" y="-95" z="25" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1770,7 +1784,7 @@
             <children>
                 <componentref id="barrelSide1" />
                 <componentref id="barrelSide2" />
-                <componentref id="barrelBaseTop" />
+               <componentref id="barrelHandle" />
                 <componentref id="barrelBaseBottom" />
             </children>
         </component>
