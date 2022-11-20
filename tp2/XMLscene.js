@@ -121,12 +121,7 @@ export class XMLscene extends CGFscene {
     }
 
     shaderVisibility(nodeID, visibility) {
-        if (visibility) {
-            this.highlights[nodeID].isHighlighted = true;
-        }
-        else {
-            this.highlights[nodeID].isHighlighted = false;
-        }
+            this.highlights[nodeID].isHighlighted = visibility;
     }
 
     initInterfaceObjects() {

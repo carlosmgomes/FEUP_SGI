@@ -1173,7 +1173,6 @@ export class MySceneGraph {
                 if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(scale_h))
                     return "unable to parse highlighted for ID = " + componentID;
                 
-                var shader = new CGFshader(this.scene.gl, "shaders/shaders.vert", "shaders/shaders.frag");
                 this.nodes[componentID].addShaderValues([r, g, b, scale_h]);
                 this.scene.highlights.push(this.nodes[componentID]);
                 this.scene.highlightsIds.push(componentID);
