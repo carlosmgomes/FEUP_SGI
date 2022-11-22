@@ -12,6 +12,7 @@ export class MyComponent{
         this.texture = [];
         this.children_primitives=[];
         this.children_components=[];
+        this.animations=[];
         this.transfMatrix = mat4.create();
         mat4.identity(this.transfMatrix);
     }
@@ -56,6 +57,9 @@ export class MyComponent{
     addShaderValues(values) {
         this.shaderValues = values;
         this.isHighlighted = false;
+    }
+    addAnimation(animation){
+        this.animations.push(animation);
     }
 
 }

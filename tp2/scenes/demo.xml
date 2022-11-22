@@ -27,7 +27,7 @@
         <ortho id="Ortho Top" near="0.1" far="500" left="-10" right="10" bottom="-10" top="10">
             <from x="10" y="40" z="10" />
             <to x="10" y="0" z="10" />
-            <up x="0" y="0" z="-1" />   
+            <up x="0" y="0" z="-1" />
         </ortho>
 
     </views>
@@ -76,14 +76,15 @@
         <texture id="floor" file="scenes/images/floor.png" />
         <texture id="frame" file="scenes/images/frame.jpg" />
         <texture id="grey" file="scenes/images/grey.jpg" />
+        <texture id="black" file="scenes/images/black.png" />
         <texture id="lamp" file="scenes/images/lamp.jpg" />
         <texture id="wood_legs" file="scenes/images/legs.jpg" />
         <texture id="steel" file="scenes/images/steel.jpg" />
         <texture id="trash" file="scenes/images/trash.jpg" />
         <texture id="wood_table" file="scenes/images/wood.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
-        <texture id="texture2" file = "scenes/images/texture2.png" />
-        <texture id="barrel" file = "scenes/images/barrel.jpg" />
+        <texture id="texture2" file="scenes/images/texture2.png" />
+        <texture id="barrel" file="scenes/images/barrel.jpg" />
 
 
     </textures>
@@ -223,7 +224,7 @@
         </primitive>
         <primitive id="rectangle_patch">
             <patch degree_u="1" parts_u="20" degree_v="1" parts_v="20">
-                <controlpoint x="-0.5" y= "-1" z="0.0" />
+                <controlpoint x="-0.5" y="-1" z="0.0" />
                 <controlpoint x="-0.5" y="1" z="0.0" />
                 <controlpoint x="0.5" y="-1" z="0.0" />
                 <controlpoint x="0.5" y="1" z="0.0" />
@@ -258,7 +259,7 @@
                 <controlpoint x="0" y="0" z="0" />
                 <controlpoint x="0" y="0" z="0" />
                 <controlpoint x="0" y="0" z="0" />
-                
+
                 <controlpoint x="-1.8" y="0" z="0" />
                 <controlpoint x="-1.8" y="0" z="2.4" />
                 <controlpoint x="1.8" y="0" z="2.4" />
@@ -268,15 +269,23 @@
     </primitives>
 
     <animations>
-        <animation id="teste" >
-            <keyframe instant="1.0" >
-                <translate x="0.0" y="0.0" z="0.0" />
+        <keyframeanim id="vacuum_anim">
+            <keyframe instant="1.0">
+                <translation x= "1.0" y= "2.0" z= "13.0" />
+                <rotation axis="z" angle="4" />
+                <rotation axis="y" angle="6" />
+                <rotation axis="x" angle="7" />
+                <scale sx= "11" sy= "12" sz= "13" />
             </keyframe>
-            
-            <keyframe instant="2.0" >
-                <translate x="0.0" y="0.0" z="0.0" />
+
+            <keyframe instant="2.0">
+                <translation x= "20.0" y= "21.0" z= "22.0" />
+                <rotation axis="z" angle="27" />
+                <rotation axis="y" angle="28" />
+                <rotation axis="x" angle="29" />
+                <scale sx= "214" sy= "213" sz= "212" />
             </keyframe>
-        </animation>
+        </keyframeanim>
     </animations>
 
     <components>
@@ -825,8 +834,8 @@
                 <translate x="2" y="7" z="-3" />
             </transformation>
             <materials>
-                <material id="tableMaterial1"/>
-                <material id="tableMaterial2"/>
+                <material id="tableMaterial1" />
+                <material id="tableMaterial2" />
             </materials>
             <texture id="none" />
             <children>
@@ -894,7 +903,7 @@
 
         <component id="wall1">
             <transformation>
-                <transformationref id="wall1_transformation"/>
+                <transformationref id="wall1_transformation" />
             </transformation>
             <materials>
                 <material id="wallMaterial_white" />
@@ -911,7 +920,7 @@
 
         <component id="wall2">
             <transformation>
-                <transformationref id="wall2_transformation"/>
+                <transformationref id="wall2_transformation" />
             </transformation>
             <materials>
                 <material id="wallMaterial_white" />
@@ -928,7 +937,7 @@
 
         <component id="wall3">
             <transformation>
-                <transformationref id="wall3_transformation"/>
+                <transformationref id="wall3_transformation" />
             </transformation>
             <materials>
                 <material id="wallMaterial_white" />
@@ -944,7 +953,7 @@
 
         <component id="wall4">
             <transformation>
-                <transformationref id="wall4_transformation"/>
+                <transformationref id="wall4_transformation" />
             </transformation>
             <materials>
                 <material id="wallMaterial_white" />
@@ -1594,7 +1603,7 @@
 
         <component id="lamp_base">
             <transformation>
-                <rotate axis = "x" angle = "90" />
+                <rotate axis="x" angle="90" />
                 <scale x="0.2" y="0.2" z="0.01" />
                 <translate x="25" y="35" z="-300" />
             </transformation>
@@ -1608,7 +1617,7 @@
         </component>
         <component id="lamp_top_structure">
             <transformation>
-                <rotate axis = "x" angle= "45"/>
+                <rotate axis="x" angle="45" />
                 <scale x="0.2" y="0.2" z="0.2" />
                 <translate x="25" y="40" z="10" />
 
@@ -1623,7 +1632,7 @@
         </component>
         <component id="lamp_top_cover">
             <transformation>
-                <rotate axis = "x" angle= "45"/>
+                <rotate axis="x" angle="45" />
                 <scale x="0.2" y="0.2" z="0.1" />
                 <translate x="25" y="40" z="20" />
             </transformation>
@@ -1636,10 +1645,10 @@
             </children>
         </component>
         <component id="lamp_top">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
-                <material id="demoMaterial" />b
+                <material id="demoMaterial" />
+                b
             </materials>
             <texture id="inherit" />
             <children>
@@ -1649,7 +1658,7 @@
         </component>
         <component id="lamp_support">
             <transformation>
-                <rotate axis = "x" angle = "270" />
+                <rotate axis="x" angle="270" />
                 <scale x="0.2" y="0.2" z="0.51" />
                 <translate x="25" y="-35" z="5.1" />
             </transformation>
@@ -1663,8 +1672,7 @@
         </component>
 
         <component id="tableLamp">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
@@ -1677,8 +1685,7 @@
         </component>
 
         <component id="barrelSide1">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
@@ -1700,7 +1707,7 @@
                 <primitiveref id="semiBarrel" />
             </children>
         </component>
-    
+
         <component id="semiBarrelBase1">
             <transformation>
                 <rotate axis="z" angle="90" />
@@ -1753,7 +1760,7 @@
             </materials>
             <texture id="barrel" />
             <children>
-                 <componentref id="barrelTorus" />
+                <componentref id="barrelTorus" />
             </children>
         </component>
 
@@ -1784,7 +1791,7 @@
             <children>
                 <componentref id="barrelSide1" />
                 <componentref id="barrelSide2" />
-               <componentref id="barrelHandle" />
+                <componentref id="barrelHandle" />
                 <componentref id="barrelBaseBottom" />
             </children>
         </component>
@@ -1818,14 +1825,59 @@
             </children>
         </component>
 
+
+        <component id="vaccum_side">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="0" z="0" />
+                <scale x="1.5" y="1.5" z="0.07" />
+
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="black" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+
+        <component id="vacuum_top">
+            <transformation>
+                <translate x="1" y="0.2" z="0" />
+                <scale x="0.75" y="0.2" z="0.75" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="grey" />
+            <children>
+                <primitiveref id="demoSphere" />
+            </children>
+        </component>
+
+        <component id="vacuum_cleaner">
+            <transformation></transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <animation id="vacuum_anim"/>
+            <children>
+                <componentref id="vacuum_top" />
+                <componentref id="vaccum_side" />
+            </children>
+        </component>
+
         <component id="demoRoot">
             <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="none" />
-            <children> 
+            <children>
                 <componentref id="table" />
+                <componentref id="vacuum_cleaner" />
                 <componentref id="basket" />
                 <componentref id="structure" />
                 <componentref id="fireplace" />
@@ -1834,9 +1886,9 @@
                 <componentref id="lamp1" />
                 <componentref id="lamp2" />
                 <componentref id="tableLamp" />
-                <componentref id="barrel"/>
-                <componentref id="tent"/>
-                <componentref id="rectangle_patch"/>
+                <componentref id="barrel" />
+                <componentref id="tent" />
+                <componentref id="rectangle_patch" />
             </children>
         </component>
     </components>

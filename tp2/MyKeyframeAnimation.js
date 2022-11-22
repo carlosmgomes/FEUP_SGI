@@ -1,0 +1,5 @@
+
+
+class MyKeyframeAnimation extends Animation{
+
+}
