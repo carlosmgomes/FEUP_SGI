@@ -85,6 +85,8 @@
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="texture2" file="scenes/images/texture2.png" />
         <texture id="barrel" file="scenes/images/barrel.jpg" />
+        <texture id="book" file="scenes/images/book.png" />
+        <texture id="book_page" file="scenes/images/book_page.png" />
 
 
     </textures>
@@ -213,13 +215,13 @@
         </primitive>
         <primitive id="tent">
             <patch degree_u="1" parts_u="20" degree_v="2" parts_v="20">
-                <controlpoint x="0" y="0" z="0" />
-                <controlpoint x="0" y="1" z="4" />
-                <controlpoint x="0" y="2" z="0" />
+                <controlpoint x="0" y="0.5" z="0" />
+                <controlpoint x="0" y="0.75" z="2" />
+                <controlpoint x="0" y="1" z="0" />
 
-                <controlpoint x="2" y="0" z="0" />
-                <controlpoint x="2" y="1" z="4" />
-                <controlpoint x="2" y="2" z="0" />
+                <controlpoint x="1" y="0.5" z="0" />
+                <controlpoint x="1" y="0.75" z="2" />
+                <controlpoint x="1" y="1" z="0" />
             </patch>
         </primitive>
         <primitive id="rectangle_patch">
@@ -289,6 +291,98 @@
     </animations>
 
     <components>
+        <component id = "book_cover">
+            <transformation>
+                <rotate axis = "z" angle = "270"/>
+                <translate x= "-4" y="5" z="10"/>
+                
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="book" />
+            <children>
+                <primitiveref id="tent" />
+            </children>
+        </component>
+
+        <component id = "book_page1">
+            <transformation>
+                <scale x = "1" y = "0.5" z="0.75"/>
+                <rotate axis = "y" angle = "85"/>
+                <translate x= "-13.5" y="7" z="7.05"/>
+
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="book_page" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+
+        <component id = "book_page2">
+            <transformation>
+                <scale x = "1" y = "0.5" z="0.75"/>
+                <rotate axis = "y" angle = "88"/>
+                <translate x= "-13.9" y="7" z="6.25"/>
+
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="book_page" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id = "book_page3">
+            <transformation>
+                <scale x = "1" y = "0.5" z="0.75"/>
+                <rotate axis = "y" angle = "92"/>
+                <translate x= "-14.2" y="7" z="5.15"/>
+
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="book_page" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id = "book_page4">
+            <transformation>
+                <scale x = "1" y = "0.5" z="0.75"/>
+                <rotate axis = "y" angle = "90"/>
+                <translate x= "-14" y="7" z="5.7"/>
+
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="book_page" />
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component>
+        <component id = "book">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="book_cover" />
+                <componentref id = "book_page1"/>
+                <componentref id = "book_page2"/>
+                <componentref id = "book_page3"/>
+                <componentref id = "book_page4"/>
+
+            </children>
+        </component>
         <component id="chairLeg1">
             <transformation>
                 <translate x="12" y="4" z="1.5" />
@@ -1782,7 +1876,7 @@
             <transformation>
                 <scale x="0.10" y="0.12" z="0.10" />
                 <rotate axis="x" angle="-90" />
-                <translate x="54" y="-95" z="25" />
+                <translate x="64" y="-75" z="25" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1887,8 +1981,7 @@
                 <componentref id="lamp2" />
                 <componentref id="tableLamp" />
                 <componentref id="barrel" />
-                <componentref id="tent" />
-                <componentref id="rectangle_patch" />
+                <componentref id="book" />
             </children>
         </component>
     </components>

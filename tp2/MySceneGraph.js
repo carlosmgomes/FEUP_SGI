@@ -1231,7 +1231,6 @@ export class MySceneGraph {
                 }
             }
              // Animations
-            // Not necessary
             if (animationIndex != -1) {
                 var animationId = this.reader.getString(grandChildren[animationIndex], "id");
                 if (animationId != null && !this.animations[animationId]) {
@@ -1456,7 +1455,7 @@ export class MySceneGraph {
             console.log("here")
             //this.animations[node.animationID].apply();
             //TODO create method apply class keyframe
-            A
+            
         } 
     }
 }
