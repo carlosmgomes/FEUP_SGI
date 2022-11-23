@@ -1426,6 +1426,7 @@ export class MySceneGraph {
         if (node.isHighlighted) {
             this.scene.shader.setUniformsValues({ normScale: node.shaderValues[3] });
             this.scene.shader.setUniformsValues({ newColor: [node.shaderValues[0], node.shaderValues[1], node.shaderValues[2]] });
+            this.scene.shader.setUniformsValues({diffuse: [this.materials[materialIndex].diffuse[0],this.materials[materialIndex].diffuse[1],this.materials[materialIndex].diffuse[2],this.materials[materialIndex].diffuse[3]]})
             this.scene.setActiveShader(this.scene.shader);
         }
 

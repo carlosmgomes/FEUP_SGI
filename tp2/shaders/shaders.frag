@@ -9,10 +9,10 @@ uniform sampler2D uSampler2;
 uniform float timeFactor;
 
 uniform vec3 newColor;
-
+uniform vec4 diffuse;
 
 void main() {
-	vec4 currentColor = texture2D(uSampler, vTextureCoord);
+	vec4 currentColor = texture2D(uSampler, vTextureCoord)*diffuse;
 	float sinValue = (sin(timeFactor) + 1.0)/2.0;
 	currentColor.r = currentColor.r*(1.0-sinValue) + newColor.r*sinValue;
 	currentColor.g = currentColor.g*(1.0-sinValue) + newColor.g*sinValue;
