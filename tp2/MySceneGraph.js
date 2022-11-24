@@ -6,6 +6,8 @@ import { MySphere } from './primitives/MySphere.js';
 import { MyTorus } from './primitives/MyTorus.js';
 import { MyPatch } from './primitives/MyPatch.js';
 import { MyComponent } from './MyComponent.js';
+import { MyKeyframe } from './MyKeyframe.js';
+import { MyKeyframeAnimation } from './MyKeyframeAnimation.js';
 
 
 var DEGREE_TO_RAD = Math.PI / 180;
@@ -982,17 +984,22 @@ export class MySceneGraph {
             if (this.animations[animationId] != null) {
                 return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
             }
-
+            var animation = new MyKeyframeAnimation(this.scene, animationId);
             grandChildren = children[i].children;
+            let instants = [];
+            let last_instant = 0;
             for (var j = 0; j < grandChildren.length; j++) {
                 if (grandChildren[j].nodeName != "keyframe") {
                     this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
                     continue;
                 }
-                var keyframeInstant = this.reader.getString(grandChildren[j], 'instant');
-                if (keyframeInstant == null || keyframeInstant < 0 || isNaN(keyframeInstant)) {
-                    return "Not a valid insant for animation: " + animationId + " at instant: " + keyframeInstant;
+                var keyframe = new MyKeyframe();
+                keyframe.instant = this.reader.getString(grandChildren[j], 'instant');
+                if (keyframe.instant == null || keyframe.instant < 0 || isNaN(keyframe.instant)) {
+                    return "Not a valid insant for animation: " + animationId + " at instant: " + keyframe.instant;
                 }
+                last_instant = keyframe.instant;
+                instants[keyframe.instant] = keyframe.instant;
                 var keyframeTransformations = grandChildren[j].children;
                 var translation = [];
                 var rotation = [];
@@ -1001,51 +1008,51 @@ export class MySceneGraph {
                     switch (k) {
                         case 0:
                             if (keyframeTransformations[k].nodeName != "translation") {
-                                return "Missing translation for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Missing translation for animation: " + animationId + " at instant: " + keyframe.instant;
                             }
-                            var temp = this.parseCoordinates3D(keyframeTransformations[k], "translation for animation: " + animationId + " at instant: " + keyframeInstant);
+                            var temp = this.parseCoordinates3D(keyframeTransformations[k], "translation for animation: " + animationId + " at instant: " + keyframe.instant);
                             translation.push(temp[0], temp[1], temp[2]);
                             break;
                         case 1:
                             if ((keyframeTransformations[k].nodeName != "rotation") && (this.reader.getString(keyframeTransformations[k], 'axis') != "z")) {
-                                return "Missing z rotation for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Missing z rotation for animation: " + animationId + " at instant: " + keyframe.instant;
                             }
                             var z = this.reader.getFloat(keyframeTransformations[k], 'angle');
                             if (z == null)
-                                return "Z-axis rotaion angle not found for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Z-axis rotaion angle not found for animation: " + animationId + " at instant: " + keyframe.instant;
                             rotation.unshift(z);
                             break;
                         case 2:
                             if ((keyframeTransformations[k].nodeName != "rotation") && (this.reader.getString(keyframeTransformations[k], 'axis') != "y")) {
-                                return "Missing y rotation for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Missing y rotation for animation: " + animationId + " at instant: " + keyframe.instant;
                             }
                             var y = this.reader.getFloat(keyframeTransformations[k], 'angle');
                             if (y == null)
-                                return "Y-axis rotaion angle not found for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Y-axis rotaion angle not found for animation: " + animationId + " at instant: " + keyframe.instant;
                             rotation.unshift(y);
                             break;
                         case 3:
                             if ((keyframeTransformations[k].nodeName != "rotation") && (this.reader.getString(keyframeTransformations[k], 'axis') != "x")) {
-                                return "Missing x rotation for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Missing x rotation for animation: " + animationId + " at instant: " + keyframe.instant;
                             }
                             var x = this.reader.getFloat(keyframeTransformations[k], 'angle');
                             if (x == null)
-                                return "X-axis rotaion angle not found for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "X-axis rotaion angle not found for animation: " + animationId + " at instant: " + keyframe.instant;
                             rotation.unshift(x);
                             break;
                         case 4:
                             if (keyframeTransformations[k].nodeName != "scale") {
-                                return "Missing scale for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Missing scale for animation: " + animationId + " at instant: " + keyframe.instant;
                             }
                             var sx = this.reader.getFloat(keyframeTransformations[k], 'sx');
                             var sy = this.reader.getFloat(keyframeTransformations[k], 'sy');
                             var sz = this.reader.getFloat(keyframeTransformations[k], 'sz');
                             if (sx == null)
-                                return "Sx scale value not found for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Sx scale value not found for animation: " + animationId + " at instant: " + keyframe.instant;
                             if (sy == null)
-                                return "Sy scale value not found for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Sy scale value not found for animation: " + animationId + " at instant: " + keyframe.instant;
                             if (sz == null)
-                                return "Sz scale value not found for animation: " + animationId + " at instant: " + keyframeInstant;
+                                return "Sz scale value not found for animation: " + animationId + " at instant: " + keyframe.instant;
                             scale.push(sx);
                             scale.push(sy);
                             scale.push(sz);
@@ -1053,12 +1060,17 @@ export class MySceneGraph {
 
                     }
                 }
-                //keyframe = MyKeyframeAnimation()
-                //keyframeanim+=keyframe
+                keyframe.translation=translation;
+                keyframe.rotation=rotation;
+                keyframe.scale=scale;
+
+                
+                animation.addKeyframe(keyframe)
             }
-            //this.animations[animationId] = keyframeanim;
+            this.animations[animationId] = animation;
 
         }
+        console.log(this.animations);
         console.log("Parsed Animations");
         return null;
     }
@@ -1230,12 +1242,12 @@ export class MySceneGraph {
                     }
                 }
             }
-             // Animations
+            // Animations
             if (animationIndex != -1) {
                 var animationId = this.reader.getString(grandChildren[animationIndex], "id");
                 if (animationId != null && !this.animations[animationId]) {
-                    this.onXMLMinorError("animation not defined for animation ID " +  animationId + " in component " + componentID);
-                    animationId= null;
+                    this.onXMLMinorError("animation not defined for animation ID " + animationId + " in component " + componentID);
+                    animationId = null;
                 }
                 this.nodes[componentID].addAnimation(animationId);
             }
@@ -1384,7 +1396,11 @@ export class MySceneGraph {
         this.scene.popMatrix();
 
     }
-
+    updateAnimations(t) {
+        for (var i in this.animations) {
+            this.animations[i].update(t);
+        }
+    }
     /**
      * Displays the scene, processing each node, starting in the root node.
      * @param {string id} nodeID
@@ -1426,7 +1442,7 @@ export class MySceneGraph {
         if (node.isHighlighted) {
             this.scene.shader.setUniformsValues({ normScale: node.shaderValues[3] });
             this.scene.shader.setUniformsValues({ newColor: [node.shaderValues[0], node.shaderValues[1], node.shaderValues[2]] });
-            this.scene.shader.setUniformsValues({diffuse: [this.materials[materialIndex].diffuse[0],this.materials[materialIndex].diffuse[1],this.materials[materialIndex].diffuse[2],this.materials[materialIndex].diffuse[3]]})
+            this.scene.shader.setUniformsValues({ diffuse: [this.materials[materialIndex].diffuse[0], this.materials[materialIndex].diffuse[1], this.materials[materialIndex].diffuse[2], this.materials[materialIndex].diffuse[3]] })
             this.scene.setActiveShader(this.scene.shader);
         }
 
@@ -1443,6 +1459,9 @@ export class MySceneGraph {
             this.scene.setActiveShader(this.scene.defaultShader);
         }
 
+        if (node.hasAnimation) {
+            this.animations[node.animations[0]].apply();
+        }
         //Visit components recursively
         for (var i = 0; i < children_components.length; i++) {
             this.scene.pushMatrix();
@@ -1452,11 +1471,8 @@ export class MySceneGraph {
         }
 
         // call for animations
-        if (node.animationId != null) {
-            console.log("here")
-            //this.animations[node.animationID].apply();
-            //TODO create method apply class keyframe
-            
-        } 
+
+
+
     }
 }

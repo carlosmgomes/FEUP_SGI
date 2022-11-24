@@ -121,7 +121,7 @@ export class XMLscene extends CGFscene {
     }
 
     shaderVisibility(nodeID, visibility) {
-            this.highlights[nodeID].isHighlighted = visibility;
+        this.highlights[nodeID].isHighlighted = visibility;
     }
 
     initInterfaceObjects() {
@@ -171,6 +171,15 @@ export class XMLscene extends CGFscene {
     update(t) {
         this.checkKeys();
         this.shader.setUniformsValues({ timeFactor: (t / 100 % 100) });
+        if (this.initialTime == 0) {
+            this.initialTime = t / 1000;
+        }
+
+        if (this.sceneInited) {
+            for (var i in this.graph.animations) {
+                this.graph.animations[i].update(t);
+            }
+        }
     }
 
 
@@ -196,8 +205,8 @@ export class XMLscene extends CGFscene {
             this.axis.display();
 
         //for (var i = 0; i < this.lights.length; i++) {
-          //  this.lights[i].setVisible(true);
-            //this.lights[i].update();
+        //  this.lights[i].setVisible(true);
+        //this.lights[i].update();
         //}
 
         if (this.sceneInited) {

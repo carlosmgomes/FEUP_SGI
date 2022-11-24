@@ -52,6 +52,21 @@
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
         </omni>
+        <omni id="Light 3" enabled="1">
+            <location x="10" y="12" z="13" w="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
+        </omni>
+        <omni id="Light 4" enabled="1">
+            <location x="10" y="12" z="7" w="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
+        </omni>
+        
         <omni id="Fireplace" enabled="0">
             <location x="17" y="1" z="18.5" w="1.0" />
             <ambient r="0" g="0" b="0" a="1.0" />
@@ -233,6 +248,10 @@
         <primitive id="demoSphere">
             <sphere radius="1" slices="112" stacks="112" />
         </primitive>
+        <primitive id="demoTorus">
+            <torus inner="0.25" outer="4" slices="110" loops="111" />
+        </primitive>
+
         <primitive id="basketTorus">
             <torus inner="0.25" outer="4" slices="110" loops="111" />
         </primitive>
@@ -330,7 +349,7 @@
                 <scale sx= "11" sy= "12" sz= "13" />
             </keyframe>
 
-            <keyframe instant="2.0">
+            <keyframe instant="5.0">
                 <translation x= "20.0" y= "21.0" z= "22.0" />
                 <rotation axis="z" angle="27" />
                 <rotation axis="y" angle="28" />
@@ -1826,7 +1845,30 @@
                 <componentref id="lamp_top" />
             </children>
         </component>
-
+        <component id="lamp_roof1">
+            <transformation>
+                <translate x="10" y="13.3" z="11.1"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="grey" />
+            <children>
+                <componentref id="lamp" />
+            </children>
+        </component>
+        <component id="lamp_roof2">
+            <transformation>
+                <translate x="10" y="13.3" z="5.1"/>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="grey" />
+            <children>
+                <componentref id="lamp" />
+            </children>
+        </component>
         <component id="barrelSide1">
             <transformation></transformation>
             <materials>
@@ -2287,6 +2329,9 @@
                 <componentref id="barrel" />
                 <componentref id="book" />
                 <componentref id="flower" />
+                <componentref id="lamp_roof1"/>
+                <componentref id="lamp_roof2"/>
+
             </children>
         </component>
     </components>

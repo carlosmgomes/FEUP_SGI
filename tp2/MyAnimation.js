@@ -1,12 +1,16 @@
-/**
- * Animation class
- */
-class Animation {
-    constructor(scene){
-        this.scene = scene;
-    }
-    update(){};
+export class MyAnimation {
 
-    apply(){};
+    constructor(scene, animationID) {
+        this.scene = scene;
+        this.id = animationID;
+        this.finished = false;
+        this.timeElapsed = 0;
+        this.animationMatrix = mat4.create();
+    }
+
+    update(currentTime) { }
+
+    apply() { }
+
 
 }

@@ -59,6 +59,7 @@ export class MyComponent{
         this.isHighlighted = false;
     }
     addAnimation(animation){
+        this.hasAnimation = true;
         this.animations.push(animation);
     }
 
