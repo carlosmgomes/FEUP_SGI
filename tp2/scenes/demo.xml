@@ -66,7 +66,7 @@
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
         </omni>
-        
+
         <omni id="Fireplace" enabled="0">
             <location x="17" y="1" z="18.5" w="1.0" />
             <ambient r="0" g="0" b="0" a="1.0" />
@@ -103,6 +103,7 @@
         <texture id="book" file="scenes/images/book.png" />
         <texture id="book_page" file="scenes/images/book_page.png" />
         <texture id="dirt" file="scenes/images/dirt.png" />
+        <texture id="liquid" file="scenes/images/beer.jpg" />
     </textures>
 
     <materials>
@@ -342,29 +343,132 @@
     <animations>
         <keyframeanim id="vacuum_anim">
             <keyframe instant="1.0">
-                <translation x= "1.0" y= "2.0" z= "13.0" />
-                <rotation axis="z" angle="4" />
-                <rotation axis="y" angle="6" />
-                <rotation axis="x" angle="7" />
-                <scale sx= "11" sy= "12" sz= "13" />
+                <translation x="0" y="0" z="1" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
             </keyframe>
 
-            <keyframe instant="5.0">
-                <translation x= "20.0" y= "21.0" z= "22.0" />
-                <rotation axis="z" angle="27" />
-                <rotation axis="y" angle="28" />
-                <rotation axis="x" angle="29" />
-                <scale sx= "214" sy= "213" sz= "212" />
+            <keyframe instant="2.0">
+                <translation x="0" y="0" z="4" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+
+            <keyframe instant="6.0">
+                <translation x="10" y="0" z="4" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="7.0">
+                <translation x="10" y="0" z="8" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="8.0">
+                <translation x="15" y="0" z="8" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="9.0">
+                <translation x="15" y="0" z="4" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translation x="10" y="0" z="4" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="14.0">
+                <translation x="10" y="0" z="14" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="16.0">
+                <translation x="3.3" y="0" z="14" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="20.0">
+                <translation x="3.3" y="0" z="2.7" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="21">
+                <translation x="3.3" y="0.4" z="2.7" />
+                <rotation axis="z" angle="90" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="90" />
+                <scale sx="1" sy="1" sz="1" />
             </keyframe>
         </keyframeanim>
+        <keyframeanim id="barrel_drop">
+            <keyframe instant="2">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="3">
+                <translation x="0" y="0" z="2.2" />
+                <rotation axis="z" angle="90" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="100" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="3.5">
+                <translation x="1" y="0" z="2.2" />
+                <rotation axis="z" angle="50" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="100" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+        </keyframeanim>
+        <!--<keyframeanim id="beer_anim">
+            <keyframe instant="1">
+                <translation x="1" y="0" z="2.2" />
+                <rotation axis="z" angle="50" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="100" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="3">
+                <translation x="1" y="0" z="2.2" />
+                <rotation axis="z" angle="50" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="100" />
+                <scale sx="10" sy="10" sz="10" />
+            </keyframe>
+        </keyframeanim>-->
     </animations>
 
     <components>
-        <component id = "book_cover">
+        <component id="book_cover">
             <transformation>
-                <rotate axis = "z" angle = "270"/>
-                <translate x= "-4" y="5" z="10"/>
-                
+                <rotate axis="z" angle="270" />
+                <translate x="-4" y="5" z="10" />
+
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -375,11 +479,11 @@
             </children>
         </component>
 
-        <component id = "book_page1">
+        <component id="book_page1">
             <transformation>
-                <scale x = "1" y = "0.5" z="0.75"/>
-                <rotate axis = "y" angle = "85"/>
-                <translate x= "-13.5" y="7" z="7.05"/>
+                <scale x="1" y="0.5" z="0.75" />
+                <rotate axis="y" angle="85" />
+                <translate x="-13.5" y="7" z="7.05" />
 
             </transformation>
             <materials>
@@ -391,11 +495,11 @@
             </children>
         </component>
 
-        <component id = "book_page2">
+        <component id="book_page2">
             <transformation>
-                <scale x = "1" y = "0.5" z="0.75"/>
-                <rotate axis = "y" angle = "88"/>
-                <translate x= "-13.9" y="7" z="6.25"/>
+                <scale x="1" y="0.5" z="0.75" />
+                <rotate axis="y" angle="88" />
+                <translate x="-13.9" y="7" z="6.25" />
 
             </transformation>
             <materials>
@@ -406,11 +510,11 @@
                 <primitiveref id="demoRectangle" />
             </children>
         </component>
-        <component id = "book_page3">
+        <component id="book_page3">
             <transformation>
-                <scale x = "1" y = "0.5" z="0.75"/>
-                <rotate axis = "y" angle = "92"/>
-                <translate x= "-14.2" y="7" z="5.15"/>
+                <scale x="1" y="0.5" z="0.75" />
+                <rotate axis="y" angle="92" />
+                <translate x="-14.2" y="7" z="5.15" />
 
             </transformation>
             <materials>
@@ -421,11 +525,11 @@
                 <primitiveref id="demoRectangle" />
             </children>
         </component>
-        <component id = "book_page4">
+        <component id="book_page4">
             <transformation>
-                <scale x = "1" y = "0.5" z="0.75"/>
-                <rotate axis = "y" angle = "90"/>
-                <translate x= "-14" y="7" z="5.7"/>
+                <scale x="1" y="0.5" z="0.75" />
+                <rotate axis="y" angle="90" />
+                <translate x="-14" y="7" z="5.7" />
 
             </transformation>
             <materials>
@@ -436,19 +540,18 @@
                 <primitiveref id="demoRectangle" />
             </children>
         </component>
-        <component id = "book">
-            <transformation>
-            </transformation>
+        <component id="book">
+            <transformation></transformation>
             <materials>
                 <material id="inherit" />
             </materials>
             <texture id="inherit" />
             <children>
                 <componentref id="book_cover" />
-                <componentref id = "book_page1"/>
-                <componentref id = "book_page2"/>
-                <componentref id = "book_page3"/>
-                <componentref id = "book_page4"/>
+                <componentref id="book_page1" />
+                <componentref id="book_page2" />
+                <componentref id="book_page3" />
+                <componentref id="book_page4" />
 
             </children>
         </component>
@@ -1847,7 +1950,7 @@
         </component>
         <component id="lamp_roof1">
             <transformation>
-                <translate x="10" y="13.3" z="11.1"/>
+                <translate x="10" y="13.3" z="11.1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1859,7 +1962,7 @@
         </component>
         <component id="lamp_roof2">
             <transformation>
-                <translate x="10" y="13.3" z="5.1"/>
+                <translate x="10" y="13.3" z="5.1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -1973,6 +2076,7 @@
                 <material id="demoMaterial" />
             </materials>
             <texture id="barrel" />
+            <animation id="barrel_drop"/>
             <children>
                 <componentref id="barrelSide1" />
                 <componentref id="barrelSide2" />
@@ -2025,22 +2129,39 @@
             </children>
         </component>
 
+         <component id="beer">
+            <transformation>
+                <rotate axis="x" angle="90" />
+                <translate x="6.5" y="8.5" z="-3" />
+                <scale x="0.6" y="0.6" z="0.01" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="liquid" />
+            <!--<animation id="beer_anim" />-->
+            <children>
+                <primitiveref id="basketFloorTorus" />
+            </children>
+        </component>
+        
         <component id="vacuum_cleaner">
-            <transformation></transformation>
+            <transformation>
+                <translate x="1" y="0" z="1.5" />
+            </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="none" />
-            <animation id="vacuum_anim"/>
+             <animation id="vacuum_anim" />
             <children>
                 <componentref id="vacuum_top" />
                 <componentref id="vaccum_side" />
             </children>
         </component>
-        
+
         <component id="semiCirclePetal">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2183,8 +2304,7 @@
         </component>
 
         <component id="petals">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="flowerMaterial_red" />
                 <material id="flowerMaterial_blue" />
@@ -2326,12 +2446,12 @@
                 <componentref id="lamp1" />
                 <componentref id="lamp2" />
                 <componentref id="tableLamp" />
+                <componentref id="beer" />
                 <componentref id="barrel" />
                 <componentref id="book" />
                 <componentref id="flower" />
-                <componentref id="lamp_roof1"/>
-                <componentref id="lamp_roof2"/>
-
+                <componentref id="lamp_roof1" />
+                <componentref id="lamp_roof2" />
             </children>
         </component>
     </components>

@@ -2,7 +2,8 @@ import { CGFscene } from '../lib/CGF.js';
 import { CGFaxis, CGFcamera, CGFshader } from '../lib/CGF.js';
 
 
-var DEGREE_TO_RAD = Math.PI / 180;
+var RATE = 1000;
+
 
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -172,7 +173,7 @@ export class XMLscene extends CGFscene {
         this.checkKeys();
         this.shader.setUniformsValues({ timeFactor: (t / 100 % 100) });
         if (this.initialTime == 0) {
-            this.initialTime = t / 1000;
+            this.initialTime = t / RATE;
         }
 
         if (this.sceneInited) {

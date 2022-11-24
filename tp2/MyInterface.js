@@ -55,7 +55,7 @@ export class MyInterface extends CGFinterface {
     startInterface(){
         this.gui = new dat.GUI();
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-        this.gui.add(this.scene,'scaleFactor',0.5,3).name('Scale Factor');
+        this.gui.add(this.scene,'scaleFactor',0.5,10).name('Scale Factor');
         this.lightsFolder = this.gui.addFolder("Lights");
         for (let i = 0; i < this.scene.lights.length; i++) {
             this.lightsFolder.add(this.scene.lights[i], 'enabled').name(this.scene.lightsIds[i]).onChange(val => { this.scene.lightVisibility(i, val);});

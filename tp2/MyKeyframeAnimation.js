@@ -1,6 +1,7 @@
 import { MyAnimation } from "./MyAnimation.js"
 
 var DEGREE_TO_RAD = Math.PI / 180;
+var RATE = 1000;
 
 export class MyKeyframeAnimation extends MyAnimation {
 
@@ -40,17 +41,17 @@ export class MyKeyframeAnimation extends MyAnimation {
 
 
         if (this.keyframeIndex < this.keyframes.length && this.keyframeIndex > 0) {
-            deltaTime = (currentTime - this.timeLastUpdate) / 1000
+            deltaTime = (currentTime - this.timeLastUpdate) / RATE;
         }
 
         if (this.keyframeIndex < this.keyframes.length) {
 
-            if (this.keyframeIndex == 0 && (currentTime - this.startTime) / 1000 >= this.keyframes[0].instant) {
+            if (this.keyframeIndex == 0 && (currentTime - this.startTime) / RATE >= this.keyframes[0].instant) {
                 this.keyframeIndex++;
             }
 
             if (this.keyframeIndex < this.keyframes.length) {
-                if ((currentTime - this.startTime) / 1000 >= (this.keyframes[this.keyframeIndex].instant)) {
+                if ((currentTime - this.startTime) / RATE >= (this.keyframes[this.keyframeIndex].instant)) {
                     this.keyframeIndex++;
                 }
             }
