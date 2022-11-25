@@ -39,28 +39,28 @@
 
     <lights>
         <omni id="Light 1" enabled="1">
-            <location x="1.2" y="5.2" z="10" w="1.0" />
+            <location x="1.2" y="6.2" z="10" w="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
         </omni>
         <omni id="Light 2" enabled="1">
-            <location x="18.9" y="5.2" z="10" w="1.0" />
+            <location x="18.9" y="6.2" z="10" w="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
         </omni>
         <omni id="Light 3" enabled="1">
-            <location x="10" y="12" z="13" w="1.0" />
+            <location x="10.5" y="6.2" z="1.2" w="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <attenuation constant="0.0" linear="0.5" quadratic="0.0" />
         </omni>
         <omni id="Light 4" enabled="1">
-            <location x="10" y="12" z="7" w="1.0" />
+            <location x="10.5" y="6.2" z="18.9" w="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -464,7 +464,7 @@
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
         </keyframeanim>
-        
+
         <keyframeanim id="vacuum_anim">
             <keyframe instant="1.0">
                 <translation x="0" y="0" z="1" />
@@ -1958,7 +1958,7 @@
         <component id="lamp1">
             <transformation>
                 <rotate axis="y" angle="90" />
-                <translate x="-10" y="6" z="0.1" />
+                <translate x="-10" y="7" z="0.1" />
                 <scale x="0.5" y="0.5" z="0.5" />
             </transformation>
             <materials>
@@ -1976,7 +1976,43 @@
         <component id="lamp2">
             <transformation>
                 <rotate axis="y" angle="270" />
-                <translate x="10" y="6" z="-20" />
+                <translate x="10" y="7" z="-20" />
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="lamp_support_wood" />
+                <componentref id="lamp_support_steel_horizontal" />
+                <componentref id="lamp_support_steel_vertical" />
+                <componentref id="lamp" />
+            </children>
+        </component>
+
+        <component id="lamp3">
+            <transformation>
+                <rotate axis="y" angle="180" />
+                <translate x="-10.5" y="7" z="-20" />
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="lamp_support_wood" />
+                <componentref id="lamp_support_steel_horizontal" />
+                <componentref id="lamp_support_steel_vertical" />
+                <componentref id="lamp" />
+            </children>
+        </component>
+
+        <component id="lamp4">
+            <transformation>
+                <rotate axis="y" angle="0" />
+                <translate x="10.5" y="7" z="-0.01" />
                 <scale x="0.5" y="0.5" z="0.5" />
             </transformation>
             <materials>
@@ -2201,7 +2237,7 @@
                 <material id="demoMaterial" />
             </materials>
             <texture id="barrel" />
-            <animation id="barrel_drop"/>
+            <animation id="barrel_drop" />
             <children>
                 <componentref id="barrelSide1" />
                 <componentref id="barrelSide2" />
@@ -2224,11 +2260,11 @@
         </component>
 
 
-         <component id="beer_definition">
+        <component id="beer_definition">
             <transformation>
                 <translate x="6.5" y="2.9" z="8.5" />
-                <rotate axis ="x" angle="90"/>
-                <scale x ="0.01" y="0.01" z="0.01"/>
+                <rotate axis="x" angle="90" />
+                <scale x="0.01" y="0.01" z="0.01" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -2238,22 +2274,21 @@
                 <primitiveref id="basketFloorTorus" />
             </children>
         </component>
-        
+
         <component id="beer">
-            <transformation>
-            </transformation>
+            <transformation></transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="liquid" />
-            <animation id = "beer_anim"/>
+            <animation id="beer_anim" />
             <children>
                 <componentref id="beer_definition" />
             </children>
         </component>
-        <component id = "wheel_side1">
+        <component id="wheel_side1">
             <transformation>
-                <scale x="0.06" y="0.06" z="0.01"/>
+                <scale x="0.06" y="0.06" z="0.01" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -2264,10 +2299,10 @@
             </children>
         </component>
 
-        <component id = "wheel_side2">
+        <component id="wheel_side2">
             <transformation>
-                <translate x="0" y="0" z="0.15"/>
-                <scale x="0.06" y="0.06" z="0.01"/>
+                <translate x="0" y="0" z="0.15" />
+                <scale x="0.06" y="0.06" z="0.01" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -2277,9 +2312,9 @@
                 <primitiveref id="basketFloorTorus" />
             </children>
         </component>
-        <component id = "wheel_cylinder">
+        <component id="wheel_cylinder">
             <transformation>
-                <scale x="0.25" y="0.25" z=".05"/>
+                <scale x="0.25" y="0.25" z=".05" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -2289,10 +2324,10 @@
                 <primitiveref id="demoCylinder" />
             </children>
         </component>
-        <component id = "wheel1">
+        <component id="wheel1">
             <transformation>
-                <translate x="0.6" y="-0.07" z="-0.3"/>
-                <rotate axis ="y" angle="90"/>
+                <translate x="0.6" y="-0.07" z="-0.3" />
+                <rotate axis="y" angle="90" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -2305,10 +2340,10 @@
                 <componentref id="wheel_side2" />
             </children>
         </component>
-        <component id = "wheel2">
+        <component id="wheel2">
             <transformation>
-                <translate x="1.2" y="-0.07" z="-0.3"/>
-                <rotate axis ="y" angle="90"/>
+                <translate x="1.2" y="-0.07" z="-0.3" />
+                <rotate axis="y" angle="90" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -2321,10 +2356,10 @@
                 <componentref id="wheel_side2" />
             </children>
         </component>
-        <component id = "wheel3">
+        <component id="wheel3">
             <transformation>
-                <translate x="0.9" y="-0.07" z="0.2"/>
-                <rotate axis ="y" angle="90"/>
+                <translate x="0.9" y="-0.07" z="0.2" />
+                <rotate axis="y" angle="90" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -2375,7 +2410,7 @@
                 <material id="demoMaterial" />
             </materials>
             <texture id="none" />
-             <animation id="vacuum_anim" />
+            <animation id="vacuum_anim" />
             <children>
                 <componentref id="vacuum_top" />
                 <componentref id="vaccum_side" />
@@ -2671,13 +2706,15 @@
                 <componentref id="shelf" />
                 <componentref id="lamp1" />
                 <componentref id="lamp2" />
+                <componentref id="lamp3" />
+                <componentref id="lamp4" />
+
                 <componentref id="tableLamp" />
                 <componentref id="beer" />
                 <componentref id="barrel" />
                 <componentref id="book" />
                 <componentref id="flower" />
-                <componentref id="lamp_roof1" />
-                <componentref id="lamp_roof2" />
+
             </children>
         </component>
     </components>
