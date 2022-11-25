@@ -104,6 +104,8 @@
         <texture id="book_page" file="scenes/images/book_page.png" />
         <texture id="dirt" file="scenes/images/dirt.png" />
         <texture id="liquid" file="scenes/images/beer.jpg" />
+        <texture id="wheel_tex" file="scenes/images/wheel.jpg" />
+
     </textures>
 
     <materials>
@@ -341,6 +343,128 @@
     </primitives>
 
     <animations>
+        <keyframeanim id="wheel_anim">
+            <keyframe instant="1.8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="135" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="2.0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="700" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="5.8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="6.0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="6.8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="175" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="7.0">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="7.8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="175" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="8.8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="175" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="9">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="9.8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="175" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="10">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="13.8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="700" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="14">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="15.8">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="350" />
+                <rotation axis="y" angle="0" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="16">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="0" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+            <keyframe instant="22">
+                <translation x="0" y="0" z="0" />
+                <rotation axis="z" angle="1050" />
+                <rotation axis="y" angle="90" />
+                <rotation axis="x" angle="0" />
+                <scale sx="1" sy="1" sz="1" />
+            </keyframe>
+        </keyframeanim>
+        
         <keyframeanim id="vacuum_anim">
             <keyframe instant="1.0">
                 <translation x="0" y="0" z="1" />
@@ -414,7 +538,7 @@
                 <rotation axis="x" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
-            <keyframe instant="21">
+            <keyframe instant="22">
                 <translation x="3.3" y="0.4" z="2.6" />
                 <rotation axis="z" angle="90" />
                 <rotation axis="y" angle="90" />
@@ -2100,6 +2224,120 @@
         </component>
 
 
+         <component id="beer_definition">
+            <transformation>
+                <translate x="6.5" y="2.9" z="8.5" />
+                <rotate axis ="x" angle="90"/>
+                <scale x ="0.01" y="0.01" z="0.01"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="basketFloorTorus" />
+            </children>
+        </component>
+        
+        <component id="beer">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="liquid" />
+            <animation id = "beer_anim"/>
+            <children>
+                <componentref id="beer_definition" />
+            </children>
+        </component>
+        <component id = "wheel_side1">
+            <transformation>
+                <scale x="0.06" y="0.06" z="0.01"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wheel_tex" />
+            <children>
+                <primitiveref id="basketFloorTorus" />
+            </children>
+        </component>
+
+        <component id = "wheel_side2">
+            <transformation>
+                <translate x="0" y="0" z="0.15"/>
+                <scale x="0.06" y="0.06" z="0.01"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wheel_tex" />
+            <children>
+                <primitiveref id="basketFloorTorus" />
+            </children>
+        </component>
+        <component id = "wheel_cylinder">
+            <transformation>
+                <scale x="0.25" y="0.25" z=".05"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="demoCylinder" />
+            </children>
+        </component>
+        <component id = "wheel1">
+            <transformation>
+                <translate x="0.6" y="-0.07" z="-0.3"/>
+                <rotate axis ="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <animation id="wheel_anim" />
+            <children>
+                <componentref id="wheel_cylinder" />
+                <componentref id="wheel_side1" />
+                <componentref id="wheel_side2" />
+            </children>
+        </component>
+        <component id = "wheel2">
+            <transformation>
+                <translate x="1.2" y="-0.07" z="-0.3"/>
+                <rotate axis ="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <animation id="wheel_anim" />
+            <children>
+                <componentref id="wheel_cylinder" />
+                <componentref id="wheel_side1" />
+                <componentref id="wheel_side2" />
+            </children>
+        </component>
+        <component id = "wheel3">
+            <transformation>
+                <translate x="0.9" y="-0.07" z="0.2"/>
+                <rotate axis ="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <animation id="wheel_anim" />
+            <children>
+                <componentref id="wheel_cylinder" />
+                <componentref id="wheel_side1" />
+                <componentref id="wheel_side2" />
+            </children>
+        </component>
+
         <component id="vaccum_side">
             <transformation>
                 <rotate axis="x" angle="270" />
@@ -2129,37 +2367,9 @@
                 <primitiveref id="demoSphere" />
             </children>
         </component>
-
-         <component id="beer_definition">
-            <transformation>
-                <translate x="6.5" y="2.9" z="8.5" />
-                <rotate axis ="x" angle="90"/>
-                <scale x ="0.01" y="0.01" z="0.01"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit" />
-            <children>
-                <primitiveref id="basketFloorTorus" />
-            </children>
-        </component>
-        
-        <component id="beer">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="liquid" />
-            <animation id = "beer_anim"/>
-            <children>
-                <componentref id="beer_definition" />
-            </children>
-        </component>
         <component id="vacuum_cleaner">
             <transformation>
-                <translate x="1" y="0" z="1.5" />
+                <translate x="1" y="0.22" z="1.5" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
@@ -2169,6 +2379,10 @@
             <children>
                 <componentref id="vacuum_top" />
                 <componentref id="vaccum_side" />
+                <componentref id="wheel1" />
+                <componentref id="wheel2" />
+                <componentref id="wheel3" />
+
             </children>
         </component>
 
