@@ -2109,30 +2109,6 @@
                 <componentref id="lamp_top" />
             </children>
         </component>
-        <component id="lamp_roof1">
-            <transformation>
-                <translate x="10" y="13.3" z="11.1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="grey" />
-            <children>
-                <componentref id="lamp" />
-            </children>
-        </component>
-        <component id="lamp_roof2">
-            <transformation>
-                <translate x="10" y="13.3" z="5.1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="grey" />
-            <children>
-                <componentref id="lamp" />
-            </children>
-        </component>
         <component id="barrelSide1">
             <transformation></transformation>
             <materials>
@@ -2708,7 +2684,6 @@
                 <componentref id="lamp2" />
                 <componentref id="lamp3" />
                 <componentref id="lamp4" />
-
                 <componentref id="tableLamp" />
                 <componentref id="beer" />
                 <componentref id="barrel" />
