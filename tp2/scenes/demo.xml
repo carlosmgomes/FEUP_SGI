@@ -445,22 +445,23 @@
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
         </keyframeanim>
-        <!--<keyframeanim id="beer_anim">
-            <keyframe instant="1">
-                <translation x="1" y="0" z="2.2" />
-                <rotation axis="z" angle="50" />
+        <keyframeanim id="beer_anim">
+            <keyframe instant="3">
+                <translation x="0" y="-0.1" z="0" />
+                <rotation axis="z" angle="0" />
                 <rotation axis="y" angle="0" />
-                <rotation axis="x" angle="100" />
+                <rotation axis="x" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
-            <keyframe instant="3">
-                <translation x="1" y="0" z="2.2" />
-                <rotation axis="z" angle="50" />
+            <keyframe instant="4.5">
+                <translation x="-286" y="0" z="-374" />
+                <rotation axis="z" angle="0" />
                 <rotation axis="y" angle="0" />
-                <rotation axis="x" angle="100" />
-                <scale sx="10" sy="10" sz="10" />
+                <rotation axis="x" angle="0" />
+                <scale sx="45" sy="1" sz="45" />
             </keyframe>
-        </keyframeanim>-->
+
+        </keyframeanim>
     </animations>
 
     <components>
@@ -2129,22 +2130,33 @@
             </children>
         </component>
 
-         <component id="beer">
+         <component id="beer_definition">
             <transformation>
-                <rotate axis="x" angle="90" />
-                <translate x="6.5" y="8.5" z="-3" />
-                <scale x="0.6" y="0.6" z="0.01" />
+                <translate x="6.5" y="3" z="8.5" />
+                <rotate axis ="x" angle="90"/>
+                <scale x ="0.01" y="0.01" z="0.01"/>
             </transformation>
             <materials>
-                <material id="demoMaterial" />
+                <material id="inherit" />
             </materials>
-            <texture id="liquid" />
-            <!--<animation id="beer_anim" />-->
+            <texture id="inherit" />
             <children>
                 <primitiveref id="basketFloorTorus" />
             </children>
         </component>
         
+        <component id="beer">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="liquid" />
+            <animation id = "beer_anim"/>
+            <children>
+                <componentref id="beer_definition" />
+            </children>
+        </component>
         <component id="vacuum_cleaner">
             <transformation>
                 <translate x="1" y="0" z="1.5" />
