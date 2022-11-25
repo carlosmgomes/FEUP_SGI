@@ -423,21 +423,21 @@
             </keyframe>
         </keyframeanim>
         <keyframeanim id="barrel_drop">
-            <keyframe instant="2">
+            <keyframe instant="4">
                 <translation x="0" y="0" z="0" />
                 <rotation axis="z" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="x" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
-            <keyframe instant="3">
+            <keyframe instant="5">
                 <translation x="0" y="0" z="2.2" />
                 <rotation axis="z" angle="90" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="x" angle="100" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
-            <keyframe instant="3.5">
+            <keyframe instant="5.5">
                 <translation x="1" y="0" z="2.2" />
                 <rotation axis="z" angle="50" />
                 <rotation axis="y" angle="0" />
@@ -446,14 +446,14 @@
             </keyframe>
         </keyframeanim>
         <keyframeanim id="beer_anim">
-            <keyframe instant="3">
+            <keyframe instant="5">
                 <translation x="0" y="-0.1" z="0" />
                 <rotation axis="z" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="x" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
-            <keyframe instant="4.5">
+            <keyframe instant="6.5">
                 <translation x="-286" y="0" z="-374" />
                 <rotation axis="z" angle="0" />
                 <rotation axis="y" angle="0" />
