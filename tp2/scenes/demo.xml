@@ -446,14 +446,14 @@
             </keyframe>
         </keyframeanim>
         <keyframeanim id="beer_anim">
-            <keyframe instant="5">
-                <translation x="0" y="-0.1" z="0" />
+            <keyframe instant="4.4">
+                <translation x="0" y="-0.15" z="0" />
                 <rotation axis="z" angle="0" />
                 <rotation axis="y" angle="0" />
                 <rotation axis="x" angle="0" />
                 <scale sx="1" sy="1" sz="1" />
             </keyframe>
-            <keyframe instant="6.5">
+            <keyframe instant="6">
                 <translation x="-286" y="0" z="-374" />
                 <rotation axis="z" angle="0" />
                 <rotation axis="y" angle="0" />
@@ -2132,7 +2132,7 @@
 
          <component id="beer_definition">
             <transformation>
-                <translate x="6.5" y="3" z="8.5" />
+                <translate x="6.5" y="2.9" z="8.5" />
                 <rotate axis ="x" angle="90"/>
                 <scale x ="0.01" y="0.01" z="0.01"/>
             </transformation>
