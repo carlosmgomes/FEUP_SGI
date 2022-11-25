@@ -18,3 +18,12 @@
 ## Issues/Problems
 
 - Our biggest issue was the implementation of the keyframe animations in which in the beginning we weren't able to produce any movement, even with the classes and methods already created. With some debugging we were capable of overcome this problem
+
+## Screenshots
+### Screenshot 1
+
+![screenshot1](screenshots/screenshot1.png)
+### Screenshot 2
+![screenshot2](screenshots/screenshot2.png)
+### Screenshot 3
+![screenshot3](screenshots/screenshot3.png)
