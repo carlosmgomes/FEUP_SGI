@@ -2,7 +2,7 @@ import { CGFscene } from '../lib/CGF.js';
 import { CGFaxis, CGFcamera, CGFshader } from '../lib/CGF.js';
 
 
-var RATE = 2000;
+var RATE = 1000;
 
 
 /**
