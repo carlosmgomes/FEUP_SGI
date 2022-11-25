@@ -1,5 +1,9 @@
 export class MyAnimation {
-
+/**
+ * 
+ * @param {*} scene - reference to the scene
+ * @param {*} animationID - Animation id
+ */
     constructor(scene, animationID) {
         this.scene = scene;
         this.id = animationID;

@@ -4,6 +4,7 @@
 export class MyComponent{
    /**
     * @constructor
+	 * @param {*} id - component identifier
     */
     constructor(id) {
         this.id = id;

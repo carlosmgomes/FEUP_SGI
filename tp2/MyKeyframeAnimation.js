@@ -4,6 +4,11 @@ var DEGREE_TO_RAD = Math.PI / 180;
 var RATE = 1000;
 
 export class MyKeyframeAnimation extends MyAnimation {
+    /**
+     * 
+     * @param {*} scene - reference to the scene
+     * @param {*} id - KeyframeAnimation id
+     */
 
     constructor(scene, id) {
         super(scene, id);
