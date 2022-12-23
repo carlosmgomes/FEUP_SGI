@@ -38,6 +38,12 @@
     </ambient>
 
     <lights>
+        <omni id="demoLight" enabled="1">
+            <location x="9.8" y="11.9" z="10" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
         <omni id="Light 1" enabled="1">
             <location x="1.2" y="6.2" z="10" w="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -194,6 +200,12 @@
             <diffuse r="0.0" g="0.4" b="0.0" a="1.0" />
             <specular r="0.0" g="0.4" b="0.0" a="1.0" />
         </material>
+        <material id="darkBrown" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.1" g="0.05" b="0.0" a="1.0" />
+            <diffuse r="0.4" g="0.2" b="0.0" a="1.0" />
+            <specular r="0.4" g="0.2" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <transformations>
@@ -227,6 +239,9 @@
     </transformations>
 
     <primitives>
+        <primitive id="square">
+            <rectangle x1="0" y1="0" x2="1" y2="1" />
+        </primitive>
         <primitive id="demoRectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
@@ -2665,6 +2680,1072 @@
             </children>
         </component>
 
+        <component id="square1">
+            <transformation>
+                <rotate axis="x" angle="270" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square2">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square3">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="2" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square4">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="3" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square5">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="4" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square6">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square7">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="6" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square8">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="7" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square9">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="0" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square10">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square11">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="2" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square12">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="3" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square13">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="4" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square14">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square15">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="6" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square16">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="7" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square17">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="0" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square18">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square19">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="2" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square20">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="3" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square21">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="4" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square22">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square23">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="6" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square24">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="7" y="2" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square25">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="0" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square26">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square27">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="2" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square28">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="3" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square29">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="4" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square30">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square31">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="6" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square32">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="7" y="3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square33">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="0" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square34">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square35">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="2" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square36">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="3" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square37">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="4" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square38">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square39">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="6" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square40">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="7" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square41">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="0" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square42">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square43">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="2" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square44">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="3" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square45">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="4" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square46">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square47">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="6" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square48">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="7" y="5" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square49">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="0" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square50">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square51">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="2" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square52">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="3" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+    
+        <component id="square53">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="4" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square54">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square55">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="6" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square56">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="7" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square57">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="0" y="7" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square58">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="1" y="7" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square59">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="2" y="7" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square60">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="3" y="7" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square61">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="4" y="7" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square62">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="5" y="7" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square63">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="6" y="7" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="square64">
+            <transformation>
+                <rotate axis="x" angle="270" />
+                <translate x="7" y="7" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="steel" />
+            <children>
+                <primitiveref id="square" />
+            </children>
+        </component>
+
+        <component id="boardTile1">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="square1" /> 
+                <componentref id="square2" />
+                <componentref id="square3" />
+                <componentref id="square4" />
+                <componentref id="square5" />
+                <componentref id="square6" />
+                <componentref id="square7" />
+                <componentref id="square8" />
+            </children>
+        </component>
+
+        <component id="boardTile2">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="square9" />
+                <componentref id="square10" />
+                <componentref id="square11" />
+                <componentref id="square12" />
+                <componentref id="square13" />
+                <componentref id="square14" />
+                <componentref id="square15" />
+                <componentref id="square16" />
+            </children>
+        </component>
+
+        <component id="boardTile3">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="square17" />
+                <componentref id="square18" />
+                <componentref id="square19" />
+                <componentref id="square20" />
+                <componentref id="square21" />
+                <componentref id="square22" />
+                <componentref id="square23" />
+                <componentref id="square24" />
+            </children>
+        </component>
+
+        <component id="boardTile4">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="square25" />
+                <componentref id="square26" />
+                <componentref id="square27" />
+                <componentref id="square28" />
+                <componentref id="square29" />
+                <componentref id="square30" />
+                <componentref id="square31" />
+                <componentref id="square32" />
+            </children>
+        </component>
+
+        <component id="boardTile5">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="square33" />
+                <componentref id="square34" />
+                <componentref id="square35" />
+                <componentref id="square36" />
+                <componentref id="square37" />
+                <componentref id="square38" />
+                <componentref id="square39" />
+                <componentref id="square40" />
+            </children>
+        </component>
+
+        <component id="boardTile6">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="square41" />
+                <componentref id="square42" />
+                <componentref id="square43" />
+                <componentref id="square44" />
+                <componentref id="square45" />
+                <componentref id="square46" />
+                <componentref id="square47" />
+                <componentref id="square48" />
+            </children>
+        </component>
+
+        <component id="boardTile7">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="square49" />
+                <componentref id="square50" />
+                <componentref id="square51" />
+                <componentref id="square52" />
+                <componentref id="square53" />
+                <componentref id="square54" />
+                <componentref id="square55" />
+                <componentref id="square56" />
+            </children>
+        </component>
+
+        <component id="boardTile8">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="square57" />
+                <componentref id="square58" />
+                <componentref id="square59" />
+                <componentref id="square60" />
+                <componentref id="square61" />
+                <componentref id="square62" />
+                <componentref id="square63" />
+                <componentref id="square64" />
+            </children>
+        </component>
+
+        <component id="gameBoard">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="boardTile1" />
+                <componentref id="boardTile2" />
+                <componentref id="boardTile3" />
+                <componentref id="boardTile4" />
+                <componentref id="boardTile5" />
+                <componentref id="boardTile6" />
+                <componentref id="boardTile7" />
+                <componentref id="boardTile8" />
+            </children>
+        </component>
+
 
         <component id="demoRoot">
             <transformation></transformation>
@@ -2689,7 +3770,7 @@
                 <componentref id="barrel" />
                 <componentref id="book" />
                 <componentref id="flower" />
-
+                <componentref id="gameBoard" />
             </children>
         </component>
     </components>
