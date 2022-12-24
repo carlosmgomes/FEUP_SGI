@@ -44,6 +44,8 @@ export class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
 
         this.M_counter = 0;
+
+        this.setPickEnabled(true);
     }
 
     /**

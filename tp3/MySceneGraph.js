@@ -9,6 +9,8 @@ import { MyComponent } from './MyComponent.js';
 import { MyKeyframe } from './MyKeyframe.js';
 import { MyKeyframeAnimation } from './MyKeyframeAnimation.js';
 
+import { MyPiece } from './primitives/MyPiece.js';
+
 
 var DEGREE_TO_RAD = Math.PI / 180;
 
@@ -948,7 +950,13 @@ export class MySceneGraph {
 
                 if (controlPoints.length != degreeU + 1 || controlPoints[0].length != degreeV + 1)
                     return "unable to parse controlPoints of the primitive coordinates for ID = " + primitiveId;
-
+                if(primitiveId == "semiCirclePiece"){
+                    console.log(degreeU);
+                    console.log(degreeV);
+                    console.log(partsU);
+                    console.log(partsV);
+                    console.log(controlPoints);
+                }
                 var patch = new MyPatch(this.scene, degreeU, degreeV, partsU, partsV, controlPoints);
                 this.primitives[primitiveId] = patch;
             }
@@ -1445,6 +1453,8 @@ export class MySceneGraph {
             this.scene.shader.setUniformsValues({ diffuse: [this.materials[materialIndex].diffuse[0], this.materials[materialIndex].diffuse[1], this.materials[materialIndex].diffuse[2], this.materials[materialIndex].diffuse[3]] })
             this.scene.setActiveShader(this.scene.shader);
         }
+
+        var count = 0;
 
         //Draw primitives
         for (var i = 0; i < children_primitives.length; i++) {

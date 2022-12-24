@@ -3166,7 +3166,7 @@
         <component id="piece24">
             <transformation>
                 <scale x="0.25" y="0.25" z="0.25" />
-                <translate x="30" y="1" z="-22" />
+                <translate x="14" y="1" z="-22" />
                 <rotate axis="x" angle="90" />
             </transformation>
             <materials>
