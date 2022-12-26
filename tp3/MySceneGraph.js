@@ -9,7 +9,7 @@ import { MyComponent } from './MyComponent.js';
 import { MyKeyframe } from './MyKeyframe.js';
 import { MyKeyframeAnimation } from './MyKeyframeAnimation.js';
 
-import { MyPiece } from './primitives/MyPiece.js';
+import { MyGameBoard } from './primitives/MyGameBoard.js';
 
 
 var DEGREE_TO_RAD = Math.PI / 180;
@@ -781,7 +781,7 @@ export class MySceneGraph {
                 if (!(y2 != null && !isNaN(y2) && y2 > y1))
                     return "unable to parse y2 of the primitive coordinates for ID = " + primitiveId;
 
-                var rect = new MyRectangle(this.scene, primitiveId, x1, x2, y1, y2);
+                var rect = new MyRectangle(this.scene, x1, x2, y1, y2);
 
                 this.primitives[primitiveId] = rect;
             }
@@ -1088,6 +1088,7 @@ export class MySceneGraph {
     * @param {components block element} componentsNode
     */
     parseComponents(componentsNode) {
+        this.board = new MyGameBoard(this.scene);
         var children = componentsNode.children;
         this.components = [];
         this.scene.highlights = [];
@@ -1398,8 +1399,8 @@ export class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         //To test the parsing/creation of the primitives, call the display function directly
-
         this.scene.pushMatrix();
+        this.board.display();
         this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].texture);
         this.scene.popMatrix();
 
@@ -1453,9 +1454,6 @@ export class MySceneGraph {
             this.scene.shader.setUniformsValues({ diffuse: [this.materials[materialIndex].diffuse[0], this.materials[materialIndex].diffuse[1], this.materials[materialIndex].diffuse[2], this.materials[materialIndex].diffuse[3]] })
             this.scene.setActiveShader(this.scene.shader);
         }
-
-        var count = 0;
-
         //Draw primitives
         for (var i = 0; i < children_primitives.length; i++) {
             this.scene.pushMatrix();

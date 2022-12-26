@@ -1,11 +1,9 @@
 import {CGFobject, CGFappearance} from '../../lib/CGF.js';
 import {MyPatch} from './MyPatch.js';
 
-
 export class MyPiece extends CGFobject {
     constructor(scene, texture) {
         super(scene);
-        this.initBuffers();
 
         this.material = new CGFappearance(scene);
 
