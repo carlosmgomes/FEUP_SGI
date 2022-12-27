@@ -9,9 +9,6 @@ import { MyComponent } from './MyComponent.js';
 import { MyKeyframe } from './MyKeyframe.js';
 import { MyKeyframeAnimation } from './MyKeyframeAnimation.js';
 
-import { MyGameBoard } from './game/MyGameBoard.js';
-
-
 var DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
@@ -1088,7 +1085,6 @@ export class MySceneGraph {
     * @param {components block element} componentsNode
     */
     parseComponents(componentsNode) {
-        this.board = new MyGameBoard(this.scene);
         var children = componentsNode.children;
         this.components = [];
         this.scene.highlights = [];
@@ -1400,7 +1396,6 @@ export class MySceneGraph {
 
         //To test the parsing/creation of the primitives, call the display function directly
         this.scene.pushMatrix();
-        this.board.display();
         this.displaySceneRecursive(this.idRoot, this.nodes[this.idRoot].materials, this.nodes[this.idRoot].texture);
         this.scene.popMatrix();
 
@@ -1477,10 +1472,5 @@ export class MySceneGraph {
             this.scene.popMatrix();
 
         }
-
-        // call for animations
-
-
-
     }
 }

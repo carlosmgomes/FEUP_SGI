@@ -7,7 +7,7 @@ export class MyPiece extends CGFobject {
 
         this.type = "piece";
 
-        this.currentTile = tile;
+        this.tile = tile;
 
         this.material = new CGFappearance(scene);
 

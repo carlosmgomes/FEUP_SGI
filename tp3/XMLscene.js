@@ -1,5 +1,6 @@
 import { CGFscene } from '../lib/CGF.js';
 import { CGFaxis, CGFcamera, CGFshader } from '../lib/CGF.js';
+import { MyGameOrchestrator } from './game/MyGameOrchestrator.js';
 
 
 var RATE = 1000;
@@ -46,6 +47,7 @@ export class XMLscene extends CGFscene {
         this.M_counter = 0;
 
         this.setPickEnabled(true);
+        this.gameOrchestrator = new MyGameOrchestrator(this);
     }
 
     /**
@@ -183,6 +185,8 @@ export class XMLscene extends CGFscene {
                 this.graph.animations[i].update(t);
             }
         }
+
+        this.gameOrchestrator.update(t);
     }
 
 
@@ -217,7 +221,7 @@ export class XMLscene extends CGFscene {
             this.setDefaultAppearance();
 
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+            this.gameOrchestrator.display();
         }
 
         this.popMatrix();

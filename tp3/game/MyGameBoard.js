@@ -3,6 +3,7 @@ import { MyGameBoardSide } from './MyGameBoardSide.js';
 import { MyPiece } from "./MyPiece.js";
 import { MyTile } from "./MyTile.js";
 import { MyAuxBoard } from "./MyAuxBoard.js";
+import { MyGameMove } from "./MyGameMove.js";
 
 export class MyGameBoard extends CGFobject {
     constructor(scene) {
@@ -80,16 +81,61 @@ export class MyGameBoard extends CGFobject {
         this.side8 = new MyGameBoardSide(scene, "side8", this.tileTexture2);
     }
 
-    display() {
+    addPiece(piece, tile) {
+        if (tile.piece == null) {
+            tile.piece = piece;
+        }
+    }
 
+    removePiece(tile) {
+        tile.piece = null;
+    }
+
+    getPiece(tile) {
+        return tile.piece;
+    }
+
+    getTile(piece){
+        return piece.tile;
+    }
+
+    getTileByCoords(x, y) {
+        return this.board[x][y];
+    }
+
+    movePiece(piece, startTile, endTile) {
+        this.removePiece(startTile);
+        this.addPiece(piece, endTile);
+    }
+
+    logPicking() {
+        if (this.scene.pickMode == false) {
+            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
+                for (var i = 0; i < this.scene.pickResults.length; i++) {
+                    var obj = this.scene.pickResults[i][0];
+                    if (obj) {
+                        var customId = this.scene.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                    }
+                }
+                this.scene.pickResults.splice(0, this.scene.pickResults.length);
+            }
+        }
+    }
+
+    display() {
+        this.logPicking();
+        this.scene.clearPickRegistration();
         this.scene.pushMatrix();
         this.scene.translate(10, 1, 15);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
+                var id = i*8 + j;
                 this.scene.pushMatrix();
                 this.scene.translate(i, 0, j);
                 this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+                this.scene.registerForPick(id, this.board[i][j]);
                 this.board[i][j].display();
                 this.scene.popMatrix();
             }
