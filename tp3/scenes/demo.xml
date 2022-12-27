@@ -4571,7 +4571,7 @@
                 <componentref id="barrel" />
                 <componentref id="book" />
                 <componentref id="flower" />
-                <componentref id="game" />
+                <!--<componentref id="game" />-->
             </children>
         </component>
     </components>

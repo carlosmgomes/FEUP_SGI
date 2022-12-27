@@ -2,8 +2,12 @@ import {CGFobject, CGFappearance} from '../../lib/CGF.js';
 import {MyPatch} from './MyPatch.js';
 
 export class MyPiece extends CGFobject {
-    constructor(scene, texture) {
+    constructor(scene, texture, tile) {
         super(scene);
+
+        this.type = "piece";
+
+        this.currentTile = tile;
 
         this.material = new CGFappearance(scene);
 
@@ -26,6 +30,18 @@ export class MyPiece extends CGFobject {
         this.semiSidePiece = new MyPatch(scene, 3, 3, 20, 20, this.controlPointsSemiSide);
         this.semiCirclePiece = new MyPatch(scene, 1, 3, 20, 20, this.controlPointsSemiCircle);
     }
+
+    setTile(tile) {
+        this.currentTile = tile;
+    }
+
+    setType(type) {
+        this.type = type;
+    }
+
+    getType() {
+        return this.type;
+    }
     
     displayPiece() {
         this.scene.pushMatrix();
@@ -37,7 +53,7 @@ export class MyPiece extends CGFobject {
 
         //side piece 2
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, -1);
+        this.scene.translate(0, 0, 1);
         this.scene.rotate(Math.PI, 1, 0, 0);
         this.semiSidePiece.display();
         this.scene.popMatrix();
@@ -76,6 +92,8 @@ export class MyPiece extends CGFobject {
     display() {
         this.scene.pushMatrix();
         this.material.apply();
+        this.scene.scale(0.25, 0.25, 0.25);
+        this.scene.translate(2, 2, 0);
         this.displayPiece();
         this.scene.popMatrix();
     }
