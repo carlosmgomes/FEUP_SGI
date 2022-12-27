@@ -2,6 +2,7 @@ import { CGFobject, CGFtexture } from '../../lib/CGF.js';
 import { MyGameBoardSide } from './MyGameBoardSide.js';
 import { MyPiece } from "./MyPiece.js";
 import { MyTile } from "./MyTile.js";
+import { MyAuxBoard } from "./MyAuxBoard.js";
 
 export class MyGameBoard extends CGFobject {
     constructor(scene) {
@@ -12,7 +13,8 @@ export class MyGameBoard extends CGFobject {
         this.piecesTexture2 = new CGFtexture(this.scene, "/tp3/scenes/images/blue_wood.png");
         this.tileTexture1 = new CGFtexture(this.scene, "/tp3/scenes/images/steel.jpg");
         this.tileTexture2 = new CGFtexture(this.scene, "/tp3/scenes/images/wood.jpg");
-
+        this.auxBoardBlue = new MyAuxBoard(scene, this.tileTexture2);
+        this.auxBoardRed = new MyAuxBoard(scene, this.tileTexture2);
         //add tiles to board
         for (var i = 0; i < 8; i++) {
             this.board[i] = [];
@@ -100,6 +102,11 @@ export class MyGameBoard extends CGFobject {
         this.side6.display();
         this.side7.display();
         this.side8.display();
+        this.auxBoardBlue.display();
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, 13.1);
+        this.auxBoardRed.display();
+        this.scene.popMatrix();
         this.scene.popMatrix();
     }
 }

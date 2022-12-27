@@ -1,5 +1,5 @@
 import {CGFobject, CGFappearance} from '../../lib/CGF.js';
-import {MyRectangle} from "./MyRectangle.js";
+import {MyRectangle} from "../primitives/MyRectangle.js";
 
 export class MyGameBoardSide extends CGFobject {
     constructor(scene, id, texture) {

@@ -9,7 +9,7 @@ import { MyComponent } from './MyComponent.js';
 import { MyKeyframe } from './MyKeyframe.js';
 import { MyKeyframeAnimation } from './MyKeyframeAnimation.js';
 
-import { MyGameBoard } from './primitives/MyGameBoard.js';
+import { MyGameBoard } from './game/MyGameBoard.js';
 
 
 var DEGREE_TO_RAD = Math.PI / 180;

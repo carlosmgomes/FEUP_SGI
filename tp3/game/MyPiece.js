@@ -1,5 +1,5 @@
 import {CGFobject, CGFappearance} from '../../lib/CGF.js';
-import {MyPatch} from './MyPatch.js';
+import {MyPatch} from '../primitives/MyPatch.js';
 
 export class MyPiece extends CGFobject {
     constructor(scene, texture, tile) {
