@@ -194,6 +194,10 @@ export class XMLscene extends CGFscene {
      * Displays the scene.
      */
     display() {
+        this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
+        this.clearPickRegistration();
+
+        
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -203,8 +207,6 @@ export class XMLscene extends CGFscene {
         this.updateProjectionMatrix();
         this.loadIdentity();
 
-        this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
-        this.clearPickRegistration();
 
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();

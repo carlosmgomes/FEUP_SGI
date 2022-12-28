@@ -39,15 +39,6 @@ export class MyTile extends CGFobject {
 
     display() {
 
-        /* if (this.selectable)
-            this.scene.registerForPick(this.uniqueId, this);
-        // Now call all the game objects/components/primitives display
-        // method that should be selectable and recognized
-        // with this uniqueId
-        // clear the currently registered id and associated object
-        if (this.selectable)
-            this.scene.clearPickRegistration();
-         */
         this.scene.pushMatrix();
         this.material.apply();
         this.rectangle.display();

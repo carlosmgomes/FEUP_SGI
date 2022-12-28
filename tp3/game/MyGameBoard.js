@@ -14,26 +14,26 @@ export class MyGameBoard extends CGFobject {
         this.piecesTexture2 = new CGFtexture(this.scene, "/tp3/scenes/images/blue_wood.png");
         this.tileTexture1 = new CGFtexture(this.scene, "/tp3/scenes/images/steel.jpg");
         this.tileTexture2 = new CGFtexture(this.scene, "/tp3/scenes/images/wood.jpg");
-        this.auxBoardBlue = new MyAuxBoard("blue",scene, this.tileTexture2);
-        this.auxBoardRed = new MyAuxBoard("red",scene, this.tileTexture2);
+        this.auxBoardBlue = new MyAuxBoard("blue", scene, this.tileTexture2);
+        this.auxBoardRed = new MyAuxBoard("red", scene, this.tileTexture2);
         //add tiles to board
         for (var i = 0; i < 8; i++) {
             this.board[i] = [];
             this.boardPieces[i] = [];
             for (var j = 0; j < 8; j++) {
-                var id = i.toString()+j.toString();
+                var id = i.toString() + j.toString();
                 if (i % 2 == 0) {
                     if (j % 2 == 0) {
                         this.board[i][j] = new MyTile(id, scene, this.tileTexture1);
-                        
+
                     } else {
-                        this.board[i][j] = new MyTile(id,scene, this.tileTexture2);
+                        this.board[i][j] = new MyTile(id, scene, this.tileTexture2);
                     }
                 } else {
                     if (j % 2 == 0) {
-                        this.board[i][j] = new MyTile(id,scene, this.tileTexture2);
+                        this.board[i][j] = new MyTile(id, scene, this.tileTexture2);
                     } else {
-                        this.board[i][j] = new MyTile(id,scene, this.tileTexture1);
+                        this.board[i][j] = new MyTile(id, scene, this.tileTexture1);
                     }
                 }
                 this.board[i][j].setBoard(this);
@@ -88,6 +88,7 @@ export class MyGameBoard extends CGFobject {
         }
     }
 
+
     removePiece(tile) {
         tile.piece = null;
     }
@@ -96,7 +97,7 @@ export class MyGameBoard extends CGFobject {
         return tile.piece;
     }
 
-    getTile(piece){
+    getTile(piece) {
         return piece.tile;
     }
 
@@ -110,20 +111,11 @@ export class MyGameBoard extends CGFobject {
     }
 
     display() {
+        this.scene.clearPickRegistration();
         this.scene.pushMatrix();
         this.scene.translate(10, 1, 15);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
-        for (var i = 0; i < 8; i++) {
-            for (var j = 0; j < 8; j++) {
-                var id = i*8 + j;
-                this.scene.pushMatrix();
-                this.scene.translate(i, 0, j);
-                this.scene.rotate(-Math.PI / 2, 1, 0, 0);
-                this.scene.registerForPick(id, this.board[i][j]);
-                this.board[i][j].display();
-                this.scene.popMatrix();
-            }
-        }
+
         this.side1.display();
         this.side2.display();
         this.side3.display();
@@ -137,6 +129,19 @@ export class MyGameBoard extends CGFobject {
         this.scene.translate(0, 0, 13.1);
         this.auxBoardRed.display();
         this.scene.popMatrix();
+        
+        for (var i = 0; i < 8; i++) {
+            for (var j = 0; j < 8; j++) {
+                var id = (i+1).toString() + (j+1).toString();
+                this.scene.pushMatrix();
+                this.scene.translate(i, 0, j);
+                this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+
+                this.scene.registerForPick(id, this.board[i][j]);
+                this.board[i][j].display();
+                this.scene.popMatrix();
+            }
+        }
         this.scene.popMatrix();
     }
 }
