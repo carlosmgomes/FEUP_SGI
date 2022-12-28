@@ -4,11 +4,11 @@ import { MyTile } from "./MyTile.js";
 import { MyPiece } from "./MyPiece.js";
 
 export class MyAuxBoard extends CGFobject {
-    constructor(scene, texture) {
+    constructor(color,scene, texture) {
         super(scene);
-    
+        this.color = color;
         this.material = new CGFappearance(scene);
-    
+        
         this.material.setEmission(0.0, 0.0, 0.0, 1.0);
         this.material.setAmbient(0.1, 0.1, 0.1, 1.0);
         this.material.setDiffuse(0.4, 0.4, 0.4, 1.0);
@@ -24,7 +24,7 @@ export class MyAuxBoard extends CGFobject {
 
     initTiles(texture) {
         for (let i = 0; i < 12; i++) {
-                this.tiles.push(new MyTile(this.scene, texture));
+                this.tiles.push(new MyTile((this.color+i.toString()),this.scene, texture,false));
             }
     }
     

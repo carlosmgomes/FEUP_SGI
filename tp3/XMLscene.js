@@ -203,6 +203,9 @@ export class XMLscene extends CGFscene {
         this.updateProjectionMatrix();
         this.loadIdentity();
 
+        this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
+        this.clearPickRegistration();
+
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
 

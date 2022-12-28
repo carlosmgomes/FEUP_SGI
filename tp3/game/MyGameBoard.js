@@ -14,25 +14,26 @@ export class MyGameBoard extends CGFobject {
         this.piecesTexture2 = new CGFtexture(this.scene, "/tp3/scenes/images/blue_wood.png");
         this.tileTexture1 = new CGFtexture(this.scene, "/tp3/scenes/images/steel.jpg");
         this.tileTexture2 = new CGFtexture(this.scene, "/tp3/scenes/images/wood.jpg");
-        this.auxBoardBlue = new MyAuxBoard(scene, this.tileTexture2);
-        this.auxBoardRed = new MyAuxBoard(scene, this.tileTexture2);
+        this.auxBoardBlue = new MyAuxBoard("blue",scene, this.tileTexture2);
+        this.auxBoardRed = new MyAuxBoard("red",scene, this.tileTexture2);
         //add tiles to board
         for (var i = 0; i < 8; i++) {
             this.board[i] = [];
             this.boardPieces[i] = [];
             for (var j = 0; j < 8; j++) {
+                var id = i.toString()+j.toString();
                 if (i % 2 == 0) {
                     if (j % 2 == 0) {
-                        this.board[i][j] = new MyTile(scene, this.tileTexture1);
+                        this.board[i][j] = new MyTile(id, scene, this.tileTexture1);
                         
                     } else {
-                        this.board[i][j] = new MyTile(scene, this.tileTexture2);
+                        this.board[i][j] = new MyTile(id,scene, this.tileTexture2);
                     }
                 } else {
                     if (j % 2 == 0) {
-                        this.board[i][j] = new MyTile(scene, this.tileTexture2);
+                        this.board[i][j] = new MyTile(id,scene, this.tileTexture2);
                     } else {
-                        this.board[i][j] = new MyTile(scene, this.tileTexture1);
+                        this.board[i][j] = new MyTile(id,scene, this.tileTexture1);
                     }
                 }
                 this.board[i][j].setBoard(this);
@@ -108,24 +109,7 @@ export class MyGameBoard extends CGFobject {
         this.addPiece(piece, endTile);
     }
 
-    logPicking() {
-        if (this.scene.pickMode == false) {
-            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-                for (var i = 0; i < this.scene.pickResults.length; i++) {
-                    var obj = this.scene.pickResults[i][0];
-                    if (obj) {
-                        var customId = this.scene.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
-                    }
-                }
-                this.scene.pickResults.splice(0, this.scene.pickResults.length);
-            }
-        }
-    }
-
     display() {
-        this.logPicking();
-        this.scene.clearPickRegistration();
         this.scene.pushMatrix();
         this.scene.translate(10, 1, 15);
         this.scene.rotate(Math.PI / 2, 0, 1, 0);
