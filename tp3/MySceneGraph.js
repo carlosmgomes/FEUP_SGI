@@ -947,13 +947,6 @@ export class MySceneGraph {
 
                 if (controlPoints.length != degreeU + 1 || controlPoints[0].length != degreeV + 1)
                     return "unable to parse controlPoints of the primitive coordinates for ID = " + primitiveId;
-                if(primitiveId == "semiCirclePiece"){
-                    console.log(degreeU);
-                    console.log(degreeV);
-                    console.log(partsU);
-                    console.log(partsV);
-                    console.log(controlPoints);
-                }
                 var patch = new MyPatch(this.scene, degreeU, degreeV, partsU, partsV, controlPoints);
                 this.primitives[primitiveId] = patch;
             }
