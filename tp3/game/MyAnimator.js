@@ -1,5 +1,4 @@
 import {CGFobject} from '../../lib/CGF.js';
-import { MyGameSequence } from './MyGameSequence.js';
 
 export class MyAnimator extends CGFobject{
     constructor(scene, gameOrchestrator, gameSequence) {

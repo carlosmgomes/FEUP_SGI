@@ -1,23 +1,19 @@
-import { CGFobject, CGFappearance } from '../../lib/CGF.js';
+import { CGFobject} from '../../lib/CGF.js';
 import { MyPatch } from '../primitives/MyPatch.js';
 
 export class MyPiece extends CGFobject {
-    constructor(scene, texture, tile) {
+    constructor(scene, player, material, shader) {
         super(scene);
 
         this.type = "piece";
 
-        this.tile = tile;
+        this.player = player;
 
-        this.material = new CGFappearance(scene);
+        this.material = material;
 
-        this.material.setEmission(0.0, 0.0, 0.0, 1.0);
-        this.material.setAmbient(0.1, 0.1, 0.1, 1.0);
-        this.material.setDiffuse(0.4, 0.4, 0.4, 1.0);
-        this.material.setSpecular(0.4, 0.4, 0.4, 1.0);
-        this.material.setShininess(10.0);
+        this.shader = shader;
 
-        this.material.setTexture(texture);
+        this.isHighlighted = false;
 
         this.controlPointsSemiSide = [[[1.8, 0, 0, 1], [1.8, 0, 0.25, 1], [1.8, 0, 0.5, 1], [1.8, 0, 1, 1]],
         [[1.8, 2.4, 0, 1], [1.8, 2.4, 0.25, 1], [1.8, 2.4, 0.5, 1], [1.8, 2.4, 1, 1]],
@@ -31,8 +27,16 @@ export class MyPiece extends CGFobject {
         this.semiCirclePiece = new MyPatch(scene, 1, 3, 20, 20, this.controlPointsSemiCircle);
     }
 
+    getPlayer() {
+        return this.player;
+    }
+
     setTile(tile) {
-        this.currentTile = tile;
+        this.tile = tile;
+    }
+
+    getTile() {
+        return this.tile;
     }
 
     setType(type) {
@@ -41,6 +45,14 @@ export class MyPiece extends CGFobject {
 
     getType() {
         return this.type;
+    }
+
+    highlight() {
+        this.isHighlighted = true;
+    }
+
+    unhighlight() {
+        this.isHighlighted = false;
     }
 
     displayPiece() {
@@ -91,11 +103,26 @@ export class MyPiece extends CGFobject {
 
     display() {
         if (this.type == "piece") {
+
             this.scene.pushMatrix();
             this.material.apply();
+
+            if (this.isHighlighted) {
+                //  <highlighted r="1.0" g="0.0" b="0.0" scale_h="2.0" />
+                this.scene.shader.setUniformsValues({ normScale: 2.0 });
+                this.scene.shader.setUniformsValues({ newColor: [1.0, 0.0, 0.0] });
+                this.scene.shader.setUniformsValues({ diffuse: [this.material.diffuse[0], this.material.diffuse[1], this.material.diffuse[2], this.material.diffuse[3]] });
+                this.scene.setActiveShader(this.scene.shader);
+            }
+    
             this.scene.scale(0.25, 0.25, 0.25);
             this.scene.translate(2, 2, 0);
             this.displayPiece();
+
+            if (this.isHighlighted) {
+                this.scene.setActiveShader(this.scene.defaultShader);
+            }
+
             this.scene.popMatrix();
         }
         else {

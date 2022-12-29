@@ -1,29 +1,33 @@
-import {CGFobject, CGFappearance} from '../../lib/CGF.js';
+import {CGFobject} from '../../lib/CGF.js';
 import {MyRectangle} from "../primitives/MyRectangle.js";
 
 export class MyTile extends CGFobject {
-    constructor(id,scene, texture, selectable = true) {
+    constructor(id, scene, material, materialHighlight, selectable = true) {
         super(scene);
 
         this.id = id;
-        this.material = new CGFappearance(scene);
-
-        this.material.setEmission(0.0, 0.0, 0.0, 1.0);
-        this.material.setAmbient(0.1, 0.1, 0.1, 1.0);
-        this.material.setDiffuse(0.4, 0.4, 0.4, 1.0);
-        this.material.setSpecular(0.4, 0.4, 0.4, 1.0);
-        this.material.setShininess(10.0);
-
-        this.material.setTexture(texture);
+        this.material = material;
+        this.materialHighlight = materialHighlight;
         
+        this.isHighlighted = false;
+
         this.rectangle = new MyRectangle(scene, 0, 1, 0, 1);
         this.selectable = selectable;
         this.selected = false;
     }
 
+    getId() {
+        return this.id;
+    }
+
     setPiece(piece) {
         this.piece = piece;
     }
+
+    hasPiece() {
+        return this.piece != null;
+    }
+
 
     unsetPiece() {
         this.piece = null;
@@ -37,10 +41,20 @@ export class MyTile extends CGFobject {
         return this.gameBoard;
     }
 
-    display() {
+    highlight() {
+        this.isHighlighted = true;
+    }
 
+    unhighlight() {
+        this.isHighlighted = false;
+    }
+
+    display() {
         this.scene.pushMatrix();
-        this.material.apply();
+        if (!this.isHighlighted)
+            this.material.apply();
+        else
+            this.materialHighlight.apply();
         this.rectangle.display();
         if (this.piece != null)
             this.piece.display();

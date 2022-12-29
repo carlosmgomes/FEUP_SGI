@@ -1,20 +1,12 @@
-import {CGFobject, CGFappearance} from '../../lib/CGF.js';
+import {CGFobject} from '../../lib/CGF.js';
 import {MyRectangle} from "../primitives/MyRectangle.js";
 
 export class MyGameBoardSide extends CGFobject {
-    constructor(scene, id, texture) {
+    constructor(scene, id, material) {
         super(scene);
     
         this.id = id;
-        this.material = new CGFappearance(scene);
-    
-        this.material.setEmission(0.0, 0.0, 0.0, 1.0);
-        this.material.setAmbient(0.1, 0.1, 0.1, 1.0);
-        this.material.setDiffuse(0.4, 0.4, 0.4, 1.0);
-        this.material.setSpecular(0.4, 0.4, 0.4, 1.0);
-        this.material.setShininess(10.0);
-    
-        this.material.setTexture(texture);
+        this.material = material;
         this.rectangle = new MyRectangle(scene, -0.5, 0.5, -1, 1);
     }
     

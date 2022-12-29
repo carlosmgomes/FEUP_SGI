@@ -1,30 +1,20 @@
-import {CGFobject, CGFappearance,CGFtexture} from '../../lib/CGF.js';
+import {CGFobject} from '../../lib/CGF.js';
 import {MyRectangle} from "../primitives/MyRectangle.js";
 import { MyTile } from "./MyTile.js";
-import { MyPiece } from "./MyPiece.js";
 
 export class MyAuxBoard extends CGFobject {
-    constructor(color,scene, texture) {
+    constructor(id, scene, material) {
         super(scene);
-        this.color = color;
-        this.material = new CGFappearance(scene);
-        
-        this.material.setEmission(0.0, 0.0, 0.0, 1.0);
-        this.material.setAmbient(0.1, 0.1, 0.1, 1.0);
-        this.material.setDiffuse(0.4, 0.4, 0.4, 1.0);
-        this.material.setSpecular(0.4, 0.4, 0.4, 1.0);
-        this.material.setShininess(10.0);
-    
-        this.material.setTexture(texture);
+        this.id = id;
+        this.material = material;
         this.rectangle = new MyRectangle(scene, -0.5, 0.5, -1, 1);
         this.tiles = [];
-        this.initTiles(texture);
-        this.text = new CGFtexture(this.scene, "./scenes/images/red_wood.png");
+        this.initTiles();
     }
 
-    initTiles(texture) {
+    initTiles() {
         for (let i = 0; i < 12; i++) {
-                this.tiles.push(new MyTile((this.color+i.toString()),this.scene, texture,false));
+                this.tiles.push(new MyTile((this.id+i.toString()),this.scene, this.material,false));
             }
     }
     
