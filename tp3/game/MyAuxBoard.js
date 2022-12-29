@@ -9,6 +9,7 @@ export class MyAuxBoard extends CGFobject {
         this.material = material;
         this.rectangle = new MyRectangle(scene, -0.5, 0.5, -1, 1);
         this.tiles = [];
+        this.countPieces = 0;
         this.initTiles();
     }
 
@@ -18,6 +19,15 @@ export class MyAuxBoard extends CGFobject {
             }
     }
     
+    addPiece(piece) {
+        let tile = this.tiles[this.countPieces];
+        if (!tile.hasPiece()) {
+            tile.setPiece(piece);
+            piece.setTile(tile);
+            this.countPieces++;
+        }
+    }
+
     displayBase() {
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI*1.5, 1, 0, 0);
