@@ -4,6 +4,7 @@ import { MyGameBoard } from './MyGameBoard.js';
 import { MyAnimator } from './MyAnimator.js';
 import { MyGameSequence } from './MyGameSequence.js';
 import { MyTile } from './MyTile.js';
+import { MyGameMove } from './MyGameMove.js';
 
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene) {
