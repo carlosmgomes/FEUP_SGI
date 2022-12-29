@@ -102,26 +102,21 @@ export class MyPiece extends CGFobject {
     }
 
     display() {
+
+        if (this.isHighlighted) {
+            this.scene.shader.setUniformsValues({ normScale: 2.0 });
+            this.scene.shader.setUniformsValues({ newColor: [1.0, 0.0, 0.0] });
+            this.scene.shader.setUniformsValues({ diffuse: [this.material.diffuse[0], this.material.diffuse[1], this.material.diffuse[2], this.material.diffuse[3]] });
+            this.scene.setActiveShader(this.scene.shader);
+        }
+
         if (this.type == "piece") {
 
             this.scene.pushMatrix();
             this.material.apply();
-
-            if (this.isHighlighted) {
-                //  <highlighted r="1.0" g="0.0" b="0.0" scale_h="2.0" />
-                this.scene.shader.setUniformsValues({ normScale: 2.0 });
-                this.scene.shader.setUniformsValues({ newColor: [1.0, 0.0, 0.0] });
-                this.scene.shader.setUniformsValues({ diffuse: [this.material.diffuse[0], this.material.diffuse[1], this.material.diffuse[2], this.material.diffuse[3]] });
-                this.scene.setActiveShader(this.scene.shader);
-            }
-    
             this.scene.scale(0.25, 0.25, 0.25);
             this.scene.translate(2, 2, 0);
             this.displayPiece();
-
-            if (this.isHighlighted) {
-                this.scene.setActiveShader(this.scene.defaultShader);
-            }
 
             this.scene.popMatrix();
         }
@@ -138,6 +133,10 @@ export class MyPiece extends CGFobject {
             this.scene.translate(2, 2, 1.2);
             this.displayPiece();
             this.scene.popMatrix();
+        }
+
+        if (this.isHighlighted) {
+            this.scene.setActiveShader(this.scene.defaultShader);
         }
     }
 }

@@ -113,6 +113,20 @@ export class MyGameBoard extends CGFobject {
         return this.board[x][y];
     }
 
+    checkKing(piece, tile) {
+        if (piece != null) {
+            if (piece.getPlayer() == 1) {
+                if (tile.getId()[0] == 7) {
+                    piece.setType("king");
+                }
+            } else {
+                if (tile.getId()[0] == 0) {
+                    piece.setType("king");
+                }
+            }
+        }
+    }
+
     jumpPiece(startTile, endTile) {
         var startId = startTile.getId();
         var endId = endTile.getId();
@@ -158,12 +172,15 @@ export class MyGameBoard extends CGFobject {
         var endCol = parseInt(endId[1]);
         var rowDiff = endRow - startRow;
         var colDiff = endCol - startCol;
-        if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2)
+        if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2){
             this.jumpPiece(startTile, endTile);
-        else if (Math.abs(rowDiff) > 2 || Math.abs(colDiff) > 2)
+        }
+        else if (Math.abs(rowDiff) > 2 || Math.abs(colDiff) > 2){
             this.multipleJump(startTile, endTile);
+        }
         this.removePiece(startTile);
         this.addPiece(piece, endTile);
+        this.checkKing(piece, endTile);
     }
     
     //return in form of [(finalTile, [path])]
@@ -250,6 +267,213 @@ export class MyGameBoard extends CGFobject {
         return path;
     }
 
+    //check front and back jumps
+    checkJumpsKing(player, currentTile, adjacentTileLeftFront, adjacentTileRightFront, adjacentTileLeftBack, adjacentTileRightBack, currentPath){
+        var id = currentTile.getId();
+        var row = parseInt(id[0]);
+        var col = parseInt(id[1]);
+        var path = [];
+        if (col > 1){
+            //house is occupied by opponent and there is space to jump
+            if (adjacentTileLeftFront != null && adjacentTileLeftFront.hasPiece() && adjacentTileLeftFront.getPiece().getPlayer() != player){
+                if (player == 1 && row < 6){
+                    adjacentTileLeftFront = this.board[row + 2][col - 2];
+                }
+                else if (player == 2 && row > 1){
+                    adjacentTileLeftFront = this.board[row - 2][col - 2];
+                }
+                if (!adjacentTileLeftFront.hasPiece()){
+                    var newCurrentPath = currentPath.slice();
+                    newCurrentPath.push(adjacentTileLeftFront);
+                    path.push([adjacentTileLeftFront, newCurrentPath]);
+                    var adjRow = parseInt(adjacentTileLeftFront.getId()[0]);
+                    var adjCol = parseInt(adjacentTileLeftFront.getId()[1]);
+                    var adjacentTileLeftFrontNew = null;
+                    var adjacentTileRightFrontNew = null;
+                    var adjacentTileLeftBackNew = null;
+                    var adjacentTileRightBackNew = null;
+                    if (player == 1){
+                        if (adjCol > 0 && adjRow < 7){
+                            adjacentTileLeftFrontNew = this.board[adjRow + 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow < 7){
+                            adjacentTileRightFrontNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                        if (adjCol > 0 && adjRow > 0){
+                            adjacentTileLeftBackNew = this.board[adjRow - 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow > 0){
+                            adjacentTileRightBackNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                    }
+                    else{
+                        if (adjCol > 0 && adjRow > 0){
+                            adjacentTileLeftFrontNew = this.board[adjRow - 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow > 0){
+                            adjacentTileRightFrontNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                        if (adjCol > 0 && adjRow < 7){
+                            adjacentTileLeftBackNew = this.board[adjRow + 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow < 7){
+                            adjacentTileRightBackNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                    }
+                    path = path.concat(this.checkJumpsKing(player, adjacentTileLeftFront, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath));
+                }
+            }
+            if (adjacentTileLeftBack != null && adjacentTileLeftBack.hasPiece() && adjacentTileLeftBack.getPiece().getPlayer() != player){
+                if (player == 1 && row > 1){
+                    adjacentTileLeftBack = this.board[row - 2][col - 2];
+                }
+                else if (player == 2 && row < 6){
+                    adjacentTileLeftBack = this.board[row + 2][col - 2];
+                }
+                if (!adjacentTileLeftBack.hasPiece()){
+                    var newCurrentPath = currentPath.slice();
+                    newCurrentPath.push(adjacentTileLeftBack);
+                    path.push([adjacentTileLeftBack, newCurrentPath]);
+                    var adjRow = parseInt(adjacentTileLeftBack.getId()[0]);
+                    var adjCol = parseInt(adjacentTileLeftBack.getId()[1]);
+                    var adjacentTileLeftFrontNew = null;
+                    var adjacentTileRightFrontNew = null;
+                    var adjacentTileLeftBackNew = null;
+                    var adjacentTileRightBackNew = null;
+                    if (player == 1){
+                        if (adjCol > 0 && adjRow < 7){
+                            adjacentTileLeftFrontNew = this.board[adjRow + 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow < 7){
+                            adjacentTileRightFrontNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                        if (adjCol > 0 && adjRow > 0){
+                            adjacentTileLeftBackNew = this.board[adjRow - 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow > 0){
+                            adjacentTileRightBackNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                    }
+                    else{
+                        if (adjCol > 0 && adjRow > 0){
+                            adjacentTileLeftFrontNew = this.board[adjRow - 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow > 0){
+                            adjacentTileRightFrontNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                        if (adjCol > 0 && adjRow < 7){
+                            adjacentTileLeftBackNew = this.board[adjRow + 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow < 7){
+                            adjacentTileRightBackNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                    }
+                    path = path.concat(this.checkJumpsKing(player, adjacentTileLeftBack, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath));
+                }
+            }
+        }
+        if (col < 7){
+            if (adjacentTileRightFront != null && adjacentTileRightFront.hasPiece() && adjacentTileRightFront.getPiece().getPlayer() != player){
+                if (player == 1 && row < 6){
+                    adjacentTileRightFront = this.board[row + 2][col + 2];
+                }
+                else if (player == 2 && row > 1){
+                    adjacentTileRightFront = this.board[row - 2][col + 2];
+                }
+                if (!adjacentTileRightFront.hasPiece()){
+                    var newCurrentPath = currentPath.slice();
+                    newCurrentPath.push(adjacentTileRightFront);
+                    path.push([adjacentTileRightFront, newCurrentPath]);
+                    var adjRow = parseInt(adjacentTileRightFront.getId()[0]);
+                    var adjCol = parseInt(adjacentTileRightFront.getId()[1]);
+                    var adjacentTileLeftFrontNew = null;
+                    var adjacentTileRightFrontNew = null;
+                    var adjacentTileLeftBackNew = null;
+                    var adjacentTileRightBackNew = null;
+                    if (player == 1){
+                        if (adjCol > 0 && adjRow < 7){
+                            adjacentTileLeftFrontNew = this.board[adjRow + 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow < 7){
+                            adjacentTileRightFrontNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                        if (adjCol > 0 && adjRow > 0){
+                            adjacentTileLeftBackNew = this.board[adjRow - 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow > 0){
+                            adjacentTileRightBackNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                    }
+                    else{
+                        if (adjCol > 0 && adjRow > 0){
+                            adjacentTileLeftFrontNew = this.board[adjRow - 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow > 0){
+                            adjacentTileRightFrontNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                        if (adjCol > 0 && adjRow < 7){
+                            adjacentTileLeftBackNew = this.board[adjRow + 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow < 7){
+                            adjacentTileRightBackNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                    }
+                    path = path.concat(this.checkJumpsKing(player, adjacentTileRightFront, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath));
+                }
+            }
+            if (adjacentTileRightBack != null && adjacentTileRightBack.hasPiece() && adjacentTileRightBack.getPiece().getPlayer() != player){
+                if (player == 1 && row > 1){
+                    adjacentTileRightBack = this.board[row - 2][col + 2];
+                }
+                else if (player == 2 && row < 6){
+                    adjacentTileRightBack = this.board[row + 2][col + 2];
+                }
+                if (!adjacentTileRightBack.hasPiece()){
+                    var newCurrentPath = currentPath.slice();
+                    newCurrentPath.push(adjacentTileRightBack);
+                    path.push([adjacentTileRightBack, newCurrentPath]);
+                    var adjRow = parseInt(adjacentTileRightBack.getId()[0]);
+                    var adjCol = parseInt(adjacentTileRightBack.getId()[1]);
+                    var adjacentTileLeftFrontNew = null;
+                    var adjacentTileRightFrontNew = null;
+                    var adjacentTileLeftBackNew = null;
+                    var adjacentTileRightBackNew = null;
+                    if (player == 1){
+                        if (adjCol > 0 && adjRow < 7){
+                            adjacentTileLeftFrontNew = this.board[adjRow + 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow < 7){
+                            adjacentTileRightFrontNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                        if (adjCol > 0 && adjRow > 0){
+                            adjacentTileLeftBackNew = this.board[adjRow - 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow > 0){
+                            adjacentTileRightBackNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                    }
+                    else{
+                        if (adjCol > 0 && adjRow > 0){
+                            adjacentTileLeftFrontNew = this.board[adjRow - 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow > 0){
+                            adjacentTileRightFrontNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                        if (adjCol > 0 && adjRow < 7){
+                            adjacentTileLeftBackNew = this.board[adjRow + 1][adjCol - 1];
+                        }
+                        if (adjCol < 7 && adjRow < 7){
+                            adjacentTileRightBackNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                    }
+                    path = path.concat(this.checkJumpsKing(player, adjacentTileRightBack, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath));
+                }
+            }
+        }
+        return path;
+    }
+
+    
     getCurrentMoves(player, piece) {
         if (piece == null) return 0;
         var tile = piece.getTile();
@@ -266,7 +490,7 @@ export class MyGameBoard extends CGFobject {
                 adjacentTileLeft = this.board[row - 1][col - 1];
             }
             //house is empty
-            if (!adjacentTileLeft.hasPiece()){
+            if (adjacentTileLeft != null && !adjacentTileLeft.hasPiece()){
                 currentMoves.push(adjacentTileLeft);
             }
         }
@@ -276,11 +500,66 @@ export class MyGameBoard extends CGFobject {
             else if (player == 2 && row > 0)
                 adjacentTileRight = this.board[row - 1][col + 1];
             //house is empty
-            if (!adjacentTileRight.hasPiece()){
+            if (adjacentTileRight != null && !adjacentTileRight.hasPiece()){
                 currentMoves.push(adjacentTileRight);
             }
         }
         var jumps = this.checkJumps(player, tile, adjacentTileLeft, adjacentTileRight, []);
+        for (var i = 0; i < jumps.length; i++){
+            currentMoves.push(jumps[i][0]);
+        }
+        return [currentMoves, jumps];
+    }
+
+    getCurrentMovesKing(player, piece) {
+        if (piece == null) return 0;
+        var tile = piece.getTile();
+        var id = tile.getId();
+        var row = parseInt(id[0]);
+        var col = parseInt(id[1]);
+        var adjacentTileLeftFront = null;
+        var adjacentTileRightFront = null;
+        var adjacentTileLeftBack = null;
+        var adjacentTileRightBack = null;
+        var currentMoves = [];
+        if (col > 0){
+            if (player == 1 && row < 7)
+                adjacentTileLeftFront = this.board[row + 1][col - 1];
+            else if (player == 2 && row > 0){
+                adjacentTileLeftFront = this.board[row - 1][col - 1];
+            }
+            if (player == 1 && row > 0)
+                adjacentTileLeftBack = this.board[row - 1][col - 1];
+            else if (player == 2 && row < 7){
+                adjacentTileLeftBack = this.board[row + 1][col - 1];
+            }
+            //house is empty
+            if (adjacentTileLeftFront != null && !adjacentTileLeftFront.hasPiece()){
+                currentMoves.push(adjacentTileLeftFront);
+            }
+            if (adjacentTileLeftBack != null && !adjacentTileLeftBack.hasPiece()){
+                currentMoves.push(adjacentTileLeftBack);
+            }
+        }
+        if (col < 7){
+            if (player == 1 && row < 7)
+                adjacentTileRightFront = this.board[row + 1][col + 1];
+            else if (player == 2 && row > 0)
+                adjacentTileRightFront = this.board[row - 1][col + 1];
+            if (player == 1 && row > 0)
+                adjacentTileRightBack = this.board[row - 1][col + 1];
+            else if (player == 2 && row < 7){
+                adjacentTileRightBack = this.board[row + 1][col + 1];
+            }
+            //house is empty
+            if (adjacentTileRightFront != null && !adjacentTileRightFront.hasPiece()){
+                currentMoves.push(adjacentTileRightFront);
+            }
+            if (adjacentTileRightBack != null && !adjacentTileRightBack.hasPiece()){
+                currentMoves.push(adjacentTileRightBack);
+            }
+        }
+        var jumps = this.checkJumpsKing(player, tile, adjacentTileLeftFront, adjacentTileRightFront, adjacentTileLeftBack, adjacentTileRightBack, []);
         for (var i = 0; i < jumps.length; i++){
             currentMoves.push(jumps[i][0]);
         }
