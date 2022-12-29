@@ -27,6 +27,14 @@ export class MyAuxBoard extends CGFobject {
             this.countPieces++;
         }
     }
+    removePiece() {
+        if (this.countPieces == 0) return;
+        let tile = this.tiles[this.countPieces-1];
+        if (tile.hasPiece()) {
+            tile.unsetPiece();
+            this.countPieces--;
+        }
+    }
 
     displayBase() {
         this.scene.pushMatrix();

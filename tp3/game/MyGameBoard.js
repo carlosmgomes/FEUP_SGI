@@ -118,10 +118,12 @@ export class MyGameBoard extends CGFobject {
             if (piece.getPlayer() == 1) {
                 if (tile.getId()[0] == 7) {
                     piece.setType("king");
+                    this.auxBoard1.removePiece();
                 }
             } else {
                 if (tile.getId()[0] == 0) {
                     piece.setType("king");
+                    this.auxBoard2.removePiece();
                 }
             }
         }
