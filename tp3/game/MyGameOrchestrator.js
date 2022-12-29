@@ -120,23 +120,22 @@ export class MyGameOrchestrator extends CGFobject {
 
     highlightPieceAndTiles(piece) {
         this.gameBoard.highlightPiece(piece);
-        for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece).length; i++) {
-            this.gameBoard.highlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[i]);
+        for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length; i++) {
+            this.gameBoard.highlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0][i]);
         }
     }
 
     unhighlightPieceAndTiles(piece) {
         if (piece == null) return;  
         this.gameBoard.unhighlightPiece(piece);
-        for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece).length; i++) {
-            this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[i]);
+        for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length; i++) {
+            this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0][i]);
         }
     }
 
     pieceSelected(piece) {
         if (this.state == "gameplay" || this.state == "pieceSelected") {
-            console.log("Piece selected with currentPlayer" + this.currentPlayer + " and piece player " + piece.player)
-            if (piece.player == this.currentPlayer && this.gameBoard.getCurrentMoves(this.currentPlayer, piece).length > 0) {
+            if (piece.player == this.currentPlayer && this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length > 0) {
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 this.highlightPieceAndTiles(piece);
                 this.currentHighlight = piece;
@@ -152,7 +151,7 @@ export class MyGameOrchestrator extends CGFobject {
 
     tileSelected(tile) {
         if (this.state == "pieceSelected") {
-            if (this.gameBoard.getCurrentMoves(this.currentPlayer, this.currentHighlight).includes(tile)) {
+            if (this.gameBoard.getCurrentMoves(this.currentPlayer, this.currentHighlight)[0].includes(tile)) {
                 //animation TODO
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
