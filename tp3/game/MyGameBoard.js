@@ -113,10 +113,108 @@ export class MyGameBoard extends CGFobject {
         return this.board[x][y];
     }
 
+    jumpPieces(startTile, endTile) {
+        var startId = startTile.getId();
+        var endId = endTile.getId();
+        var startRow = parseInt(startId[0]);
+        var startCol = parseInt(startId[1]);
+        var endRow = parseInt(endId[0]);
+        var endCol = parseInt(endId[1]);
+        var rowDiff = endRow - startRow;
+        var colDiff = endCol - startCol;
+        var rowInc = rowDiff / Math.abs(rowDiff);
+        var colInc = colDiff / Math.abs(colDiff);
+        var row = startRow + rowInc;
+        var col = startCol + colInc;
+        while (row != endRow) {
+            var tile = this.board[row][col];
+            if (tile.hasPiece()) {
+                this.removePiece(tile);
+            }
+            row += rowInc;
+            col += colInc;
+        }
+    }
+
     movePiece(piece, startTile, endTile) {
         this.removePiece(startTile);
         this.addPiece(piece, endTile);
+        this.jumpPieces(startTile, endTile);
     }
+
+    checkJumps(player, currentTile, adjacentTileLeft, adjacentTileRight){
+        var id = currentTile.getId();
+        var row = parseInt(id[0]);
+        var col = parseInt(id[1]);
+        var currentMoves = [];
+        if (col > 1){
+            //house is occupied by opponent and there is space to jump
+            if (adjacentTileLeft.hasPiece() && adjacentTileLeft.getPiece().getPlayer() != player){
+                if (player == 1 && row < 6){
+                    adjacentTileLeft = this.board[row + 2][col - 2];
+                }
+                else if (player == 2 && row > 1){
+                    adjacentTileLeft = this.board[row - 2][col - 2];
+                }
+                if (!adjacentTileLeft.hasPiece()){
+                    currentMoves.push(adjacentTileLeft);
+                    var adjRow = parseInt(adjacentTileLeft.getId()[0]);
+                    var adjCol = parseInt(adjacentTileLeft.getId()[1]);
+                    var adjacentTileLeftNew = null;
+                    var adjacentTileRightNew = null;
+                    if (player == 1){
+                        if (adjCol > 0 && adjCol < 7 && adjRow < 7){
+                            adjacentTileLeftNew = this.board[adjRow + 1][adjCol - 1];
+                            adjacentTileRightNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                    }
+                    else{
+                        if (adjCol > 0 && adjCol < 7 && adjRow > 0){
+                            adjacentTileLeftNew = this.board[adjRow - 1][adjCol - 1];
+                            adjacentTileRightNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                    }
+                    currentMoves = currentMoves.concat(this.checkJumps(player, adjacentTileLeft, adjacentTileLeftNew, adjacentTileRightNew));
+                }
+            }
+        }
+        if (col < 6){
+            //house is occupied by opponent and there is space to jump
+            if (adjacentTileRight.hasPiece() && adjacentTileRight.getPiece().getPlayer() != player){
+                if (player == 1 && row < 6){
+                    adjacentTileRight = this.board[row + 2][col + 2];
+                }
+                else if (player == 2 && row > 1){
+                    adjacentTileRight = this.board[row - 2][col + 2];
+                }
+                if (!adjacentTileRight.hasPiece()){
+                    currentMoves.push(adjacentTileRight);
+                    var adjRow = parseInt(adjacentTileRight.getId()[0]);
+                    var adjCol = parseInt(adjacentTileRight.getId()[1]);
+                    var adjacentTileLeftNew = null;
+                    var adjacentTileRightNew = null;
+                    if (player == 1){
+                        if (adjCol > 0 && adjCol < 7 && adjRow < 7){
+                            adjacentTileLeftNew = this.board[adjRow + 1][adjCol - 1];
+                            adjacentTileRightNew = this.board[adjRow + 1][adjCol + 1];
+                        }
+                    }
+                    else{
+                        if (adjCol > 1 && adjCol < 6 && adjRow > 0){
+                            adjacentTileLeftNew = this.board[adjRow - 1][adjCol - 1];
+                            adjacentTileRightNew = this.board[adjRow - 1][adjCol + 1];
+                        }
+                    }
+                    currentMoves = currentMoves.concat(this.checkJumps(player, adjacentTileRight, adjacentTileLeftNew, adjacentTileRightNew));
+                }
+            }
+        }
+        currentMoves 
+        return currentMoves;
+    }
+                 
+
+        
 
     getCurrentMoves(player, piece) {
         if (piece == null) return 0;
@@ -128,46 +226,29 @@ export class MyGameBoard extends CGFobject {
         var adjacentTileLeft = null;
         var adjacentTileRight = null;
         var currentMoves = [];
-        if (col != 0){
-            if (player == 1)
+        if (col > 0){
+            if (player == 1 && row < 7)
                 adjacentTileLeft = this.board[row + 1][col - 1];
-            else
+            else if (player == 2 && row > 0)
                 adjacentTileLeft = this.board[row - 1][col - 1];
             //house is empty
             if (!adjacentTileLeft.hasPiece()){
                 currentMoves.push(adjacentTileLeft);
             }
-            //house is occupied by opponent and there is space to jump
-            if (adjacentTileLeft.hasPiece() && adjacentTileLeft.getPiece().getPlayer() != player){
-                if (player == 1)
-                    adjacentTileLeft = this.board[row + 2][col - 2];
-                else
-                    adjacentTileLeft = this.board[row - 2][col - 2];
-                if (!adjacentTileLeft.hasPiece()){
-                    currentMoves.push(adjacentTileLeft);
-                }
-            }
         }
-        if (col != 7){
-            if (player == 1)
+        if (col < 7){
+            if (player == 1 && row < 7)
                 adjacentTileRight = this.board[row + 1][col + 1];
-            else
+            else if (player == 2 && row > 0)
                 adjacentTileRight = this.board[row - 1][col + 1];
             //house is empty
             if (!adjacentTileRight.hasPiece()){
                 currentMoves.push(adjacentTileRight);
             }
-            //house is occupied by opponent and there is space to jump
-            if (adjacentTileRight.hasPiece() && adjacentTileRight.getPiece().getPlayer() != player){
-                if (player == 1)
-                    adjacentTileRight = this.board[row + 2][col + 2];
-                else
-                    adjacentTileRight = this.board[row - 2][col + 2];
-                if (!adjacentTileRight.hasPiece()){
-                    currentMoves.push(adjacentTileRight);
-                }
-            }
         }
+        //concat return with current moves
+        currentMoves = currentMoves.concat(this.checkJumps(player, tile, adjacentTileLeft, adjacentTileRight));
+    
         return currentMoves;
     }
 

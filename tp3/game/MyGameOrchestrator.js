@@ -126,6 +126,7 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     unhighlightPieceAndTiles(piece) {
+        if (piece == null) return;  
         this.gameBoard.unhighlightPiece(piece);
         for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece).length; i++) {
             this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[i]);
@@ -133,10 +134,8 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     pieceSelected(piece) {
-        console.log(this.state == "gameplay");
-        console.log(piece.player == this.currentPlayer);
-        console.log(this.gameBoard.getCurrentMoves(this.currentPlayer, piece).length > 0);
         if (this.state == "gameplay" || this.state == "pieceSelected") {
+            console.log("Piece selected with currentPlayer" + this.currentPlayer + " and piece player " + piece.player)
             if (piece.player == this.currentPlayer && this.gameBoard.getCurrentMoves(this.currentPlayer, piece).length > 0) {
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 this.highlightPieceAndTiles(piece);
@@ -158,6 +157,7 @@ export class MyGameOrchestrator extends CGFobject {
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
                 this.nextPlayer();
+                this.currentHighlight = null;
                 this.state = "gameplay";
             }
         }
