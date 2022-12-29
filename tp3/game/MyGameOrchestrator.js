@@ -3,8 +3,8 @@ import { MySceneGraph } from '../MySceneGraph.js';
 import { MyGameBoard } from './MyGameBoard.js';
 import { MyAnimator } from './MyAnimator.js';
 import { MyGameSequence } from './MyGameSequence.js';
-import { MyPiece } from './MyPiece.js';
 import { MyTile } from './MyTile.js';
+import { MyGameMove } from './MyGameMove.js';
 
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene) {
@@ -13,6 +13,9 @@ export class MyGameOrchestrator extends CGFobject {
         this.animator = new MyAnimator(scene, this);
         this.gameBoard = new MyGameBoard(scene);
         this.theme = new MySceneGraph("demo.xml", scene);
+        //test
+        this.testMove = new MyGameMove(this.gameBoard.board[2][4], this.gameBoard.board[3][5],this.gameBoard);
+        this.selected = null;
     }
 
     update(time) {
@@ -22,6 +25,12 @@ export class MyGameOrchestrator extends CGFobject {
     display() {
         this.theme.displayScene();
         this.gameBoard.display();
+    }
+
+    getTile(id) {
+        var row = parseInt(id.charAt(0));
+        var col = parseInt(id.charAt(1));
+        return this.gameBoard.board[row][col];
     }
 
     managePick(pickMode, pickResults) {
@@ -45,6 +54,9 @@ export class MyGameOrchestrator extends CGFobject {
             if (obj.piece != null) {
                 console.log("Piece selected");
                 console.log(obj.id);
+                
+                //test
+                this.testMove.animate();
 
             }
             else {
