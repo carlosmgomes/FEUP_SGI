@@ -137,6 +137,16 @@ export class MyGameBoard extends CGFobject {
             if (!adjacentTileLeft.hasPiece()){
                 currentMoves.push(adjacentTileLeft);
             }
+            //house is occupied by opponent and there is space to jump
+            if (adjacentTileLeft.hasPiece() && adjacentTileLeft.getPiece().getPlayer() != player){
+                if (player == 1)
+                    adjacentTileLeft = this.board[row + 2][col - 2];
+                else
+                    adjacentTileLeft = this.board[row - 2][col - 2];
+                if (!adjacentTileLeft.hasPiece()){
+                    currentMoves.push(adjacentTileLeft);
+                }
+            }
         }
         if (col != 7){
             if (player == 1)
@@ -146,6 +156,16 @@ export class MyGameBoard extends CGFobject {
             //house is empty
             if (!adjacentTileRight.hasPiece()){
                 currentMoves.push(adjacentTileRight);
+            }
+            //house is occupied by opponent and there is space to jump
+            if (adjacentTileRight.hasPiece() && adjacentTileRight.getPiece().getPlayer() != player){
+                if (player == 1)
+                    adjacentTileRight = this.board[row + 2][col + 2];
+                else
+                    adjacentTileRight = this.board[row - 2][col + 2];
+                if (!adjacentTileRight.hasPiece()){
+                    currentMoves.push(adjacentTileRight);
+                }
             }
         }
         return currentMoves;

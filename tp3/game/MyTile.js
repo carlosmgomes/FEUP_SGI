@@ -28,6 +28,9 @@ export class MyTile extends CGFobject {
         return this.piece != null;
     }
 
+    getPiece() {
+        return this.piece;
+    }
 
     unsetPiece() {
         this.piece = null;
