@@ -52,21 +52,30 @@ export class MyInterface extends CGFinterface {
     /**
      * Adds an interface containing the lights and the views.
      */
-    startInterface(){
+    startInterface() {
         this.gui = new dat.GUI();
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
-        this.gui.add(this.scene,'scaleFactor',0.5,10).name('Scale Factor');
+        this.gui.add(this.scene, 'scaleFactor', 0.5, 10).name('Scale Factor');
         this.lightsFolder = this.gui.addFolder("Lights");
         for (let i = 0; i < this.scene.lights.length; i++) {
-            this.lightsFolder.add(this.scene.lights[i], 'enabled').name(this.scene.lightsIds[i]).onChange(val => { this.scene.lightVisibility(i, val);});
+            this.lightsFolder.add(this.scene.lights[i], 'enabled').name(this.scene.lightsIds[i]).onChange(val => { this.scene.lightVisibility(i, val); });
         }
         this.camerasFolder = this.gui.addFolder("Cameras");
         this.camerasFolder.add(this.scene, 'selectedCamera', this.scene.viewsIds).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
-        
+
         this.highlightsFolder = this.gui.addFolder("Highlights");
         for (let i = 0; i < this.scene.highlights.length; i++) {
-            this.highlightsFolder.add(this.scene.highlights[i], 'isHighlighted').name(this.scene.highlightsIds[i]).onChange(val => { this.scene.shaderVisibility(i, val);});
+            this.highlightsFolder.add(this.scene.highlights[i], 'isHighlighted').name(this.scene.highlightsIds[i]).onChange(val => { this.scene.shaderVisibility(i, val); });
         }
+            
 
+        this.gameFolder = this.gui.addFolder("Game");
+        this.gameFolder.add({Undo: () => { this.scene.gameOrchestrator.undo() }}, 'Undo');
+        
+        this.gameFolder.add({Start: () => { console.log("Start") }}, 'Start');
+        this.gameFolder.add({Reset: () => { console.log("Reset") }}, 'Reset');
+        // Needs fix
+        // this.gameFolder.add(this.scene, 'selectedTheme', this.scene.themes).name('Selected Theme').onChange(this.scene.updateTheme.bind(this.scene));
+        // Missing: Player modes
     }
 }

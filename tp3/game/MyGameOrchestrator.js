@@ -73,6 +73,10 @@ export class MyGameOrchestrator extends CGFobject {
         this.state = "gameplay";
     }
 
+    setTheme(theme) {
+        this.theme = new MySceneGraph(theme, this.scene);
+    }
+
     update(time) {
         this.animator.update(time);
     }
@@ -145,7 +149,7 @@ export class MyGameOrchestrator extends CGFobject {
             console.log("Game Over");
             this.winner = this.currentPlayer == 1 ? 2 : 1;
             console.log("Player " + this.winner + " wins!");
-            return;moveP
+            return; moveP
         }
     }
 
@@ -210,7 +214,7 @@ export class MyGameOrchestrator extends CGFobject {
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 var originTile = this.currentHighlight.getTile();
                 jumpedTiles = this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
-                this.gameSequence.addMove( new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer));
+                this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer));
                 this.nextPlayer();
                 this.currentHighlight = null;
                 this.state = "gameplay";

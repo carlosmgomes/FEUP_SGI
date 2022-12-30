@@ -29,6 +29,7 @@ export class XMLscene extends CGFscene {
 
         this.sceneInited = false;
         this.selectedCamera = 0;
+        this.selectedTheme = 0;
         this.initInterfaceObjects();
         this.initCameras();
 
@@ -48,6 +49,7 @@ export class XMLscene extends CGFscene {
 
         this.setPickEnabled(true);
         this.gameOrchestrator = new MyGameOrchestrator(this);
+        this.themes = ["demo.xml","dungeon.xml"];
     }
 
     /**
@@ -67,6 +69,11 @@ export class XMLscene extends CGFscene {
     updateCamera() {
         this.camera = this.graph.views[this.selectedCamera];
         this.interface.setActiveCamera(this.camera);
+    }
+    updateTheme() {
+        this.theme = this.selectedTheme;
+        this.gameOrchestrator.setTheme(this.theme);
+
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
