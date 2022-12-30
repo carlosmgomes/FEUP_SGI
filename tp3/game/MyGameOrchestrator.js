@@ -58,7 +58,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.boardMaterial2.setSpecular(0.4, 0.4, 0.4, 1.0);
         this.boardMaterial2.setShininess(10.0);
 
-        this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
+        this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/wood.jpg");
         this.tileTexture2 = new CGFtexture(this.scene, "scenes/images/steel.jpg");
 
         this.boardMaterial1.setTexture(this.tileTexture1);

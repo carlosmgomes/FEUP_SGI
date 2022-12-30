@@ -121,7 +121,6 @@
         <texture id="wheel_tex" file="scenes/images/wheel.jpg" />
         <texture id="red_wood" file="scenes/images/red_wood.png" />
         <texture id="blue_wood" file="scenes/images/blue_wood.png" />
-        <texture id="light_wood" file="scenes/images/light_wood.png" />
         <texture id="dark_wood" file="scenes/images/dark_wood.png" />
     </textures>
 
