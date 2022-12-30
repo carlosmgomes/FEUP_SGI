@@ -36,6 +36,14 @@ export class MyAuxBoard extends CGFobject {
         }
     }
 
+    getLastPiece() {
+        if (this.countPieces == 0) return null;
+        let tile = this.tiles[this.countPieces-1];
+        if (tile.hasPiece()) {
+            return tile.piece;
+        }
+    }
+
     displayBase() {
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI*1.5, 1, 0, 0);

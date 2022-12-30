@@ -1,9 +1,10 @@
 export class MyGameMove {
-    constructor(originTile, destinationTile,board) {
-        this.piece = originTile.piece;
+    constructor(originTile, destinationTile,jumpedTiles,player) {
+        this.piece = destinationTile.piece;
         this.originTile = originTile;
         this.destinationTile = destinationTile;
-        this.board = board;
+        this.jumpedTiles = jumpedTiles;
+        this.player = player;
     }
 
 

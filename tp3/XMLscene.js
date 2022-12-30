@@ -167,6 +167,9 @@ export class XMLscene extends CGFscene {
         if (this.gui.isKeyPressed("KeyM")) {
             this.M_counter++;
         }
+        if (this.gui.isKeyPressed("KeyU")) {
+            this.gameOrchestrator.undo();
+        }
     }
 
     /**

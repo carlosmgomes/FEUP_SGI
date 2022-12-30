@@ -64,7 +64,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.boardMaterial1.setTexture(this.tileTexture1);
         this.boardMaterial2.setTexture(this.tileTexture2);
 
-        this.gameSequence = new MyGameSequence(scene);
+        this.gameSequence = new MyGameSequence(this);
         this.animator = new MyAnimator(scene, this);
         this.gameBoard = new MyGameBoard(scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
         this.theme = new MySceneGraph("demo.xml", scene);
@@ -115,6 +115,8 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     nextPlayer() {
+        // TODO 
+        // camera animation
         var temp = [];
         var found = false;
         var hasMoves = false;
@@ -143,7 +145,7 @@ export class MyGameOrchestrator extends CGFobject {
             console.log("Game Over");
             this.winner = this.currentPlayer == 1 ? 2 : 1;
             console.log("Player " + this.winner + " wins!");
-            return;
+            return;moveP
         }
     }
 
@@ -204,12 +206,23 @@ export class MyGameOrchestrator extends CGFobject {
             if ((this.currentHighlight.getType() == "piece" && this.gameBoard.getCurrentMoves(this.currentPlayer, this.currentHighlight)[0].includes(tile) ||
                 (this.currentHighlight.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.currentHighlight)[0].includes(tile)))) {
                 //animation TODO
+                var jumpedTiles = [];
                 this.unhighlightPieceAndTiles(this.currentHighlight);
-                this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
+                var originTile = this.currentHighlight.getTile();
+                jumpedTiles = this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
+                this.gameSequence.addMove( new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer));
                 this.nextPlayer();
                 this.currentHighlight = null;
                 this.state = "gameplay";
             }
         }
     }
+
+    undo() {
+        if (this.state == "gameplay" && this.gameSequence.moves.length > 0) {
+            this.gameSequence.undo();
+            this.display();
+        }
+    }
 }
+

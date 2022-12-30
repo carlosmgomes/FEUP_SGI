@@ -147,6 +147,7 @@ export class MyGameBoard extends CGFobject {
         }
         
         this.removePiece(jumpedTile);
+        return jumpedTile;
     }
 
     //get path between two tiles
@@ -163,16 +164,19 @@ export class MyGameBoard extends CGFobject {
     }
 
     multipleJump(startTile, endTile) {
+        var jumpedTiles = [];
         var path = this.getPath(startTile, endTile);
         var start = startTile;
         for (var i = 0; i < path.length; i++) {
             var end = path[i];
-            this.jumpPiece(start, end);
+            jumpedTiles.push(this.jumpPiece(start, end));
             start = end;
         }
+        return jumpedTiles;
     }
         
     movePiece(piece, startTile, endTile) {
+        var jumpedTiles = [];
         var startId = startTile.getId();
         var endId = endTile.getId();
         var startRow = parseInt(startId[0]);
@@ -182,14 +186,15 @@ export class MyGameBoard extends CGFobject {
         var rowDiff = endRow - startRow;
         var colDiff = endCol - startCol;
         if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2){
-            this.jumpPiece(startTile, endTile);
+            jumpedTiles.push(this.jumpPiece(startTile, endTile));
         }
         else if (Math.abs(rowDiff) > 2 || Math.abs(colDiff) > 2){
-            this.multipleJump(startTile, endTile);
+           jumpedTiles = this.multipleJump(startTile, endTile);
         }
         this.removePiece(startTile);
         this.addPiece(piece, endTile);
         this.checkKing(piece, endTile);
+        return jumpedTiles;
     }
     
     //return in form of [(finalTile, [path])]
