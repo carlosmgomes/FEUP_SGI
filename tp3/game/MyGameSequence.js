@@ -10,7 +10,6 @@ export class MyGameSequence {
         let lastMove = this.moves[this.moves.length - 1];
         this.moves.pop();
         var auxBoard;
-        console.log(this.orchestrator)
         if (lastMove.player == 1) {
             auxBoard = this.orchestrator.gameBoard.auxBoard2;
         } else {

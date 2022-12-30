@@ -1,7 +1,15 @@
 <sxs>
     <scene root="demoRoot" axis_length="5" />
 
-    <views default="Camera 1">
+    <views default="Player 1">
+        <perspective id="Player 1" near="0.1" far="500" angle="45">
+            <from x="5" y="8" z="9.5" />
+            <to x="14" y="0" z="9.5" />
+        </perspective>
+        <perspective id="Player 2" near="0.1" far="500" angle="45">
+            <from x="15" y="8" z="9.5" />
+            <to x="6" y="0" z="9.5" />
+        </perspective>
         <perspective id="Camera 1" near="0.1" far="500" angle="45">
             <from x="10" y="15" z="40" />
             <to x="10" y="0" z="0" />
@@ -1471,9 +1479,9 @@
                 <componentref id="lamp2" />
                 <componentref id="lamp3" />
                 <componentref id="lamp4" />
-                <componentref id="beer" />
+                <!-- <componentref id="beer" />
                 <componentref id="barrel" />
-                <componentref id="book" />
+                <componentref id="book" /> -->
             </children>
         </component>
     </components>

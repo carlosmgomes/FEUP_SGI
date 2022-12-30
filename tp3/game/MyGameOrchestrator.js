@@ -7,7 +7,7 @@ import { MyTile } from './MyTile.js';
 import { MyGameMove } from './MyGameMove.js';
 
 export class MyGameOrchestrator extends CGFobject {
-    constructor(scene) {
+    constructor(scene,selectedTheme) {
         super(scene);
         this.finished = false;
         this.wood = new CGFtexture(this.scene, "/tp3/scenes/images/wood.jpg");
@@ -58,7 +58,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.boardMaterial2.setSpecular(0.4, 0.4, 0.4, 1.0);
         this.boardMaterial2.setShininess(10.0);
 
-        this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/wood.jpg");
+        this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
         this.tileTexture2 = new CGFtexture(this.scene, "scenes/images/steel.jpg");
 
         this.boardMaterial1.setTexture(this.tileTexture1);
@@ -67,7 +67,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.gameSequence = new MyGameSequence(this);
         this.animator = new MyAnimator(scene, this);
         this.gameBoard = new MyGameBoard(scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
-        this.theme = new MySceneGraph("demo.xml", scene);
+        this.theme = new MySceneGraph(selectedTheme, scene);
         this.currentPlayer = 1;
         this.currentHighlight = null;
         this.state = "gameplay";
@@ -149,8 +149,10 @@ export class MyGameOrchestrator extends CGFobject {
             console.log("Game Over");
             this.winner = this.currentPlayer == 1 ? 2 : 1;
             console.log("Player " + this.winner + " wins!");
-            return; moveP
+            return;
         }
+        this.scene.updatePlayerCamera(this.currentPlayer);
+
     }
 
 

@@ -29,7 +29,7 @@ export class XMLscene extends CGFscene {
 
         this.sceneInited = false;
         this.selectedCamera = 0;
-        this.selectedTheme = 0;
+        this.selectedTheme = "dungeon.xml";
         this.initInterfaceObjects();
         this.initCameras();
 
@@ -48,8 +48,8 @@ export class XMLscene extends CGFscene {
         this.M_counter = 0;
 
         this.setPickEnabled(true);
-        this.gameOrchestrator = new MyGameOrchestrator(this);
-        this.themes = ["demo.xml","dungeon.xml"];
+        this.gameOrchestrator = new MyGameOrchestrator(this, this.selectedTheme);
+        this.themes = ["demo.xml", "dungeon.xml"];
     }
 
     /**
@@ -70,6 +70,18 @@ export class XMLscene extends CGFscene {
         this.camera = this.graph.views[this.selectedCamera];
         this.interface.setActiveCamera(this.camera);
     }
+
+    updatePlayerCamera(player){
+        if (player == 1){
+            this.camera = this.graph.views["Player 1"];
+            this.interface.setActiveCamera(this.camera);
+        }
+        else if (player == 2){
+            this.camera = this.graph.views["Player 2"];
+            this.interface.setActiveCamera(this.camera);
+        }
+    }
+
     updateTheme() {
         this.theme = this.selectedTheme;
         this.gameOrchestrator.setTheme(this.theme);
@@ -207,7 +219,7 @@ export class XMLscene extends CGFscene {
         this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
         this.clearPickRegistration();
 
-        
+
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -226,10 +238,10 @@ export class XMLscene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
-        //for (var i = 0; i < this.lights.length; i++) {
-        //  this.lights[i].setVisible(true);
-        //this.lights[i].update();
-        //}
+        for (var i = 0; i < this.lights.length; i++) {
+            // this.lights[i].setVisible(true);
+            this.lights[i].update();
+        }
 
         if (this.sceneInited) {
             // Draw axis
