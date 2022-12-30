@@ -9,7 +9,7 @@ import { MyGameMove } from './MyGameMove.js';
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene) {
         super(scene);
-
+        this.finished = false;
         this.wood = new CGFtexture(this.scene, "/tp3/scenes/images/wood.jpg");
 
         this.blue = new CGFappearance(scene);
@@ -82,7 +82,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.gameBoard.display();
     }
 
-    
+
     managePick(pickMode, pickResults) {
         if (pickMode == false) {
             if (pickResults != null && pickResults.length > 0) {
@@ -115,17 +115,47 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     nextPlayer() {
+        var temp = [];
+        var found = false;
+        var hasMoves = false;
         this.currentPlayer = this.currentPlayer == 1 ? 2 : 1;
+        for (var i = 0; i < this.gameBoard.board.length; i++) {
+            for (var j = 0; j < this.gameBoard.board[i].length; j++) {
+                if (this.gameBoard.board[i][j].piece != null) {
+                    if (this.gameBoard.board[i][j].piece.player == this.currentPlayer) {
+                        found = true;
+                        temp.push(this.gameBoard.getCurrentMoves(this.currentPlayer, this.gameBoard.board[i][j].piece));
+                    }
+                }
+
+            }
+        }
+        for (var i = 0; i < temp.length; i++) {
+
+            if (temp[i][0].length > 0 || temp[i][1].length > 0) {
+                hasMoves = true;
+                break;
+            }
+        }
+        if (!found || !hasMoves) {
+            this.state = "gameover";
+            this.finished = true;
+            console.log("Game Over");
+            this.winner = this.currentPlayer == 1 ? 2 : 1;
+            console.log("Player " + this.winner + " wins!");
+            return;
+        }
     }
+
 
     highlightPieceAndTiles(piece) {
         this.gameBoard.highlightPiece(piece);
-        if (piece.getType() == "piece"){
+        if (piece.getType() == "piece") {
             for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length; i++) {
                 this.gameBoard.highlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0][i]);
             }
         }
-        else{
+        else {
             for (var i = 0; i < this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length; i++) {
                 this.gameBoard.highlightTile(this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0][i]);
             }
@@ -133,14 +163,14 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     unhighlightPieceAndTiles(piece) {
-        if (piece == null) return;  
+        if (piece == null) return;
         this.gameBoard.unhighlightPiece(piece);
-        if (piece.getType() == "piece"){
+        if (piece.getType() == "piece") {
             for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length; i++) {
                 this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0][i]);
             }
         }
-        else{
+        else {
             for (var i = 0; i < this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length; i++) {
                 this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0][i]);
             }
@@ -155,13 +185,13 @@ export class MyGameOrchestrator extends CGFobject {
                 this.currentHighlight = piece;
                 this.state = "pieceSelected";
             }
-            else if (piece.getPlayer() == this.currentPlayer && piece.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length > 0){
+            else if (piece.getPlayer() == this.currentPlayer && piece.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length > 0) {
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 this.highlightPieceAndTiles(piece);
                 this.currentHighlight = piece;
                 this.state = "pieceSelected";
             }
-            else{
+            else {
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 this.state = "gameplay";
                 this.currentHighlight = null;

@@ -140,7 +140,6 @@ export class MyGameBoard extends CGFobject {
         var colDiff = endCol - startCol;
         var jumpedTile = this.board[startRow + rowDiff / 2][startCol + colDiff / 2];
         var player =(jumpedTile.getPiece().getPlayer());
-        console.log(player);
         if (player == 1) {
             this.auxBoard1.addPiece(jumpedTile.getPiece());
         } else {
