@@ -46,7 +46,7 @@ export class MyGameBoard extends CGFobject {
                 this.board[i][j].setBoard(this);
             }
         }
-
+        
         //add pieces to board
         for (var i = 0; i < 8; i++) {
             this.boardPieces[i] = [];
@@ -282,7 +282,12 @@ export class MyGameBoard extends CGFobject {
     }
 
     //check front and back jumps
-    checkJumpsKing(player, currentTile, adjacentTileLeftFront, adjacentTileRightFront, adjacentTileLeftBack, adjacentTileRightBack, currentPath) {
+    checkJumpsKing(player, currentTile, adjacentTileLeftFront, adjacentTileRightFront, adjacentTileLeftBack, adjacentTileRightBack, currentPath, visited) {
+        //check if current tile has been visited
+        if (visited.includes(currentTile)) {
+            return [];
+        }
+        visited.push(currentTile);
         var id = currentTile.getId();
         var row = parseInt(id[0]);
         var col = parseInt(id[1]);
@@ -334,7 +339,7 @@ export class MyGameBoard extends CGFobject {
                             adjacentTileRightBackNew = this.board[adjRow + 1][adjCol + 1];
                         }
                     }
-                    path = path.concat(this.checkJumpsKing(player, adjacentTileLeftFront, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath));
+                    path = path.concat(this.checkJumpsKing(player, adjacentTileLeftFront, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath, visited));
                 }
             }
             if (adjacentTileLeftBack != null && adjacentTileLeftBack.hasPiece() && adjacentTileLeftBack.getPiece().getPlayer() != player) {
@@ -382,11 +387,12 @@ export class MyGameBoard extends CGFobject {
                             adjacentTileRightBackNew = this.board[adjRow + 1][adjCol + 1];
                         }
                     }
-                    path = path.concat(this.checkJumpsKing(player, adjacentTileLeftBack, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath));
+                    path = path.concat(this.checkJumpsKing(player, adjacentTileLeftBack, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath, visited));
                 }
             }
         }
-        if (col < 7) {
+        if (col < 6) {
+            //house is occupied by opponent and there is space to jump
             if (adjacentTileRightFront != null && adjacentTileRightFront.hasPiece() && adjacentTileRightFront.getPiece().getPlayer() != player) {
                 if (player == 1 && row < 6) {
                     adjacentTileRightFront = this.board[row + 2][col + 2];
@@ -398,6 +404,7 @@ export class MyGameBoard extends CGFobject {
                     var newCurrentPath = currentPath.slice();
                     newCurrentPath.push(adjacentTileRightFront);
                     path.push([adjacentTileRightFront, newCurrentPath]);
+
                     var adjRow = parseInt(adjacentTileRightFront.getId()[0]);
                     var adjCol = parseInt(adjacentTileRightFront.getId()[1]);
                     var adjacentTileLeftFrontNew = null;
@@ -432,7 +439,7 @@ export class MyGameBoard extends CGFobject {
                             adjacentTileRightBackNew = this.board[adjRow + 1][adjCol + 1];
                         }
                     }
-                    path = path.concat(this.checkJumpsKing(player, adjacentTileRightFront, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath));
+                    path = path.concat(this.checkJumpsKing(player, adjacentTileRightFront, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath, visited));
                 }
             }
             if (adjacentTileRightBack != null && adjacentTileRightBack.hasPiece() && adjacentTileRightBack.getPiece().getPlayer() != player) {
@@ -446,6 +453,7 @@ export class MyGameBoard extends CGFobject {
                     var newCurrentPath = currentPath.slice();
                     newCurrentPath.push(adjacentTileRightBack);
                     path.push([adjacentTileRightBack, newCurrentPath]);
+
                     var adjRow = parseInt(adjacentTileRightBack.getId()[0]);
                     var adjCol = parseInt(adjacentTileRightBack.getId()[1]);
                     var adjacentTileLeftFrontNew = null;
@@ -480,8 +488,9 @@ export class MyGameBoard extends CGFobject {
                             adjacentTileRightBackNew = this.board[adjRow + 1][adjCol + 1];
                         }
                     }
-                    path = path.concat(this.checkJumpsKing(player, adjacentTileRightBack, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath));
+                    path = path.concat(this.checkJumpsKing(player, adjacentTileRightBack, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath, visited));
                 }
+                
             }
         }
         return path;
@@ -573,7 +582,7 @@ export class MyGameBoard extends CGFobject {
                 currentMoves.push(adjacentTileRightBack);
             }
         }
-        var jumps = this.checkJumpsKing(player, tile, adjacentTileLeftFront, adjacentTileRightFront, adjacentTileLeftBack, adjacentTileRightBack, []);
+        var jumps = this.checkJumpsKing(player, tile, adjacentTileLeftFront, adjacentTileRightFront, adjacentTileLeftBack, adjacentTileRightBack, [], []);
         for (var i = 0; i < jumps.length; i++) {
             currentMoves.push(jumps[i][0]);
         }
