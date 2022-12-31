@@ -5,7 +5,7 @@ export class MyPiece extends CGFobject {
     constructor(scene, player, material, shader) {
         super(scene);
 
-        this.type = "piece";
+        this.type = "king";
 
         this.player = player;
 

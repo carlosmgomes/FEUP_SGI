@@ -1068,7 +1068,6 @@ export class MySceneGraph {
             this.animations[animationId] = animation;
 
         }
-        console.log(this.animations);
         console.log("Parsed Animations");
         return null;
     }

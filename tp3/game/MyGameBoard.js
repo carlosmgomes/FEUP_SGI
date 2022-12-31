@@ -139,7 +139,7 @@ export class MyGameBoard extends CGFobject {
         var rowDiff = endRow - startRow;
         var colDiff = endCol - startCol;
         var jumpedTile = this.board[startRow + rowDiff / 2][startCol + colDiff / 2];
-        var player = (jumpedTile.getPiece().getPlayer());
+        var player = jumpedTile.getPiece().getPlayer();
         if (player == 1) {
             this.auxBoard1.addPiece(jumpedTile.getPiece());
         } else {
@@ -152,7 +152,12 @@ export class MyGameBoard extends CGFobject {
 
     //get path between two tiles
     getPath(startTile, endTile) {
-        var jumps = this.getCurrentMoves(startTile.getPiece().getPlayer(), startTile.getPiece())[1];
+        var jumps = null;
+        if (startTile.getPiece().getType() == "piece")
+            jumps = this.getCurrentMoves(startTile.getPiece().getPlayer(), startTile.getPiece())[1];
+        else
+            jumps = this.getCurrentMovesKing(startTile.getPiece().getPlayer(), startTile.getPiece())[1];
+
         var path = [];
         for (var i = 0; i < jumps.length; i++) {
             if (jumps[i][0] == endTile) {
@@ -166,6 +171,7 @@ export class MyGameBoard extends CGFobject {
     multipleJump(startTile, endTile) {
         var jumpedTiles = [];
         var path = this.getPath(startTile, endTile);
+        console.log(path);
         var start = startTile;
         for (var i = 0; i < path.length; i++) {
             var end = path[i];
@@ -185,10 +191,12 @@ export class MyGameBoard extends CGFobject {
         var endCol = parseInt(endId[1]);
         var rowDiff = endRow - startRow;
         var colDiff = endCol - startCol;
-        if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2) {
+        if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2 && this.board[startRow + rowDiff / 2][startCol + colDiff / 2].hasPiece()) {
             jumpedTiles.push(this.jumpPiece(startTile, endTile));
+
         }
-        else if (Math.abs(rowDiff) > 2 || Math.abs(colDiff) > 2) {
+        else if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2 && !this.board[startRow + rowDiff / 2][startCol + colDiff / 2].hasPiece() || 
+                Math.abs(rowDiff) > 2 || Math.abs(colDiff) > 2) {
             jumpedTiles = this.multipleJump(startTile, endTile);
         }
         this.removePiece(startTile);
@@ -197,7 +205,6 @@ export class MyGameBoard extends CGFobject {
         return jumpedTiles;
     }
 
-    //return in form of [(finalTile, [path])]
     checkJumps(player, currentTile, adjacentTileLeft, adjacentTileRight, currentPath) {
         var id = currentTile.getId();
         var row = parseInt(id[0]);

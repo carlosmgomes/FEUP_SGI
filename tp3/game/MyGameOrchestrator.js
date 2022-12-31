@@ -130,7 +130,10 @@ export class MyGameOrchestrator extends CGFobject {
                 if (this.gameBoard.board[i][j].piece != null) {
                     if (this.gameBoard.board[i][j].piece.player == this.currentPlayer) {
                         found = true;
-                        temp.push(this.gameBoard.getCurrentMoves(this.currentPlayer, this.gameBoard.board[i][j].piece));
+                        if (this.gameBoard.board[i][j].piece.getType() == "piece")
+                            temp.push(this.gameBoard.getCurrentMoves(this.currentPlayer, this.gameBoard.board[i][j].piece));
+                        else
+                            temp.push(this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.gameBoard.board[i][j].piece));
                     }
                 }
 
