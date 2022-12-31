@@ -84,14 +84,15 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     update(time) {
+        var rate = 1500000000000;
         if(this.cameraAnimation){
             if(this.currentPlayer == 1){
                 if(this.scene.camera.position[0]>this.camera2.getPositionX()){
 
-                    this.scene.camera.position[0]-=time/5000000000000;
+                    this.scene.camera.position[0]-=time/rate;
                 }
                 if(this.scene.camera.target[0]<this.camera2.getTargetX()){
-                    this.scene.camera.target[0]+=time/5000000000000;
+                    this.scene.camera.target[0]+=time/rate;
                 }
                 else{
                     this.scene.camera.position[0] = this.camera2.getPositionX();
@@ -102,10 +103,10 @@ export class MyGameOrchestrator extends CGFobject {
             else{
                 if(this.scene.camera.position[0]<this.camera1.getPositionX()){
 
-                    this.scene.camera.position[0]+=time/5000000000000;
+                    this.scene.camera.position[0]+=time/rate;
                 }
                 if(this.scene.camera.target[0]>this.camera1.getTargetX()){
-                    this.scene.camera.target[0]-=time/5000000000000;
+                    this.scene.camera.target[0]-=time/rate;
                 }
                 else{
                     this.scene.camera.position[0] = this.camera1.getPositionX();
