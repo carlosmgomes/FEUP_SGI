@@ -632,7 +632,8 @@ export class MyGameBoard extends CGFobject {
         this.side8.display();
         this.auxBoard1.display();
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, 13.1);
+        this.scene.translate(8, 0, 6);
+        this.scene.rotate(Math.PI, 0, 1, 0);
         this.auxBoard2.display();
         this.scene.popMatrix();
 
