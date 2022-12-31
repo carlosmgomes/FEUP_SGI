@@ -94,6 +94,8 @@ export class MyGameOrchestrator extends CGFobject {
                     this.scene.camera.target[0]+=time/5000000000000;
                 }
                 else{
+                    this.scene.camera.position[0] = this.camera2.getPositionX();
+                    this.scene.camera.target[0] = this.camera2.getTargetX();
                     this.cameraAnimation = false;
                 }
             }
@@ -106,6 +108,8 @@ export class MyGameOrchestrator extends CGFobject {
                     this.scene.camera.target[0]-=time/5000000000000;
                 }
                 else{
+                    this.scene.camera.position[0] = this.camera1.getPositionX();
+                    this.scene.camera.target[0] = this.camera1.getTargetX();
                     this.cameraAnimation = false;
                 }
             }
