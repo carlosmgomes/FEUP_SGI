@@ -21,7 +21,7 @@ export class MyGameInterface extends CGFobject {
     }
 
 
-    displayFront(player1_score, player2_score) {
+    displayFront(player1_score, player2_score,timeElapsed) {
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI * 0.5, 0, 0, 1);
         this.scene.translate(0.5, -1, 0.21);
@@ -29,20 +29,27 @@ export class MyGameInterface extends CGFobject {
         this.scene.scale(1.1, 1, 1);
         this.rectangle.display();
         this.scene.rotate(Math.PI * 1.5, 0, 0, 1);
+        this.scene.registerForPick(90, this.undoButton);
         this.undoButton.display();
+        this.scene.registerForPick(91, this.resetButton);
         this.resetButton.display();
-        this.gameStatus.display(player1_score, player2_score);
+        this.gameStatus.display(player1_score, player2_score,timeElapsed);
+        this.scene.registerForPick(92, this.theme1Button);
         this.theme1Button.display();
+        this.scene.registerForPick(93, this.theme2Button);
         this.theme2Button.display();
+        this.scene.registerForPick(94, this.theme3Button);
         this.theme3Button.display();
+        this.scene.registerForPick(95, this.movieButton);
         this.movieButton.display();
+        this.scene.registerForPick(96, this.startButton);
         this.startButton.display();
         this.material.apply();
         this.scene.popMatrix();
     }
 
 
-    displayBack(player1_score, player2_score) {
+    displayBack(player1_score, player2_score,timeElapsed) {
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI * 1.5, 0, 0, 1);
         this.scene.rotate(Math.PI, 0, 1, 0);
@@ -51,13 +58,20 @@ export class MyGameInterface extends CGFobject {
         this.scene.scale(1.1, 1, 1);
         this.rectangle.display();
         this.scene.rotate(Math.PI * 1.5, 0, 0, 1);
+        this.scene.registerForPick(100, this.undoButton);
         this.undoButton.display();
+        this.scene.registerForPick(101, this.resetButton);
         this.resetButton.display();
-        this.gameStatus.display(player1_score, player2_score);
+        this.gameStatus.display(player1_score, player2_score,timeElapsed);
+        this.scene.registerForPick(102, this.theme1Button);
         this.theme1Button.display();
+        this.scene.registerForPick(103, this.theme2Button);
         this.theme2Button.display();
+        this.scene.registerForPick(104, this.theme3Button);
         this.theme3Button.display();
+        this.scene.registerForPick(105, this.movieButton);
         this.movieButton.display();
+        this.scene.registerForPick(106, this.startButton);
         this.startButton.display();
         this.material.apply();
         this.scene.popMatrix();
@@ -84,7 +98,7 @@ export class MyGameInterface extends CGFobject {
     }
 
 
-    display(player1_score, player2_score) {
+    display(player1_score, player2_score,timeElapsed) {
         this.scene.pushMatrix();
         this.material.apply();
         if (this.scene.selectedTheme == "demo.xml") {
@@ -97,8 +111,8 @@ export class MyGameInterface extends CGFobject {
         }
         this.displaySide1();
         this.displaySide2();
-        this.displayFront(player1_score, player2_score);
-        this.displayBack(player1_score, player2_score);
+        this.displayFront(player1_score, player2_score,timeElapsed);
+        this.displayBack(player1_score, player2_score,timeElapsed);
         this.scene.popMatrix();
     }
 }

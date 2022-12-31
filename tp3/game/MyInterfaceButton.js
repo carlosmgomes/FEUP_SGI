@@ -176,22 +176,34 @@ export class MyInterfaceButton extends CGFobject {
         this.scene.popMatrix();
     }
 
-    time() {
+    time(timeElapsed) {
+
+        var minutes, seconds;
+
+        minutes = (Math.floor(timeElapsed / 60)).toString( );
+        seconds = (Math.floor(timeElapsed % 60)).toString( );
+        if(seconds < 10)
+            seconds = "0" + seconds;
+
+        if(minutes < 10)
+            minutes = "0" + minutes;
+
+
         this.scene.pushMatrix();
         this.scene.scale(0.2, 0.2, 0.2)
-        this.scene.activeShader.setUniformsValues({ 'charCoords': [0, NUMBERS_LINE] });	// m
+        this.scene.activeShader.setUniformsValues({ 'charCoords': [minutes[0], NUMBERS_LINE] });	// m
         this.quad.display();
         this.scene.translate(0.5, 0, 0);
 
-        this.scene.activeShader.setUniformsValues({ 'charCoords': [0, NUMBERS_LINE] });	// m
+        this.scene.activeShader.setUniformsValues({ 'charCoords': [minutes[1], NUMBERS_LINE] });	// m
         this.quad.display();
         this.scene.translate(0.5, 0, 0);
         this.scene.activeShader.setUniformsValues({ 'charCoords': [10, 3] });	// :
         this.quad.display();
         this.scene.translate(0.5, 0, 0);
-        this.scene.activeShader.setUniformsValues({ 'charCoords': [0, NUMBERS_LINE] });	// s
+        this.scene.activeShader.setUniformsValues({ 'charCoords': [seconds[0], NUMBERS_LINE] });	// s
         this.quad.display();
-        this.scene.translate(0.5, 0, 0); this.scene.activeShader.setUniformsValues({ 'charCoords': [0, NUMBERS_LINE] });	// s
+        this.scene.translate(0.5, 0, 0); this.scene.activeShader.setUniformsValues({ 'charCoords': [seconds[1], NUMBERS_LINE] });	// s
         this.quad.display();
         this.scene.popMatrix();
     }
@@ -222,7 +234,7 @@ export class MyInterfaceButton extends CGFobject {
 
 
 
-    display(player1_score, player2_score) {
+    display(player1_score, player2_score, timeElapsed) {
 
         this.scene.setActiveShaderSimple(this.scene.textShader);
 
@@ -305,7 +317,7 @@ export class MyInterfaceButton extends CGFobject {
             this.scene.pushMatrix();
             this.appearance.apply();
             this.scene.translate(-0.15, 0.12, 0.01);
-            this.time();
+            this.time(timeElapsed);
 
             this.scene.popMatrix();
         }

@@ -7,11 +7,15 @@ import { MyTile } from './MyTile.js';
 import { MyGameMove } from './MyGameMove.js';
 import { MyCameraAnimation } from './MyCameraAnimation.js';
 import { MyGameInterface } from './MyGameInterface.js';
+import { MyInterfaceButton } from './MyInterfaceButton.js';
 
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene, selectedTheme) {
         super(scene);
+        this.last = 0;
+        this.timeElapsed = 0;
         this.finished = false;
+        this.gameOn = false;
         this.wood = new CGFtexture(this.scene, "/tp3/scenes/images/wood.jpg");
 
         this.blue = new CGFappearance(scene);
@@ -99,6 +103,12 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     update(time) {
+        if (this.gameOn) {
+            this.timeElapsed = Math.floor(time / 1000 % 1000 - this.startTime / 1000 % 1000);
+            if (this.timeElapsed > this.last && this.gameOn == true) {
+                this.last = this.timeElapsed;
+            }
+        }
         var rate = 1500000000000;
         if (this.cameraAnimation) {
             if (this.currentPlayer == 1) {
@@ -134,7 +144,7 @@ export class MyGameOrchestrator extends CGFobject {
 
     display() {
         this.theme.displayScene();
-        this.gameInterface.display(this.player1_score, this.player2_score);
+        this.gameInterface.display(this.player1_score, this.player2_score, this.timeElapsed);
         this.gameBoard.display();
     }
 
@@ -166,6 +176,38 @@ export class MyGameOrchestrator extends CGFobject {
                 console.log(obj.id);
                 this.tileSelected(obj);
             }
+        }
+        if (obj instanceof MyInterfaceButton) {
+            if (obj.id == "undo") {
+                this.undo();
+            }
+            if (obj.id == "reset") {
+                this.reset();
+            }
+            if (obj.id == "theme1") {
+                console.log("Theme1");
+
+            }
+            if (obj.id == "theme2") {
+                console.log("Theme2");
+            }
+            if (obj.id == "theme3") {
+                console.log("Theme3");
+            }
+            if (obj.id == "movie") {
+                console.log("Movie");
+            }
+            if (obj.id == "start") {
+                if (this.finished) {
+                    this.reset();
+                }
+                this.finished = false;
+                this.gameOn = true;
+                this.winner = null;
+                this.startTime = Date.now();
+                this.last = 0;
+            }
+
         }
     }
 
@@ -200,11 +242,13 @@ export class MyGameOrchestrator extends CGFobject {
             this.finished = true;
             console.log("Game Over");
             this.winner = this.currentPlayer == 1 ? 2 : 1;
-            if(this.winner == 1)
+            if (this.winner == 1)
                 this.player1_score++;
             else
                 this.player2_score++;
             console.log("Player " + this.winner + " wins!");
+            this.gameOn = false;
+            this.finished = true;
             return;
         }
         this.cameraAnimation = true;
@@ -291,6 +335,21 @@ export class MyGameOrchestrator extends CGFobject {
             this.cameraAnimation = true;
 
         }
+    }
+
+    reset() {
+
+        this.currentPlayer = 1;
+        this.cameraAnimation = true;
+        this.gameBoard = new MyGameBoard(this.scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
+        this.gameSequence = new MyGameSequence();
+        this.state = "gameplay";
+        this.currentHighlight = null;
+        this.finished = false;
+        this.gameOn = false;
+        this.winner = null;
+        this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
+
     }
 }
 

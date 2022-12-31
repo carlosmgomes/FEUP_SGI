@@ -26,7 +26,6 @@ export class XMLscene extends CGFscene {
      */
     init(application) {
         super.init(application);
-
         this.sceneInited = false;
         this.selectedCamera = 0;
         this.selectedTheme = "demo.xml";
@@ -77,13 +76,12 @@ export class XMLscene extends CGFscene {
         this.interface.setActiveCamera(this.camera);
     }
 
-    updatePlayerCamera(player){
-        console.log(player);
-        if (player == 1){
+    updatePlayerCamera(player) {
+        if (player == 1) {
             this.camera = this.graph.views["Player 1"];
             this.interface.setActiveCamera(this.camera);
         }
-        else if (player == 2){
+        else if (player == 2) {
             this.camera = this.graph.views["Player 2"];
             this.interface.setActiveCamera(this.camera);
         }
@@ -214,7 +212,6 @@ export class XMLscene extends CGFscene {
                 this.graph.animations[i].update(t);
             }
         }
-
         this.gameOrchestrator.update(t);
     }
 

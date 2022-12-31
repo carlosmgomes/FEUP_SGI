@@ -68,14 +68,5 @@ export class MyInterface extends CGFinterface {
             this.highlightsFolder.add(this.scene.highlights[i], 'isHighlighted').name(this.scene.highlightsIds[i]).onChange(val => { this.scene.shaderVisibility(i, val); });
         }
             
-
-        this.gameFolder = this.gui.addFolder("Game");
-        this.gameFolder.add({Undo: () => { this.scene.gameOrchestrator.undo() }}, 'Undo');
-        
-        this.gameFolder.add({Start: () => { console.log("Start") }}, 'Start');
-        this.gameFolder.add({Reset: () => { console.log("Reset") }}, 'Reset');
-        // Needs fix
-        // this.gameFolder.add(this.scene, 'selectedTheme', this.scene.themes).name('Selected Theme').onChange(this.scene.updateTheme.bind(this.scene));
-        // Missing: Player modes
     }
 }

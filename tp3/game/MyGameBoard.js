@@ -46,7 +46,7 @@ export class MyGameBoard extends CGFobject {
                 this.board[i][j].setBoard(this);
             }
         }
-        
+
         //add pieces to board
         for (var i = 0; i < 8; i++) {
             this.boardPieces[i] = [];
@@ -175,7 +175,6 @@ export class MyGameBoard extends CGFobject {
     multipleJump(startTile, endTile) {
         var jumpedTiles = [];
         var path = this.getPath(startTile, endTile);
-        console.log(path);
         var start = startTile;
         for (var i = 0; i < path.length; i++) {
             var end = path[i];
@@ -200,14 +199,14 @@ export class MyGameBoard extends CGFobject {
             jumpedTiles.push(this.jumpPiece(startTile, endTile));
 
         }
-        else if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2 && !this.board[startRow + rowDiff / 2][startCol + colDiff / 2].hasPiece() || 
-                Math.abs(rowDiff) > 2 || Math.abs(colDiff) > 2) {
+        else if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2 && !this.board[startRow + rowDiff / 2][startCol + colDiff / 2].hasPiece() ||
+            Math.abs(rowDiff) > 2 || Math.abs(colDiff) > 2) {
             jumpedTiles = this.multipleJump(startTile, endTile);
         }
         this.removePiece(startTile);
         this.addPiece(piece, endTile);
         becomeKing = this.checkKing(piece, endTile);
-        return [jumpedTiles,becomeKing];
+        return [jumpedTiles, becomeKing];
     }
 
     checkJumps(player, currentTile, adjacentTileLeft, adjacentTileRight, currentPath) {
@@ -502,7 +501,7 @@ export class MyGameBoard extends CGFobject {
                     }
                     path = path.concat(this.checkJumpsKing(player, adjacentTileRightBack, adjacentTileLeftFrontNew, adjacentTileRightFrontNew, adjacentTileLeftBackNew, adjacentTileRightBackNew, newCurrentPath, visited));
                 }
-                
+
             }
         }
         return path;
@@ -624,11 +623,11 @@ export class MyGameBoard extends CGFobject {
     display() {
         this.scene.clearPickRegistration();
         this.scene.pushMatrix();
-        if (this.scene.selectedTheme == "demo.xml"){
+        if (this.scene.selectedTheme == "demo.xml") {
             this.scene.scale(0.3, 0.3, 0.3)
             this.scene.translate(14.5, 10.1, 30);
         }
-        else if (this.scene.selectedTheme == "dungeon.xml"){
+        else if (this.scene.selectedTheme == "dungeon.xml") {
             this.scene.scale(0.25, 0.25, 0.25)
             this.scene.translate(39.5, 12.1, 42);
         }
@@ -656,7 +655,8 @@ export class MyGameBoard extends CGFobject {
                 this.scene.translate(i, 0, j);
                 this.scene.rotate(-Math.PI / 2, 1, 0, 0);
 
-                this.scene.registerForPick(id, this.board[i][j]);
+                if (this.scene.gameOrchestrator.gameOn == true)
+                    this.scene.registerForPick(id, this.board[i][j]);
                 this.board[i][j].display();
                 this.scene.popMatrix();
             }
