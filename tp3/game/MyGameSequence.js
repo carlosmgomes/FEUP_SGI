@@ -17,6 +17,9 @@ export class MyGameSequence {
         }
 
         let movedPiece = lastMove.piece;
+        if (lastMove.becameKing) {
+            movedPiece.setType("piece");
+        }
         lastMove.originTile.setPiece(movedPiece);
         lastMove.destinationTile.unsetPiece();
         movedPiece.setTile(lastMove.originTile);

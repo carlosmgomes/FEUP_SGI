@@ -271,11 +271,15 @@ export class MyGameOrchestrator extends CGFobject {
             if ((this.currentHighlight.getType() == "piece" && this.gameBoard.getCurrentMoves(this.currentPlayer, this.currentHighlight)[0].includes(tile) ||
                 (this.currentHighlight.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.currentHighlight)[0].includes(tile)))) {
                 //animation TODO
+                var result;
                 var jumpedTiles = [];
+                var becomeKing = null;
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 var originTile = this.currentHighlight.getTile();
-                jumpedTiles = this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
-                this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer));
+                result = this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
+                jumpedTiles = result[0];
+                becomeKing = result[1];
+                this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing));
                 this.nextPlayer();
                 this.currentHighlight = null;
                 this.state = "gameplay";

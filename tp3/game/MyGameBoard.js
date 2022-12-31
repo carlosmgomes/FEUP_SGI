@@ -114,19 +114,23 @@ export class MyGameBoard extends CGFobject {
     }
 
     checkKing(piece, tile) {
+        var flag = false;
         if (piece != null) {
             if (piece.getPlayer() == 1) {
                 if (tile.getId()[0] == 7) {
+                    flag = true;
                     piece.setType("king");
                     this.auxBoard1.removePiece();
                 }
             } else {
                 if (tile.getId()[0] == 0) {
+                    flag = true;
                     piece.setType("king");
                     this.auxBoard2.removePiece();
                 }
             }
         }
+        return flag;
     }
 
     jumpPiece(startTile, endTile) {
@@ -183,6 +187,7 @@ export class MyGameBoard extends CGFobject {
 
     movePiece(piece, startTile, endTile) {
         var jumpedTiles = [];
+        var becomeKing = false;
         var startId = startTile.getId();
         var endId = endTile.getId();
         var startRow = parseInt(startId[0]);
@@ -201,8 +206,8 @@ export class MyGameBoard extends CGFobject {
         }
         this.removePiece(startTile);
         this.addPiece(piece, endTile);
-        this.checkKing(piece, endTile);
-        return jumpedTiles;
+        becomeKing = this.checkKing(piece, endTile);
+        return [jumpedTiles,becomeKing];
     }
 
     checkJumps(player, currentTile, adjacentTileLeft, adjacentTileRight, currentPath) {
