@@ -8,6 +8,7 @@ import { MyGameMove } from './MyGameMove.js';
 import { MyCameraAnimation } from './MyCameraAnimation.js';
 import { MyGameInterface } from './MyGameInterface.js';
 import { MyInterfaceButton } from './MyInterfaceButton.js';
+import { MyInterface } from '../MyInterface.js';
 
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene, selectedTheme) {
@@ -84,22 +85,21 @@ export class MyGameOrchestrator extends CGFobject {
         this.gameSequence = new MyGameSequence(this);
         this.animator = new MyAnimator(scene, this);
         this.gameBoard = new MyGameBoard(scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
-        this.theme = new MySceneGraph(selectedTheme, scene);
+        this.setTheme(selectedTheme);
         this.currentPlayer = 1;
         this.currentHighlight = null;
         this.state = "gameplay";
-        this.camera1 = new MyCameraAnimation(2, selectedTheme);
-        this.camera2 = new MyCameraAnimation(1, selectedTheme);
+        
         this.cameraAnimation = false;
         this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
         this.player1_score = 0;
         this.player2_score = 0;
     }
 
-    setTheme(theme) {
-        this.theme = new MySceneGraph(theme, this.scene);
-        this.camera1 = new MyCameraAnimation(1, selectedTheme);
-        this.camera2 = new MyCameraAnimation(2, selectedTheme);
+    setTheme(selectedTheme) {
+        this.theme = new MySceneGraph(selectedTheme, this.scene);
+        this.camera1 = new MyCameraAnimation(2, selectedTheme);
+        this.camera2 = new MyCameraAnimation(1, selectedTheme);
     }
 
     update(time) {
@@ -185,11 +185,13 @@ export class MyGameOrchestrator extends CGFobject {
                 this.reset();
             }
             if (obj.id == "theme1") {
-                console.log("Theme1");
+                this.scene.selectedTheme = this.scene.themes[0]
+                this.scene.updateTheme()
 
             }
             if (obj.id == "theme2") {
-                console.log("Theme2");
+                this.scene.selectedTheme = this.scene.themes[1]
+                this.scene.updateTheme()
             }
             if (obj.id == "theme3") {
                 console.log("Theme3");
@@ -342,7 +344,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.currentPlayer = 1;
         this.cameraAnimation = true;
         this.gameBoard = new MyGameBoard(this.scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
-        this.gameSequence = new MyGameSequence();
+        this.gameSequence.moves = [];
         this.state = "gameplay";
         this.currentHighlight = null;
         this.finished = false;

@@ -25,6 +25,7 @@ export class XMLscene extends CGFscene {
      * @param {CGFApplication} application
      */
     init(application) {
+        this.first = true;
         super.init(application);
         this.sceneInited = false;
         this.selectedCamera = 0;
@@ -89,9 +90,12 @@ export class XMLscene extends CGFscene {
 
     updateTheme() {
         this.theme = this.selectedTheme;
+        this.interface.changeTheme();
         this.gameOrchestrator.setTheme(this.theme);
 
     }
+
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -180,8 +184,9 @@ export class XMLscene extends CGFscene {
 
         this.initCameras();
 
-        this.interface.startInterface();
-
+        if (this.first)
+            this.interface.startInterface();
+        this.first=false;
     }
 
     /**
