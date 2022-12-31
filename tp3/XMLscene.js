@@ -29,7 +29,7 @@ export class XMLscene extends CGFscene {
 
         this.sceneInited = false;
         this.selectedCamera = 0;
-        this.selectedTheme = "dungeon.xml";
+        this.selectedTheme = "demo.xml";
         this.initInterfaceObjects();
         this.initCameras();
 
