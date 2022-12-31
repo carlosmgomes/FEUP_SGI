@@ -242,6 +242,11 @@ export class MySceneGraph {
         return null;
     }
 
+
+    getViews() {
+        return this.views;
+    }
+
     /**
      * Parses the <views> block.
      * @param {view block element} viewsNode

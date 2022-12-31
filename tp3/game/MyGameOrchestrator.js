@@ -5,6 +5,7 @@ import { MyAnimator } from './MyAnimator.js';
 import { MyGameSequence } from './MyGameSequence.js';
 import { MyTile } from './MyTile.js';
 import { MyGameMove } from './MyGameMove.js';
+import { MyCameraAnimation } from './MyCameraAnimation.js';
 
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene,selectedTheme) {
@@ -58,7 +59,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.boardMaterial2.setSpecular(0.4, 0.4, 0.4, 1.0);
         this.boardMaterial2.setShininess(10.0);
 
-        this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/wood.jpg");
+        this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
         this.tileTexture2 = new CGFtexture(this.scene, "scenes/images/steel.jpg");
 
         this.boardMaterial1.setTexture(this.tileTexture1);
@@ -71,14 +72,48 @@ export class MyGameOrchestrator extends CGFobject {
         this.currentPlayer = 1;
         this.currentHighlight = null;
         this.state = "gameplay";
+        this.camera1 = new MyCameraAnimation(2,selectedTheme);
+        this.camera2 = new MyCameraAnimation(1,selectedTheme);
+        this.cameraAnimation = false;
     }
 
     setTheme(theme) {
         this.theme = new MySceneGraph(theme, this.scene);
+        this.camera1 = new MyCameraAnimation(1,selectedTheme);
+        this.camera2 = new MyCameraAnimation(2,selectedTheme);
     }
 
     update(time) {
-        this.animator.update(time);
+        if(this.cameraAnimation){
+            if(this.currentPlayer == 1){
+                if(this.scene.camera.position[0]>this.camera2.getPositionX()){
+
+                    this.scene.camera.position[0]-=time/5000000000000;
+                }
+                if(this.scene.camera.target[0]<this.camera2.getTargetX()){
+                    this.scene.camera.target[0]+=time/5000000000000;
+                }
+                else{
+                    this.scene.camera.position[0] = this.camera2.getPositionX();
+                    this.scene.camera.target[0] = this.camera2.getTargetX();
+                    this.cameraAnimation = false;
+                }
+            }
+            else{
+                if(this.scene.camera.position[0]<this.camera1.getPositionX()){
+
+                    this.scene.camera.position[0]+=time/5000000000000;
+                }
+                if(this.scene.camera.target[0]>this.camera1.getTargetX()){
+                    this.scene.camera.target[0]-=time/5000000000000;
+                }
+                else{
+                    this.scene.camera.position[0] = this.camera1.getPositionX();
+                    this.scene.camera.target[0] = this.camera1.getTargetX();
+                    this.cameraAnimation = false;
+                }
+            }
+        }
     }
 
     display() {
@@ -154,7 +189,7 @@ export class MyGameOrchestrator extends CGFobject {
             console.log("Player " + this.winner + " wins!");
             return;
         }
-        this.scene.updatePlayerCamera(this.currentPlayer);
+        this.cameraAnimation = true;
 
     }
 

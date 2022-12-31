@@ -29,7 +29,7 @@ export class XMLscene extends CGFscene {
 
         this.sceneInited = false;
         this.selectedCamera = 0;
-        this.selectedTheme = "dungeon.xml";
+        this.selectedTheme = "demo.xml";
         this.initInterfaceObjects();
         this.initCameras();
 
@@ -72,6 +72,7 @@ export class XMLscene extends CGFscene {
     }
 
     updatePlayerCamera(player){
+        console.log(player);
         if (player == 1){
             this.camera = this.graph.views["Player 1"];
             this.interface.setActiveCamera(this.camera);
