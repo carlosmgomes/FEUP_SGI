@@ -155,7 +155,6 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     OnObjectSelected(obj, id) {
-        //TODO
         if (obj instanceof MyTile) {
             if (obj.piece != null) {
                 console.log("Piece selected");
@@ -171,8 +170,6 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     nextPlayer() {
-        // TODO 
-        // camera animation
         var temp = [];
         var found = false;
         var hasMoves = false;
@@ -291,6 +288,8 @@ export class MyGameOrchestrator extends CGFobject {
         if (this.state == "gameplay" && this.gameSequence.moves.length > 0) {
             this.gameSequence.undo();
             this.display();
+            this.cameraAnimation = true;
+
         }
     }
 }
