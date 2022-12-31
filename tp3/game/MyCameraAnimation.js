@@ -16,12 +16,12 @@ export class MyCameraAnimation {
         }
         if (scene == "dungeon.xml") {
             if (player == 1) {
-                this.position = [4, 8, 9.5];
-                this.target = [14, 0, 9.5];
+                this.position = [5, 8, 10];
+                this.target = [14, 0, 10];
             }
             else if (player == 2) {
-                this.position = [15, 8, 9.5];
-                this.target = [6, 0, 9.5];
+                this.position = [17, 8, 10];
+                this.target = [6, 0, 10];
             }
         }
     }

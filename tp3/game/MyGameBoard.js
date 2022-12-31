@@ -621,11 +621,11 @@ export class MyGameBoard extends CGFobject {
         this.scene.pushMatrix();
         if (this.scene.selectedTheme == "demo.xml"){
             this.scene.scale(0.3, 0.3, 0.3)
-            this.scene.translate(14.5, 10.1, 27);
+            this.scene.translate(14.5, 10.1, 30);
         }
         else if (this.scene.selectedTheme == "dungeon.xml"){
             this.scene.scale(0.25, 0.25, 0.25)
-            this.scene.translate(36.5, 12.1, 35);
+            this.scene.translate(39.5, 12.1, 42);
         }
 
 

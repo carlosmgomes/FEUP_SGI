@@ -6,7 +6,7 @@ import { MyGameSequence } from './MyGameSequence.js';
 import { MyTile } from './MyTile.js';
 import { MyGameMove } from './MyGameMove.js';
 import { MyCameraAnimation } from './MyCameraAnimation.js';
-
+import { MyGameInterface } from './MyGameInterface.js';
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene,selectedTheme) {
         super(scene);
@@ -65,6 +65,32 @@ export class MyGameOrchestrator extends CGFobject {
         this.boardMaterial1.setTexture(this.tileTexture1);
         this.boardMaterial2.setTexture(this.tileTexture2);
 
+
+
+        this.interfaceMaterial = new CGFappearance(scene);
+        this.interfaceMaterial.setEmission(0.0, 0.0, 0.0, 1.0);
+        this.interfaceMaterial.setAmbient(0.1, 0.1, 0.1, 1.0);
+        this.interfaceMaterial.setDiffuse(0.4, 0.4, 0.4, 1.0);
+        this.interfaceMaterial.setSpecular(0.4, 0.4, 0.4, 1.0);
+        this.interfaceMaterial.setShininess(10.0);
+        this.interfaceMaterialTexture = new CGFtexture(this.scene, "scenes/images/grey.jpg");
+        this.interfaceMaterial.setTexture(this.interfaceMaterialTexture);
+
+        /* this.interfaceClickableButton = new CGFappearance(scene);
+        this.interfaceClickableButton.setEmission(0.0, 0.0, 0.0, 1.0);
+        this.interfaceClickableButton.setAmbient(0.1, 0.1, 0.1, 1.0);
+        this.interfaceClickableButton.setDiffuse(0.4, 0.4, 0.4, 1.0);
+        this.interfaceClickableButton.setSpecular(0.4, 0.4, 0.4, 1.0);
+        this.interfaceClickableButton.setShininess(10.0);
+
+        this.interfaceInfoButton = new CGFappearance(scene);
+        this.interfaceInfoButton.setEmission(0.0, 0.0, 0.0, 1.0);
+        this.interfaceInfoButton.setAmbient(0.1, 0.1, 0.1, 1.0);
+        this.interfaceInfoButton.setDiffuse(0.4, 0.4, 0.4, 1.0);
+        this.interfaceInfoButton.setSpecular(0.4, 0.4, 0.4, 1.0);
+        this.interfaceInfoButton.setShininess(10.0); */
+
+
         this.gameSequence = new MyGameSequence(this);
         this.animator = new MyAnimator(scene, this);
         this.gameBoard = new MyGameBoard(scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
@@ -75,6 +101,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.camera1 = new MyCameraAnimation(2,selectedTheme);
         this.camera2 = new MyCameraAnimation(1,selectedTheme);
         this.cameraAnimation = false;
+        this.gameInterface = new MyGameInterface(this.scene,this.interfaceMaterial);
     }
 
     setTheme(theme) {
@@ -120,6 +147,7 @@ export class MyGameOrchestrator extends CGFobject {
     display() {
         this.theme.displayScene();
         this.gameBoard.display();
+        this.gameInterface.display();
     }
 
 
