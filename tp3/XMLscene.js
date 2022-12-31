@@ -29,7 +29,7 @@ export class XMLscene extends CGFscene {
 
         this.sceneInited = false;
         this.selectedCamera = 0;
-        this.selectedTheme = "dungeon.xml";
+        this.selectedTheme = "demo.xml";
         this.initInterfaceObjects();
         this.initCameras();
 
@@ -37,6 +37,12 @@ export class XMLscene extends CGFscene {
         this.shader = new CGFshader(this.gl, "shaders/shaders.vert", "shaders/shaders.frag");
         this.shader.setUniformsValues({ uSampler2: 1 });
         this.shader.setUniformsValues({ timeFactor: 0 });
+
+        // instatiate text shader (used to simplify access via row/column coordinates)
+        // check the two files to see how it is done
+        this.textShader = new CGFshader(this.gl, "shaders/font.vert", "shaders/font.frag");
+        // set number of rows and columns in font texture
+        this.textShader.setUniformsValues({ 'dims': [16, 16] });
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
         this.gl.enable(this.gl.CULL_FACE);

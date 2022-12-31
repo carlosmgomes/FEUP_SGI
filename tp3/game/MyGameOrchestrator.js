@@ -7,8 +7,9 @@ import { MyTile } from './MyTile.js';
 import { MyGameMove } from './MyGameMove.js';
 import { MyCameraAnimation } from './MyCameraAnimation.js';
 import { MyGameInterface } from './MyGameInterface.js';
+
 export class MyGameOrchestrator extends CGFobject {
-    constructor(scene,selectedTheme) {
+    constructor(scene, selectedTheme) {
         super(scene);
         this.finished = false;
         this.wood = new CGFtexture(this.scene, "/tp3/scenes/images/wood.jpg");
@@ -76,21 +77,6 @@ export class MyGameOrchestrator extends CGFobject {
         this.interfaceMaterialTexture = new CGFtexture(this.scene, "scenes/images/grey.jpg");
         this.interfaceMaterial.setTexture(this.interfaceMaterialTexture);
 
-        /* this.interfaceClickableButton = new CGFappearance(scene);
-        this.interfaceClickableButton.setEmission(0.0, 0.0, 0.0, 1.0);
-        this.interfaceClickableButton.setAmbient(0.1, 0.1, 0.1, 1.0);
-        this.interfaceClickableButton.setDiffuse(0.4, 0.4, 0.4, 1.0);
-        this.interfaceClickableButton.setSpecular(0.4, 0.4, 0.4, 1.0);
-        this.interfaceClickableButton.setShininess(10.0);
-
-        this.interfaceInfoButton = new CGFappearance(scene);
-        this.interfaceInfoButton.setEmission(0.0, 0.0, 0.0, 1.0);
-        this.interfaceInfoButton.setAmbient(0.1, 0.1, 0.1, 1.0);
-        this.interfaceInfoButton.setDiffuse(0.4, 0.4, 0.4, 1.0);
-        this.interfaceInfoButton.setSpecular(0.4, 0.4, 0.4, 1.0);
-        this.interfaceInfoButton.setShininess(10.0); */
-
-
         this.gameSequence = new MyGameSequence(this);
         this.animator = new MyAnimator(scene, this);
         this.gameBoard = new MyGameBoard(scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
@@ -98,44 +84,46 @@ export class MyGameOrchestrator extends CGFobject {
         this.currentPlayer = 1;
         this.currentHighlight = null;
         this.state = "gameplay";
-        this.camera1 = new MyCameraAnimation(2,selectedTheme);
-        this.camera2 = new MyCameraAnimation(1,selectedTheme);
+        this.camera1 = new MyCameraAnimation(2, selectedTheme);
+        this.camera2 = new MyCameraAnimation(1, selectedTheme);
         this.cameraAnimation = false;
-        this.gameInterface = new MyGameInterface(this.scene,this.interfaceMaterial);
+        this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
+        this.player1_score = 0;
+        this.player2_score = 0;
     }
 
     setTheme(theme) {
         this.theme = new MySceneGraph(theme, this.scene);
-        this.camera1 = new MyCameraAnimation(1,selectedTheme);
-        this.camera2 = new MyCameraAnimation(2,selectedTheme);
+        this.camera1 = new MyCameraAnimation(1, selectedTheme);
+        this.camera2 = new MyCameraAnimation(2, selectedTheme);
     }
 
     update(time) {
         var rate = 1500000000000;
-        if(this.cameraAnimation){
-            if(this.currentPlayer == 1){
-                if(this.scene.camera.position[0]>this.camera2.getPositionX()){
+        if (this.cameraAnimation) {
+            if (this.currentPlayer == 1) {
+                if (this.scene.camera.position[0] > this.camera2.getPositionX()) {
 
-                    this.scene.camera.position[0]-=time/rate;
+                    this.scene.camera.position[0] -= time / rate;
                 }
-                if(this.scene.camera.target[0]<this.camera2.getTargetX()){
-                    this.scene.camera.target[0]+=time/rate;
+                if (this.scene.camera.target[0] < this.camera2.getTargetX()) {
+                    this.scene.camera.target[0] += time / rate;
                 }
-                else{
+                else {
                     this.scene.camera.position[0] = this.camera2.getPositionX();
                     this.scene.camera.target[0] = this.camera2.getTargetX();
                     this.cameraAnimation = false;
                 }
             }
-            else{
-                if(this.scene.camera.position[0]<this.camera1.getPositionX()){
+            else {
+                if (this.scene.camera.position[0] < this.camera1.getPositionX()) {
 
-                    this.scene.camera.position[0]+=time/rate;
+                    this.scene.camera.position[0] += time / rate;
                 }
-                if(this.scene.camera.target[0]>this.camera1.getTargetX()){
-                    this.scene.camera.target[0]-=time/rate;
+                if (this.scene.camera.target[0] > this.camera1.getTargetX()) {
+                    this.scene.camera.target[0] -= time / rate;
                 }
-                else{
+                else {
                     this.scene.camera.position[0] = this.camera1.getPositionX();
                     this.scene.camera.target[0] = this.camera1.getTargetX();
                     this.cameraAnimation = false;
@@ -146,8 +134,8 @@ export class MyGameOrchestrator extends CGFobject {
 
     display() {
         this.theme.displayScene();
+        this.gameInterface.display(this.player1_score, this.player2_score);
         this.gameBoard.display();
-        this.gameInterface.display();
     }
 
 
@@ -215,6 +203,10 @@ export class MyGameOrchestrator extends CGFobject {
             this.finished = true;
             console.log("Game Over");
             this.winner = this.currentPlayer == 1 ? 2 : 1;
+            if(this.winner == 1)
+                this.player1_score++;
+            else
+                this.player2_score++;
             console.log("Player " + this.winner + " wins!");
             return;
         }
