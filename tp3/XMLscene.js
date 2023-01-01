@@ -1,6 +1,8 @@
 import { CGFscene } from '../lib/CGF.js';
 import { CGFaxis, CGFcamera, CGFshader } from '../lib/CGF.js';
 import { MyGameOrchestrator } from './game/MyGameOrchestrator.js';
+import { MySceneGraph } from './MySceneGraph.js';
+import { MyCameraAnimation } from './game/MyCameraAnimation.js';
 
 
 var RATE = 1000;
@@ -55,7 +57,8 @@ export class XMLscene extends CGFscene {
 
         this.setPickEnabled(true);
         this.gameOrchestrator = new MyGameOrchestrator(this, this.selectedTheme);
-        this.themes = ["demo.xml", "dungeon.xml","garden.xml"];
+        this.updateTheme();
+        this.themes = ["demo.xml", "dungeon.xml", "garden.xml"];
     }
 
     /**
@@ -89,10 +92,11 @@ export class XMLscene extends CGFscene {
     }
 
     updateTheme() {
-        this.theme = this.selectedTheme;
         this.interface.changeTheme();
-        this.gameOrchestrator.setTheme(this.theme);
-
+        var theme = new MySceneGraph(this.selectedTheme, this);
+        this.gameOrchestrator.camera1 = new MyCameraAnimation(2, this.selectedTheme);
+        this.gameOrchestrator.camera2 = new MyCameraAnimation(1, this.selectedTheme);
+        this.updatePlayerCamera(this.gameOrchestrator.player);
     }
 
 
@@ -186,7 +190,7 @@ export class XMLscene extends CGFscene {
 
         if (this.first)
             this.interface.startInterface();
-        this.first=false;
+        this.first = false;
     }
 
     /**
@@ -225,9 +229,6 @@ export class XMLscene extends CGFscene {
      * Displays the scene.
      */
     display() {
-        this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
-        this.clearPickRegistration();
-
 
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -252,13 +253,21 @@ export class XMLscene extends CGFscene {
             this.lights[i].update();
         }
 
+       
         if (this.sceneInited) {
             // Draw axis
             this.setDefaultAppearance();
 
             // Displays the scene (MySceneGraph function).
+            this.graph.displayScene();
             this.gameOrchestrator.display();
+            this.gameOrchestrator.managePick(this.pickMode, this.pickResults);
+            this.clearPickRegistration();
+    
+    
         }
+
+        
 
         this.popMatrix();
         // ---- END Background, camera and axis setup

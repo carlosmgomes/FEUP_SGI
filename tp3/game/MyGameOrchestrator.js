@@ -1,14 +1,11 @@
 import { CGFobject, CGFtexture, CGFappearance, CGFshader } from '../../lib/CGF.js';
-import { MySceneGraph } from '../MySceneGraph.js';
 import { MyGameBoard } from './MyGameBoard.js';
 import { MyAnimator } from './MyAnimator.js';
 import { MyGameSequence } from './MyGameSequence.js';
 import { MyTile } from './MyTile.js';
 import { MyGameMove } from './MyGameMove.js';
-import { MyCameraAnimation } from './MyCameraAnimation.js';
 import { MyGameInterface } from './MyGameInterface.js';
 import { MyInterfaceButton } from './MyInterfaceButton.js';
-import { MyInterface } from '../MyInterface.js';
 
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene, selectedTheme) {
@@ -89,7 +86,6 @@ export class MyGameOrchestrator extends CGFobject {
         this.gameSequence = new MyGameSequence(this);
         this.animator = new MyAnimator(scene, this);
         this.gameBoard = new MyGameBoard(scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
-        this.setTheme(selectedTheme);
         this.currentPlayer = 1;
         this.currentHighlight = null;
         this.state = "gameplay";
@@ -100,11 +96,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.player2_score = 0;
     }
 
-    setTheme(selectedTheme) {
-        this.theme = new MySceneGraph(selectedTheme, this.scene);
-        this.camera1 = new MyCameraAnimation(2, selectedTheme);
-        this.camera2 = new MyCameraAnimation(1, selectedTheme);
-    }
+
 
     update(time) {
         if (this.gameOn) {
@@ -147,7 +139,6 @@ export class MyGameOrchestrator extends CGFobject {
     }
 
     display() {
-        this.theme.displayScene();
         this.gameInterface.display(this.player1_score, this.player2_score, this.timeElapsed);
         this.gameBoard.display();
     }
