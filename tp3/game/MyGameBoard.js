@@ -623,7 +623,7 @@ export class MyGameBoard extends CGFobject {
     display() {
         this.scene.clearPickRegistration();
         this.scene.pushMatrix();
-        if (this.scene.selectedTheme == "demo.xml") {
+        if (this.scene.selectedTheme == "demo.xml" || this.scene.selectedTheme == "garden.xml") {
             this.scene.scale(0.3, 0.3, 0.3)
             this.scene.translate(14.5, 10.1, 30);
         }

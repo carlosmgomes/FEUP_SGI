@@ -101,7 +101,7 @@ export class MyGameInterface extends CGFobject {
     display(player1_score, player2_score,timeElapsed) {
         this.scene.pushMatrix();
         this.material.apply();
-        if (this.scene.selectedTheme == "demo.xml") {
+        if (this.scene.selectedTheme == "demo.xml" || this.scene.selectedTheme == "garden.xml") {
             this.scene.rotate(Math.PI * 0.5, 0, 1, 0);
             this.scene.translate(-7.5, 3, 5.5);
         }

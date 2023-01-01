@@ -65,12 +65,16 @@ export class MyGameOrchestrator extends CGFobject {
         this.boardMaterial2.setSpecular(0.4, 0.4, 0.4, 1.0);
         this.boardMaterial2.setShininess(10.0);
 
-        this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
+        console.log(selectedTheme)
+        if (selectedTheme == "garden.xml") {
+            this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/wood.jpg");
+        }
+        else
+            this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
         this.tileTexture2 = new CGFtexture(this.scene, "scenes/images/steel.jpg");
 
         this.boardMaterial1.setTexture(this.tileTexture1);
         this.boardMaterial2.setTexture(this.tileTexture2);
-
 
 
         this.interfaceMaterial = new CGFappearance(scene);
@@ -89,7 +93,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.currentPlayer = 1;
         this.currentHighlight = null;
         this.state = "gameplay";
-        
+
         this.cameraAnimation = false;
         this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
         this.player1_score = 0;
@@ -186,15 +190,22 @@ export class MyGameOrchestrator extends CGFobject {
             }
             if (obj.id == "theme1") {
                 this.scene.selectedTheme = this.scene.themes[0]
+                var text = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
+                this.gameBoard.boardMaterial1.setTexture(text);
                 this.scene.updateTheme()
 
             }
             if (obj.id == "theme2") {
                 this.scene.selectedTheme = this.scene.themes[1]
+                var text = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
+                this.gameBoard.boardMaterial1.setTexture(text);
                 this.scene.updateTheme()
             }
             if (obj.id == "theme3") {
-                console.log("Theme3");
+                this.scene.selectedTheme = this.scene.themes[2]
+                var text = new CGFtexture(this.scene, "scenes/images/wood.jpg");
+                this.gameBoard.boardMaterial1.setTexture(text);
+                this.scene.updateTheme()
             }
             if (obj.id == "movie") {
                 console.log("Movie");

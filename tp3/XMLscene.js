@@ -29,7 +29,7 @@ export class XMLscene extends CGFscene {
         super.init(application);
         this.sceneInited = false;
         this.selectedCamera = 0;
-        this.selectedTheme = "demo.xml";
+        this.selectedTheme = "garden.xml";
         this.initInterfaceObjects();
         this.initCameras();
 
@@ -55,7 +55,7 @@ export class XMLscene extends CGFscene {
 
         this.setPickEnabled(true);
         this.gameOrchestrator = new MyGameOrchestrator(this, this.selectedTheme);
-        this.themes = ["demo.xml", "dungeon.xml"];
+        this.themes = ["demo.xml", "dungeon.xml","garden.xml"];
     }
 
     /**

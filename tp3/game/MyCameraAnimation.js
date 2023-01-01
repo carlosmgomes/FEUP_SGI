@@ -4,7 +4,7 @@ export class MyCameraAnimation {
     }
 
     init(player, scene) {
-        if (scene == "demo.xml") {
+        if (scene == "demo.xml" || scene == "garden.xml") {
             if (player == 1) {
                 this.position = [0, 8, 9];
                 this.target = [10, 0, 9];
