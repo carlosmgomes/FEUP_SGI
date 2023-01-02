@@ -637,7 +637,7 @@ export class MyGameBoard extends CGFobject {
         }
         else if (this.scene.selectedTheme == "dungeon.xml") {
             this.scene.scale(0.25, 0.25, 0.25)
-            this.scene.translate(39.5, 12.1, 42);
+            this.scene.translate(18, 12.2, 36);
         }
 
 

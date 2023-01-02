@@ -5,7 +5,6 @@ import { MyTile } from './MyTile.js';
 import { MyGameMove } from './MyGameMove.js';
 import { MyGameInterface } from './MyGameInterface.js';
 import { MyInterfaceButton } from './MyInterfaceButton.js';
-import { MyPiece } from './MyPiece.js';
 
 
 
@@ -35,14 +34,6 @@ export class MyGameOrchestrator extends CGFobject {
         this.red.setShininess(10.0);
         this.red.setTexture(this.wood);
 
-        this.green = new CGFappearance(scene);
-        this.green.setEmission(0.0, 0.0, 0.0, 1.0);
-        this.green.setAmbient(0.0, 0.1, 0.0, 1.0);
-        this.green.setDiffuse(0.0, 0.4, 0.0, 1.0);
-        this.green.setSpecular(0.0, 0.4, 0.0, 1.0);
-        this.green.setShininess(10.0);
-        this.green.setTexture(this.wood);
-
         this.green_blue = new CGFappearance(scene);
         this.green_blue.setEmission(0.0, 0.0, 0.0, 1.0);
         this.green_blue.setAmbient(0.0, 0.1, 0.1, 1.0);
@@ -66,11 +57,8 @@ export class MyGameOrchestrator extends CGFobject {
         this.boardMaterial2.setShininess(10.0);
 
         console.log(selectedTheme)
-        if (selectedTheme == "garden.xml") {
-            this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/wood.jpg");
-        }
-        else
-            this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
+
+        this.tileTexture1 = new CGFtexture(this.scene, "scenes/images/wood.jpg");
         this.tileTexture2 = new CGFtexture(this.scene, "scenes/images/steel.jpg");
 
         this.boardMaterial1.setTexture(this.tileTexture1);
@@ -135,6 +123,7 @@ export class MyGameOrchestrator extends CGFobject {
                 else {
                     this.scene.camera.position[0] = this.camera2.getPositionX();
                     this.scene.camera.target[0] = this.camera2.getTargetX();
+                    this.scene.setPickEnabled(true);
                     this.cameraAnimation = false;
                 }
             }
@@ -149,6 +138,7 @@ export class MyGameOrchestrator extends CGFobject {
                 else {
                     this.scene.camera.position[0] = this.camera1.getPositionX();
                     this.scene.camera.target[0] = this.camera1.getTargetX();
+                    this.scene.setPickEnabled(true);
                     this.cameraAnimation = false;
                 }
             }
@@ -378,21 +368,15 @@ export class MyGameOrchestrator extends CGFobject {
             }
             if (obj.id == "theme1") {
                 this.scene.selectedTheme = this.scene.themes[0]
-                var text = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
-                this.gameBoard.boardMaterial1.setTexture(text);
                 this.scene.updateTheme()
 
             }
             if (obj.id == "theme2") {
                 this.scene.selectedTheme = this.scene.themes[1]
-                var text = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
-                this.gameBoard.boardMaterial1.setTexture(text);
                 this.scene.updateTheme()
             }
             if (obj.id == "theme3") {
                 this.scene.selectedTheme = this.scene.themes[2]
-                var text = new CGFtexture(this.scene, "scenes/images/wood.jpg");
-                this.gameBoard.boardMaterial1.setTexture(text);
                 this.scene.updateTheme()
             }
             if (obj.id == "start") {
@@ -450,6 +434,8 @@ export class MyGameOrchestrator extends CGFobject {
             return;
         }
         this.pieceAnimation = true;
+        this.scene.setPickEnabled(false);
+
     }
 
 
@@ -527,7 +513,7 @@ export class MyGameOrchestrator extends CGFobject {
                     path.push(result[1][i]);
                 }
                 becomeKing = result[2];
-                this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing,this.animatedPiece));
+                this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing, this.animatedPiece));
                 this.destinationAnimationTile = tile
                 if (path.length > 1) {
                     for (var i = 0; i < path.length - 1; i++) {
@@ -578,7 +564,7 @@ export class MyGameOrchestrator extends CGFobject {
         }
     }
 
-    movie(){
+    movie() {
         this.gameSequence.movie();
     }
 

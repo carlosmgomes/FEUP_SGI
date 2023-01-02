@@ -21,7 +21,7 @@ export class MyGameInterface extends CGFobject {
     }
 
 
-    displayFront(player1_score, player2_score,timeElapsed) {
+    displayFront(player1_score, player2_score, timeElapsed) {
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI * 0.5, 0, 0, 1);
         this.scene.translate(0.5, -1, 0.21);
@@ -33,7 +33,7 @@ export class MyGameInterface extends CGFobject {
         this.undoButton.display();
         this.scene.registerForPick(91, this.resetButton);
         this.resetButton.display();
-        this.gameStatus.display(player1_score, player2_score,timeElapsed);
+        this.gameStatus.display(player1_score, player2_score, timeElapsed);
         this.scene.registerForPick(92, this.theme1Button);
         this.theme1Button.display();
         this.scene.registerForPick(93, this.theme2Button);
@@ -49,7 +49,7 @@ export class MyGameInterface extends CGFobject {
     }
 
 
-    displayBack(player1_score, player2_score,timeElapsed) {
+    displayBack(player1_score, player2_score, timeElapsed) {
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI * 1.5, 0, 0, 1);
         this.scene.rotate(Math.PI, 0, 1, 0);
@@ -62,7 +62,7 @@ export class MyGameInterface extends CGFobject {
         this.undoButton.display();
         this.scene.registerForPick(101, this.resetButton);
         this.resetButton.display();
-        this.gameStatus.display(player1_score, player2_score,timeElapsed);
+        this.gameStatus.display(player1_score, player2_score, timeElapsed);
         this.scene.registerForPick(102, this.theme1Button);
         this.theme1Button.display();
         this.scene.registerForPick(103, this.theme2Button);
@@ -98,21 +98,16 @@ export class MyGameInterface extends CGFobject {
     }
 
 
-    display(player1_score, player2_score,timeElapsed) {
+    display(player1_score, player2_score, timeElapsed) {
         this.scene.pushMatrix();
         this.material.apply();
-        if (this.scene.selectedTheme == "demo.xml" || this.scene.selectedTheme == "garden.xml") {
-            this.scene.rotate(Math.PI * 0.5, 0, 1, 0);
-            this.scene.translate(-7.5, 3, 5.5);
-        }
-        if (this.scene.selectedTheme == "dungeon.xml") {
-            this.scene.rotate(Math.PI * 0.5, 0, 1, 0);
-            this.scene.translate(-8.5, 3, 10.9);
-        }
+        this.scene.rotate(Math.PI * 0.5, 0, 1, 0);
+        this.scene.translate(-7.5, 3, 5.5);
+
         this.displaySide1();
         this.displaySide2();
-        this.displayFront(player1_score, player2_score,timeElapsed);
-        this.displayBack(player1_score, player2_score,timeElapsed);
+        this.displayFront(player1_score, player2_score, timeElapsed);
+        this.displayBack(player1_score, player2_score, timeElapsed);
         this.scene.popMatrix();
     }
 }
