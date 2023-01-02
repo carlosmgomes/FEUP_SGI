@@ -536,7 +536,6 @@ export class MyGameOrchestrator extends CGFobject {
                 else {
                     this.direction = this.gameSequence.moves[this.gameSequence.moves.length - 1].getDirection();
                 }
-                console.log(this.gameBoard.board[1][3]);
 
                 this.state = "gameplay";
                 this.nextPlayer();
