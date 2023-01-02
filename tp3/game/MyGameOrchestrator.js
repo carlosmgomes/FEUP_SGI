@@ -527,7 +527,7 @@ export class MyGameOrchestrator extends CGFobject {
                     path.push(result[1][i]);
                 }
                 becomeKing = result[2];
-                this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing));
+                this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing,this.animatedPiece));
                 this.destinationAnimationTile = tile
                 if (path.length > 1) {
                     for (var i = 0; i < path.length - 1; i++) {
@@ -572,7 +572,7 @@ export class MyGameOrchestrator extends CGFobject {
         if (this.state == "gameplay" && this.gameSequence.moves.length > 0) {
             this.gameSequence.undo();
             this.display();
-            this.pieceAnimation = true;
+            //this.pieceAnimation = true;
             this.cameraAnimation = true;
 
         }

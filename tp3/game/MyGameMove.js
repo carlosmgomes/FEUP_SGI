@@ -1,6 +1,6 @@
 export class MyGameMove {
-    constructor(originTile, destinationTile,jumpedTiles,player,becameKing) {
-        this.piece = destinationTile.piece;
+    constructor(originTile, destinationTile,jumpedTiles,player,becameKing,piece) {
+        this.piece = piece;
         this.originTile = originTile;
         this.destinationTile = destinationTile;
         this.jumpedTiles = jumpedTiles;
