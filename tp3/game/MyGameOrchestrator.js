@@ -169,12 +169,12 @@ export class MyGameOrchestrator extends CGFobject {
 
         if (this.currentPlayer == 1 && this.auxBoardAnimation == true) {
             if (this.auxBoardAnimatorTranslation[1] < this.auxBoard2MaxY) {
-                this.auxBoardAnimatorTranslation[1] += time / 2500000000000;
+                this.auxBoardAnimatorTranslation[1] += time / 1500000000000;
                 if (this.auxBoardAnimatorTranslation[1] > this.distance) {
-                    this.auxBoardAnimatorTranslation[2] -= time / 2500000000000;
+                    this.auxBoardAnimatorTranslation[2] -= time / 1500000000000;
                 }
                 else {
-                    this.auxBoardAnimatorTranslation[2] += time / 2500000000000;
+                    this.auxBoardAnimatorTranslation[2] += time / 1500000000000;
                 }
             }
             else {
@@ -188,12 +188,12 @@ export class MyGameOrchestrator extends CGFobject {
         }
         else if (this.currentPlayer == 2 && this.auxBoardAnimation == true) {
             if (this.auxBoardAnimatorTranslation[1] > this.auxBoard1MaxY) {
-                this.auxBoardAnimatorTranslation[1] -= time / 2500000000000;
+                this.auxBoardAnimatorTranslation[1] -= time / 1500000000000;
                 if (this.auxBoardAnimatorTranslation[1] < this.distance) {
-                    this.auxBoardAnimatorTranslation[2] -= time / 2500000000000;
+                    this.auxBoardAnimatorTranslation[2] -= time / 1500000000000;
                 }
                 else {
-                    this.auxBoardAnimatorTranslation[2] += time / 2500000000000;
+                    this.auxBoardAnimatorTranslation[2] += time / 1500000000000;
                 }
             }
             else {
@@ -298,7 +298,7 @@ export class MyGameOrchestrator extends CGFobject {
         else {
             this.gameBoard.addPiece(this.animatedPiece, this.destinationAnimationTile);
             this.pieceAnimation = false;
-            if(this.becomeKing){
+            if (this.becomeKing) {
                 this.animatedPiece.setType("king");
             }
             this.animatedPiece = null;
@@ -365,7 +365,7 @@ export class MyGameOrchestrator extends CGFobject {
             if (obj.id == "undo") {
                 this.undo();
             }
-        
+
             if (obj.id == "reset") {
                 this.reset();
             }
@@ -403,8 +403,8 @@ export class MyGameOrchestrator extends CGFobject {
         this.currentPlayer = this.currentPlayer == 1 ? 2 : 1;
         for (var i = 0; i < this.gameBoard.board.length; i++) {
             for (var j = 0; j < this.gameBoard.board[i].length; j++) {
-                if (this.gameBoard.board[i][j].piece != null) {
-                    if (this.gameBoard.board[i][j].piece.player == this.currentPlayer) {
+                if (this.gameBoard.board[i][j].piece != null || this.gameBoard.board[i][j].piece != undefined) {
+                    if (this.gameBoard.board[i][j].piece.player == this.currentPlayer && !this.foundInJumpedPieces(i, j)) {
                         found = true;
                         if (this.gameBoard.board[i][j].piece.getType() == "piece")
                             temp.push(this.gameBoard.getCurrentMoves(this.currentPlayer, this.gameBoard.board[i][j].piece));
@@ -536,10 +536,10 @@ export class MyGameOrchestrator extends CGFobject {
                 else {
                     this.direction = this.gameSequence.moves[this.gameSequence.moves.length - 1].getDirection();
                 }
-                this.nextPlayer();
-                this.currentHighlight = null;
-                this.state = "gameplay";
+                console.log(this.gameBoard.board[1][3]);
 
+                this.state = "gameplay";
+                this.nextPlayer();
 
             }
         }
@@ -582,5 +582,14 @@ export class MyGameOrchestrator extends CGFobject {
         this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
 
     }
-}
 
+    foundInJumpedPieces(x, y) {
+        var id = x.toString() + "" + y.toString();
+        {
+            for (var i = 0; i < this.jumpedPieces.length; i++) {
+                if (this.jumpedPieces[i].tile.id == id) return true;
+            }
+            return false;
+        }
+    }
+}
