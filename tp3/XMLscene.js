@@ -31,7 +31,7 @@ export class XMLscene extends CGFscene {
         super.init(application);
         this.sceneInited = false;
         this.selectedCamera = 0;
-        this.selectedTheme = "garden.xml";
+        this.selectedTheme = "demo.xml";
         this.initInterfaceObjects();
         this.initCameras();
 

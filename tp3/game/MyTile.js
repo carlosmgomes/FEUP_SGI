@@ -20,6 +20,10 @@ export class MyTile extends CGFobject {
         return this.id;
     }
 
+    getCoordsfromId() {
+        return [parseInt(this.id[0]), parseInt(this.id[1])];
+    }
+
     setPiece(piece) {
         this.piece = piece;
     }

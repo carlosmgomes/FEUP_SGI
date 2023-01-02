@@ -603,11 +603,23 @@ export class MyGameBoard extends CGFobject {
     highlightPiece(piece) {
         if (piece != null)
             piece.highlight();
+        var coords = piece.getTile().getCoordsfromId();
+
+        if (this.scene.selectedTheme == "demo.xml" || this.scene.selectedTheme == "garden.xml") {
+            this.scene.lights[this.scene.lights.length - 1].setPosition(coords[0] * 0.28 + 4.53, 3.5, coords[1] * 0.28 + 8.86, 1);
+        }
+        else {
+            this.scene.lights[this.scene.lights.length - 1].setPosition(coords[0] * 0.25 + 10.05, 3.5, coords[1] * 0.25 + 10.37, 1);
+
+        }
+        this.scene.lights[this.scene.lights.length - 1].enable();
+
     }
 
     unhighlightPiece(piece) {
         if (piece != null)
             piece.unhighlight();
+        this.scene.lights[this.scene.lights.length - 1].disable();
     }
 
     highlightTile(tile) {
