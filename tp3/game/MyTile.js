@@ -56,8 +56,17 @@ export class MyTile extends CGFobject {
         this.isHighlighted = false;
     }
 
+    setPosition(position) {
+        this.position = position;
+     }
+ 
+     getPosition() {
+         return this.position;
+     }
+
     display() {
         this.scene.pushMatrix();
+        this.setPosition(this.scene.getMatrix())
         if (!this.isHighlighted)
             this.material.apply();
         else

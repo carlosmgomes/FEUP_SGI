@@ -1,11 +1,13 @@
 import { CGFobject, CGFtexture, CGFappearance, CGFshader } from '../../lib/CGF.js';
 import { MyGameBoard } from './MyGameBoard.js';
-import { MyAnimator } from './MyAnimator.js';
 import { MyGameSequence } from './MyGameSequence.js';
 import { MyTile } from './MyTile.js';
 import { MyGameMove } from './MyGameMove.js';
 import { MyGameInterface } from './MyGameInterface.js';
 import { MyInterfaceButton } from './MyInterfaceButton.js';
+import { MyPiece } from './MyPiece.js';
+
+
 
 function sleep(milliseconds) {
     const date = Date.now();
@@ -92,7 +94,6 @@ export class MyGameOrchestrator extends CGFobject {
         this.interfaceMaterial.setTexture(this.interfaceMaterialTexture);
 
         this.gameSequence = new MyGameSequence(this);
-        this.animator = new MyAnimator(scene, this);
         this.gameBoard = new MyGameBoard(scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
         this.currentPlayer = 1;
         this.currentHighlight = null;
@@ -102,6 +103,21 @@ export class MyGameOrchestrator extends CGFobject {
         this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
         this.player1_score = 0;
         this.player2_score = 0;
+        this.animatorTranslation = [0, 0, 0];
+        this.auxBoardAnimatorTranslation = [0, 0, 0];
+        this.pieceAnimation = false;
+        this.animatedPiece = null;
+        this.direction = null;
+        this.originAnimationTile = null;
+        this.destinationAnimationTile = null;
+        this.multipleDirections = [];
+        this.animationPath = [];
+
+        this.auxBoard1MaxY = 0;
+        this.auxBoard2MaxY = 0;
+        this.jumpedPieces = [];
+        this.auxBoardAnimation = false;
+        this.distance = 0;
     }
 
 
@@ -144,11 +160,188 @@ export class MyGameOrchestrator extends CGFobject {
                 }
             }
         }
+
+        if (this.pieceAnimation) {
+            this.updatePieceAnimation(time);
+        }
+
+        if (this.jumpedPieces.length > 0) {
+            this.jumpedPieces[0].getTile().unsetPiece();
+            this.auxBoardAnimation = true
+            this.auxBoard1MaxY = parseInt(this.jumpedPieces[0].getTile().getId()[1]) - 10;
+            this.auxBoard2MaxY = parseInt(this.jumpedPieces[0].getTile().getId()[1]) + 3;
+            if (this.currentPlayer == 1) {
+                this.distance = this.auxBoard2MaxY / 2;
+            }
+            else {
+                this.distance = this.auxBoard1MaxY / 2;
+            }
+        }
+        else {
+            this.jumpedPieces = [];
+            this.auxBoardAnimation = false;
+            this.auxBoardAnimatorTranslation = [0, 0, 0];
+        }
+
+        if (this.currentPlayer == 1 && this.auxBoardAnimation == true) {
+            if (this.auxBoardAnimatorTranslation[1] < this.auxBoard2MaxY) {
+                this.auxBoardAnimatorTranslation[1] += time / 2500000000000;
+                if (this.auxBoardAnimatorTranslation[1] > this.distance) {
+                    this.auxBoardAnimatorTranslation[2] -= time / 2500000000000;
+                }
+                else {
+                    this.auxBoardAnimatorTranslation[2] += time / 2500000000000;
+                }
+            }
+            else {
+                this.gameBoard.auxBoard1.addPiece(this.jumpedPieces[0])
+                this.jumpedPieces.shift();
+                this.auxBoardAnimatorTranslation = [0, 0, 0];
+                if (this.jumpedPieces.length == 0) {
+                    this.auxBoardAnimation = false;
+                }
+            }
+        }
+        else if (this.currentPlayer == 2 && this.auxBoardAnimation == true) {
+            if (this.auxBoardAnimatorTranslation[1] > this.auxBoard1MaxY) {
+                this.auxBoardAnimatorTranslation[1] -= time / 2500000000000;
+                if (this.auxBoardAnimatorTranslation[1] < this.distance) {
+                    this.auxBoardAnimatorTranslation[2] -= time / 2500000000000;
+                }
+                else {
+                    this.auxBoardAnimatorTranslation[2] += time / 2500000000000;
+                }
+            }
+            else {
+                this.gameBoard.auxBoard2.addPiece(this.jumpedPieces[0])
+                this.jumpedPieces.shift();
+                this.auxBoardAnimatorTranslation = [0, 0, 0];
+                if (this.jumpedPieces.length == 0) {
+                    this.auxBoardAnimation = false;
+                }
+            }
+
+        }
+    }
+    updatePieceAnimation(time) {
+        var rate = 5000000000000;
+        // up right
+        if (this.direction[0] == 1 && this.direction[1] == 1) {
+            if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
+                this.animatorTranslation[0] += time / rate;
+                this.animatorTranslation[1] -= time / rate;
+            }
+            else {
+                this.resetAnimation();
+            }
+        }
+        // up left
+        else if (this.direction[0] == 1 && this.direction[1] == -1) {
+            if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
+                this.animatorTranslation[0] += time / rate;
+                this.animatorTranslation[1] += time / rate;
+            } else {
+                this.resetAnimation();
+            }
+        }
+        // down right
+        else if (this.direction[0] == -1 && this.direction[1] == 1) {
+            if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
+                this.animatorTranslation[0] -= time / rate;
+                this.animatorTranslation[1] -= time / rate;
+            } else {
+                this.resetAnimation();
+            }
+        }
+        // down left
+        else if (this.direction[0] == -1 && this.direction[1] == -1) {
+            if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
+                this.animatorTranslation[0] -= time / rate;
+                this.animatorTranslation[1] += time / rate;
+            } else {
+                this.resetAnimation();
+            }
+        }
+        // up right eat
+        else if (this.direction[0] == 2 && this.direction[1] == 2) {
+            if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
+                this.animatorTranslation[0] += time / rate;
+                this.animatorTranslation[1] -= time / rate;
+            } else {
+                this.resetAnimation();
+            }
+        }
+        // up left eat
+        else if (this.direction[0] == 2 && this.direction[1] == -2) {
+            if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
+                this.animatorTranslation[0] += time / rate;
+                this.animatorTranslation[1] += time / rate;
+            } else {
+                this.resetAnimation();
+            }
+        }
+        // down right eat
+        else if (this.direction[0] == -2 && this.direction[1] == 2) {
+            if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
+                this.animatorTranslation[0] -= time / rate;
+                this.animatorTranslation[1] -= time / rate;
+            } else {
+                this.resetAnimation();
+            }
+        }
+        // down left eat
+        else if (this.direction[0] == -2 && this.direction[1] == -2) {
+            if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
+                this.animatorTranslation[0] -= time / rate;
+                this.animatorTranslation[1] += time / rate;
+            }
+            else {
+                this.resetAnimation();
+            }
+        }
+    }
+
+    resetAnimation() {
+        if (this.multipleDirections.length > 0) {
+            this.animatorTranslation = [0, 0, 0];
+
+            this.direction = this.multipleDirections[0]
+            this.multipleDirections.shift();
+            this.originAnimationTile = this.gameBoard.getTileByCoords(this.animationPath[0].id[0], this.animationPath[0].id[1]);
+            this.destinationAnimationTile = this.gameBoard.getTileByCoords(this.animationPath[1].id[0], this.animationPath[1].id[1]);
+            this.animationPath.shift();
+        }
+        else {
+            this.gameBoard.addPiece(this.animatedPiece, this.destinationAnimationTile);
+            this.pieceAnimation = false;
+            this.animatedPiece = null;
+            this.direction = null;
+            this.animatorTranslation = [0, 0, 0];
+            this.cameraAnimation = true;
+            this.destinationAnimationTile = null;
+            this.originAnimationTile = null;
+            this.multipleDirections = [];
+            this.animationPath = [];
+        }
     }
 
     display() {
         this.gameInterface.display(this.player1_score, this.player2_score, this.timeElapsed);
         this.gameBoard.display();
+        if (this.pieceAnimation) {
+            this.scene.pushMatrix();
+            this.scene.setMatrix(this.originAnimationTile.getPosition());
+            this.scene.translate(this.animatorTranslation[0], this.animatorTranslation[1], this.animatorTranslation[2]);
+            this.animatedPiece.display();
+            this.scene.popMatrix();
+        }
+        if (this.auxBoardAnimation) {
+            this.scene.pushMatrix();
+            this.scene.setMatrix(this.jumpedPieces[0].getTile().getPosition());
+            this.scene.translate(this.auxBoardAnimatorTranslation[0], this.auxBoardAnimatorTranslation[1], this.auxBoardAnimatorTranslation[2]);
+            this.jumpedPieces[0].display();
+            this.scene.popMatrix();
+        }
     }
 
 
@@ -263,8 +456,7 @@ export class MyGameOrchestrator extends CGFobject {
             this.finished = true;
             return;
         }
-        this.cameraAnimation = true;
-
+        this.pieceAnimation = true;
     }
 
 
@@ -325,24 +517,69 @@ export class MyGameOrchestrator extends CGFobject {
                 (this.currentHighlight.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.currentHighlight)[0].includes(tile)))) {
                 var result;
                 var jumpedTiles = [];
+                var path = [];
                 var becomeKing = null;
                 this.unhighlightPieceAndTiles(this.currentHighlight);
                 var originTile = this.currentHighlight.getTile();
+                path.push(originTile);
+                this.originAnimationTile = originTile;
+                this.animatedPiece = this.currentHighlight;
                 result = this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
                 jumpedTiles = result[0];
-                becomeKing = result[1];
+                for (var i = 0; i < jumpedTiles.length; i++) {
+                    this.jumpedPieces.push(jumpedTiles[i].getPiece());
+                }
+                for (var i = 0; i < result[1].length; i++) {
+
+                    path.push(result[1][i]);
+                }
+                becomeKing = result[2];
                 this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing));
+                this.destinationAnimationTile = tile
+                if (path.length > 1) {
+                    for (var i = 0; i < path.length - 1; i++) {
+                        this.multipleDirections.push(this.calculateDirection(path[i].id, path[i + 1].id));
+
+
+                    }
+                    this.direction = this.multipleDirections[0];
+                    this.multipleDirections.shift();
+                    this.animationPath = path;
+                    this.originAnimationTile = this.gameBoard.getTileByCoords(this.animationPath[0].id[0], this.animationPath[0].id[1]);
+                    this.destinationAnimationTile = this.gameBoard.getTileByCoords(this.animationPath[1].id[0], this.animationPath[1].id[1]);
+                    this.animationPath.shift();
+
+                }
+                else {
+                    this.direction = this.gameSequence.moves[this.gameSequence.moves.length - 1].getDirection();
+                }
                 this.nextPlayer();
                 this.currentHighlight = null;
                 this.state = "gameplay";
+
+
             }
         }
     }
+
+
+    calculateDirection(originTile, destinationTile) {
+        var originId = Number.parseInt(originTile);
+        var destinationId = Number.parseInt(destinationTile);
+        var originRow = Math.floor(originId / 10);
+        var originColumn = originId % 10;
+        var destinationRow = Math.floor(destinationId / 10);
+        var destinationColumn = destinationId % 10;
+        var direction = [destinationRow - originRow, destinationColumn - originColumn];
+        return direction;
+    }
+
 
     undo() {
         if (this.state == "gameplay" && this.gameSequence.moves.length > 0) {
             this.gameSequence.undo();
             this.display();
+            this.pieceAnimation = true;
             this.cameraAnimation = true;
 
         }

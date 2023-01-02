@@ -9,7 +9,6 @@ export class MyGameBoard extends CGFobject {
         super(scene);
         this.board = [];
         this.boardPieces = [];
-
         this.player1Pieces = 12;
         this.player2Pieces = 12;
         this.boardMaterial1 = boardMaterial1;
@@ -59,6 +58,7 @@ export class MyGameBoard extends CGFobject {
                     } else {
                         if (i % 2 != 0) {
                             this.boardPieces[i][j] = new MyPiece(scene, 1, this.player1Material, this.shader);
+
                         }
                     }
                 } else if (i > 4) {
@@ -144,13 +144,6 @@ export class MyGameBoard extends CGFobject {
         var colDiff = endCol - startCol;
         var jumpedTile = this.board[startRow + rowDiff / 2][startCol + colDiff / 2];
         var player = jumpedTile.getPiece().getPlayer();
-        if (player == 1) {
-            this.auxBoard1.addPiece(jumpedTile.getPiece());
-        } else {
-            this.auxBoard2.addPiece(jumpedTile.getPiece());
-        }
-
-        this.removePiece(jumpedTile);
         return jumpedTile;
     }
 
@@ -181,11 +174,12 @@ export class MyGameBoard extends CGFobject {
             jumpedTiles.push(this.jumpPiece(start, end));
             start = end;
         }
-        return jumpedTiles;
+        return [jumpedTiles, path];
     }
 
     movePiece(piece, startTile, endTile) {
         var jumpedTiles = [];
+        var path = [];
         var becomeKing = false;
         var startId = startTile.getId();
         var endId = endTile.getId();
@@ -201,12 +195,14 @@ export class MyGameBoard extends CGFobject {
         }
         else if (Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 2 && !this.board[startRow + rowDiff / 2][startCol + colDiff / 2].hasPiece() ||
             Math.abs(rowDiff) > 2 || Math.abs(colDiff) > 2) {
-            jumpedTiles = this.multipleJump(startTile, endTile);
+            var result = this.multipleJump(startTile, endTile);
+            jumpedTiles = result[0];
+            path = result[1];
         }
         this.removePiece(startTile);
-        this.addPiece(piece, endTile);
         becomeKing = this.checkKing(piece, endTile);
-        return [jumpedTiles, becomeKing];
+
+        return [jumpedTiles, path, becomeKing];
     }
 
     checkJumps(player, currentTile, adjacentTileLeft, adjacentTileRight, currentPath) {
