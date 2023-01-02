@@ -360,9 +360,7 @@ export class MyGameOrchestrator extends CGFobject {
             if (obj.id == "undo") {
                 this.undo();
             }
-            if (obj.id == "movie") {
-                this.movie();
-            }
+        
             if (obj.id == "reset") {
                 this.reset();
             }
@@ -564,9 +562,6 @@ export class MyGameOrchestrator extends CGFobject {
         }
     }
 
-    movie() {
-        this.gameSequence.movie();
-    }
 
     reset() {
         this.currentPlayer = 1;

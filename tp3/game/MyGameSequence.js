@@ -46,11 +46,5 @@ export class MyGameSequence {
         }
     }
 
-    movie(){
-        var movesCopy = this.moves.slice();
-        var currentPlayer = this.orchestrator.currentPlayer;
-        this.undoAllMoves();
-        this.makeAllMoves(movesCopy);
-        this.orchestrator.currentPlayer = currentPlayer;
-    }
+
 }

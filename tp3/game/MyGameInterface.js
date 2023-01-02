@@ -12,7 +12,6 @@ export class MyGameInterface extends CGFobject {
         this.triangle = new MyTriangle(scene, 0, 1, 0, -1, 0, 1, 0, 0, 0);
         this.undoButton = new MyInterfaceButton(this.scene, "undo");
         this.resetButton = new MyInterfaceButton(this.scene, "reset");
-        this.movieButton = new MyInterfaceButton(this.scene, "movie");
         this.startButton = new MyInterfaceButton(this.scene, "start");
         this.theme1Button = new MyInterfaceButton(this.scene, "theme1");
         this.theme2Button = new MyInterfaceButton(this.scene, "theme2");
@@ -40,8 +39,7 @@ export class MyGameInterface extends CGFobject {
         this.theme2Button.display();
         this.scene.registerForPick(94, this.theme3Button);
         this.theme3Button.display();
-        this.scene.registerForPick(95, this.movieButton);
-        this.movieButton.display();
+       
         this.scene.registerForPick(96, this.startButton);
         this.startButton.display();
         this.material.apply();
@@ -69,8 +67,7 @@ export class MyGameInterface extends CGFobject {
         this.theme2Button.display();
         this.scene.registerForPick(104, this.theme3Button);
         this.theme3Button.display();
-        this.scene.registerForPick(105, this.movieButton);
-        this.movieButton.display();
+
         this.scene.registerForPick(106, this.startButton);
         this.startButton.display();
         this.material.apply();

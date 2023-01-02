@@ -31,32 +31,7 @@ export class MyInterfaceButton extends CGFobject {
     }
 
 
-    movie() {
-        this.scene.pushMatrix();
-        this.scene.scale(0.2, 0.2, 0.2)
-        this.scene.activeShader.setUniformsValues({ 'charCoords': [13, 4] });	// M
-        this.quad.display();
-
-        this.scene.translate(0.55, 0, 0);
-        this.scene.activeShader.setUniformsValues({ 'charCoords': [15, 4] }); // O
-        this.quad.display();
-
-        this.scene.translate(0.55, 0, 0);
-        this.scene.activeShader.setUniformsValues({ 'charCoords': [6, 5] }); // V
-        this.quad.display();
-
-        this.scene.translate(0.55, 0, 0);
-        this.scene.activeShader.setUniformsValues({ 'charCoords': [9, 4] }); // I
-        this.quad.display();
-
-        this.scene.translate(0.2, 0, 0);
-        this.scene.activeShader.setUniformsValues({ 'charCoords': [5, 4] });	// E
-        this.quad.display();
-
-
-        this.scene.popMatrix();
-    }
-
+   
     start() {
         this.scene.pushMatrix();
         this.scene.scale(0.2, 0.2, 0.2)
@@ -180,12 +155,12 @@ export class MyInterfaceButton extends CGFobject {
 
         var minutes, seconds;
 
-        minutes = (Math.floor(timeElapsed / 60)).toString( );
-        seconds = (Math.floor(timeElapsed % 60)).toString( );
-        if(seconds < 10)
+        minutes = (Math.floor(timeElapsed / 60)).toString();
+        seconds = (Math.floor(timeElapsed % 60)).toString();
+        if (seconds < 10)
             seconds = "0" + seconds;
 
-        if(minutes < 10)
+        if (minutes < 10)
             minutes = "0" + minutes;
 
 
@@ -273,21 +248,6 @@ export class MyInterfaceButton extends CGFobject {
             this.scene.popMatrix();
         }
 
-        else if (this.id == "movie") {
-            this.scene.pushMatrix();
-            this.buttonMaterial.apply();
-            this.scene.rotate(Math.PI * 1, 1, 0, 0);
-            this.scene.scale(0.49, 0.49, 0.49)
-            this.scene.translate(0.5, -1.5, -0.01);
-            this.button.display();
-            this.scene.popMatrix();
-            this.scene.pushMatrix();
-            this.appearance.apply();
-            this.scene.translate(-0.17, 0.35, 0.01);
-            this.movie();
-            this.scene.popMatrix();
-        }
-
         else if (this.id == "start") {
             this.scene.pushMatrix();
             this.buttonMaterial.apply();
@@ -316,7 +276,7 @@ export class MyInterfaceButton extends CGFobject {
             this.scene.popMatrix();
             this.scene.pushMatrix();
             this.appearance.apply();
-            this.scene.translate(-0.15, 0.12, 0.01);
+            this.scene.translate(-0.15, 0.35, 0.01);
             this.time(timeElapsed);
 
             this.scene.popMatrix();
