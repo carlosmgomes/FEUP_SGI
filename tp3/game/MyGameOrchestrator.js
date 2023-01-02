@@ -92,13 +92,14 @@ export class MyGameOrchestrator extends CGFobject {
         this.state = "gameplay";
 
         this.cameraAnimation = false;
-        this.pieceAnimation = false;
         this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
         this.player1_score = 0;
         this.player2_score = 0;
         this.shader = new CGFshader(this.scene.gl, "shaders/shaders.vert", "shaders/shaders.frag");
         this.testPiece = new MyPiece(this.scene, 1, this.red, this.shader);
         this.animatorTranslation = [0, 0, 0];
+        this.pieceAnimation = false;
+        this.direction = [-1, -1];
         this.originAnimationTile = null;
         this.destinationAnimationTile = null;
     }
@@ -144,233 +145,259 @@ export class MyGameOrchestrator extends CGFobject {
             }
         }
 
-        this.animatorTranslation[0] += time / 15000000000000;
-        this.animatorTranslation[1] -= time / 15000000000000;
-}
-
-display() {
-    this.gameInterface.display(this.player1_score, this.player2_score, this.timeElapsed);
-    this.gameBoard.display();
-    this.scene.pushMatrix();
-    this.scene.setMatrix(this.gameBoard.board[0][0].getPosition());
-    this.scene.translate(this.animatorTranslation[0], this.animatorTranslation[1], this.animatorTranslation[2]);
-    this.testPiece.display();
-    this.scene.popMatrix();
-}
-
-
-managePick(pickMode, pickResults) {
-    if (pickMode == false) {
-        if (pickResults != null && pickResults.length > 0) {
-            for (var i = 0; i < pickResults.length; i++) {
-                var obj = pickResults[i][0];
-                if (obj) {
-                    var customId = pickResults[i][1];
-                    this.OnObjectSelected(obj, customId);
-                }
+        // up right
+        if (this.direction[0] == 1 && this.direction[1] == 1) {
+            if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
+                this.animatorTranslation[0] += time / 15000000000000;
+                this.animatorTranslation[1] -= time / 15000000000000;
             }
-            pickResults.splice(0, pickResults.length);
+        }
+        // up left
+        if (this.direction[0] == 1 && this.direction[1] == -1) {
+            if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
+                this.animatorTranslation[0] += time / 15000000000000;
+                this.animatorTranslation[1] += time / 15000000000000;
+            }
+        }
+        // down right
+        if (this.direction[0] == -1 && this.direction[1] == 1) {
+            if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
+                this.animatorTranslation[0] -= time / 15000000000000;
+                this.animatorTranslation[1] -= time / 15000000000000;
+            }
+        }
+        // down left
+        if (this.direction[0] == -1 && this.direction[1] == -1) {
+            if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
+                this.animatorTranslation[0] -= time / 15000000000000;
+                this.animatorTranslation[1] += time / 15000000000000;
+            }
         }
     }
-}
 
-OnObjectSelected(obj, id) {
-    if (obj instanceof MyTile) {
-        if (obj.piece != null) {
-            console.log("Piece selected");
-            console.log(obj.id);
-            this.pieceSelected(obj.piece);
-        }
-        else {
-            console.log("Tile selected");
-            console.log(obj.id);
-            this.tileSelected(obj);
+    display() {
+        this.gameInterface.display(this.player1_score, this.player2_score, this.timeElapsed);
+        this.gameBoard.display();
+        this.scene.pushMatrix();
+        this.scene.setMatrix(this.gameBoard.board[3][3].getPosition());
+        this.scene.translate(this.animatorTranslation[0], this.animatorTranslation[1], this.animatorTranslation[2]);
+        this.testPiece.display();
+        this.scene.popMatrix();
+    }
+
+
+    managePick(pickMode, pickResults) {
+        if (pickMode == false) {
+            if (pickResults != null && pickResults.length > 0) {
+                for (var i = 0; i < pickResults.length; i++) {
+                    var obj = pickResults[i][0];
+                    if (obj) {
+                        var customId = pickResults[i][1];
+                        this.OnObjectSelected(obj, customId);
+                    }
+                }
+                pickResults.splice(0, pickResults.length);
+            }
         }
     }
-    if (obj instanceof MyInterfaceButton) {
-        if (obj.id == "undo") {
-            this.undo();
-        }
-        if (obj.id == "reset") {
-            this.reset();
-        }
-        if (obj.id == "theme1") {
-            this.scene.selectedTheme = this.scene.themes[0]
-            var text = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
-            this.gameBoard.boardMaterial1.setTexture(text);
-            this.scene.updateTheme()
 
+    OnObjectSelected(obj, id) {
+        if (obj instanceof MyTile) {
+            if (obj.piece != null) {
+                console.log("Piece selected");
+                console.log(obj.id);
+                this.pieceSelected(obj.piece);
+            }
+            else {
+                console.log("Tile selected");
+                console.log(obj.id);
+                this.tileSelected(obj);
+            }
         }
-        if (obj.id == "theme2") {
-            this.scene.selectedTheme = this.scene.themes[1]
-            var text = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
-            this.gameBoard.boardMaterial1.setTexture(text);
-            this.scene.updateTheme()
-        }
-        if (obj.id == "theme3") {
-            this.scene.selectedTheme = this.scene.themes[2]
-            var text = new CGFtexture(this.scene, "scenes/images/wood.jpg");
-            this.gameBoard.boardMaterial1.setTexture(text);
-            this.scene.updateTheme()
-        }
-        if (obj.id == "movie") {
-            console.log("Movie");
-        }
-        if (obj.id == "start") {
-            if (this.finished) {
+        if (obj instanceof MyInterfaceButton) {
+            if (obj.id == "undo") {
+                this.undo();
+            }
+            if (obj.id == "reset") {
                 this.reset();
             }
-            this.finished = false;
-            this.gameOn = true;
-            this.winner = null;
-            this.startTime = Date.now();
-            this.last = 0;
-        }
+            if (obj.id == "theme1") {
+                this.scene.selectedTheme = this.scene.themes[0]
+                var text = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
+                this.gameBoard.boardMaterial1.setTexture(text);
+                this.scene.updateTheme()
 
-    }
-}
-
-nextPlayer() {
-    var temp = [];
-    var found = false;
-    var hasMoves = false;
-    this.currentPlayer = this.currentPlayer == 1 ? 2 : 1;
-    for (var i = 0; i < this.gameBoard.board.length; i++) {
-        for (var j = 0; j < this.gameBoard.board[i].length; j++) {
-            if (this.gameBoard.board[i][j].piece != null) {
-                if (this.gameBoard.board[i][j].piece.player == this.currentPlayer) {
-                    found = true;
-                    if (this.gameBoard.board[i][j].piece.getType() == "piece")
-                        temp.push(this.gameBoard.getCurrentMoves(this.currentPlayer, this.gameBoard.board[i][j].piece));
-                    else
-                        temp.push(this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.gameBoard.board[i][j].piece));
+            }
+            if (obj.id == "theme2") {
+                this.scene.selectedTheme = this.scene.themes[1]
+                var text = new CGFtexture(this.scene, "scenes/images/white_wood.jpg");
+                this.gameBoard.boardMaterial1.setTexture(text);
+                this.scene.updateTheme()
+            }
+            if (obj.id == "theme3") {
+                this.scene.selectedTheme = this.scene.themes[2]
+                var text = new CGFtexture(this.scene, "scenes/images/wood.jpg");
+                this.gameBoard.boardMaterial1.setTexture(text);
+                this.scene.updateTheme()
+            }
+            if (obj.id == "movie") {
+                console.log("Movie");
+            }
+            if (obj.id == "start") {
+                if (this.finished) {
+                    this.reset();
                 }
+                this.finished = false;
+                this.gameOn = true;
+                this.winner = null;
+                this.startTime = Date.now();
+                this.last = 0;
             }
 
         }
     }
-    for (var i = 0; i < temp.length; i++) {
 
-        if (temp[i][0].length > 0 || temp[i][1].length > 0) {
-            hasMoves = true;
-            break;
-        }
-    }
-    if (!found || !hasMoves) {
-        this.state = "gameover";
-        this.finished = true;
-        console.log("Game Over");
-        this.winner = this.currentPlayer == 1 ? 2 : 1;
-        if (this.winner == 1)
-            this.player1_score++;
-        else
-            this.player2_score++;
-        console.log("Player " + this.winner + " wins!");
-        this.gameOn = false;
-        this.finished = true;
-        return;
-    }
-    this.pieceAnimation = true;
-    this.cameraAnimation = true;
+    nextPlayer() {
+        var temp = [];
+        var found = false;
+        var hasMoves = false;
+        this.currentPlayer = this.currentPlayer == 1 ? 2 : 1;
+        for (var i = 0; i < this.gameBoard.board.length; i++) {
+            for (var j = 0; j < this.gameBoard.board[i].length; j++) {
+                if (this.gameBoard.board[i][j].piece != null) {
+                    if (this.gameBoard.board[i][j].piece.player == this.currentPlayer) {
+                        found = true;
+                        if (this.gameBoard.board[i][j].piece.getType() == "piece")
+                            temp.push(this.gameBoard.getCurrentMoves(this.currentPlayer, this.gameBoard.board[i][j].piece));
+                        else
+                            temp.push(this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.gameBoard.board[i][j].piece));
+                    }
+                }
 
-}
+            }
+        }
+        for (var i = 0; i < temp.length; i++) {
 
-
-highlightPieceAndTiles(piece) {
-    this.gameBoard.highlightPiece(piece);
-    if (piece.getType() == "piece") {
-        for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length; i++) {
-            this.gameBoard.highlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0][i]);
+            if (temp[i][0].length > 0 || temp[i][1].length > 0) {
+                hasMoves = true;
+                break;
+            }
         }
-    }
-    else {
-        for (var i = 0; i < this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length; i++) {
-            this.gameBoard.highlightTile(this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0][i]);
+        if (!found || !hasMoves) {
+            this.state = "gameover";
+            this.finished = true;
+            console.log("Game Over");
+            this.winner = this.currentPlayer == 1 ? 2 : 1;
+            if (this.winner == 1)
+                this.player1_score++;
+            else
+                this.player2_score++;
+            console.log("Player " + this.winner + " wins!");
+            this.gameOn = false;
+            this.finished = true;
+            return;
         }
-    }
-}
-
-unhighlightPieceAndTiles(piece) {
-    if (piece == null) return;
-    this.gameBoard.unhighlightPiece(piece);
-    if (piece.getType() == "piece") {
-        for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length; i++) {
-            this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0][i]);
-        }
-    }
-    else {
-        for (var i = 0; i < this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length; i++) {
-            this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0][i]);
-        }
-    }
-}
-
-pieceSelected(piece) {
-    if (this.state == "gameplay" || this.state == "pieceSelected") {
-        if (piece.getPlayer() == this.currentPlayer && piece.getType() == "piece" && this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length > 0) {
-            this.unhighlightPieceAndTiles(this.currentHighlight);
-            this.highlightPieceAndTiles(piece);
-            this.currentHighlight = piece;
-            this.state = "pieceSelected";
-        }
-        else if (piece.getPlayer() == this.currentPlayer && piece.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length > 0) {
-            this.unhighlightPieceAndTiles(this.currentHighlight);
-            this.highlightPieceAndTiles(piece);
-            this.currentHighlight = piece;
-            this.state = "pieceSelected";
-        }
-        else {
-            this.unhighlightPieceAndTiles(this.currentHighlight);
-            this.state = "gameplay";
-            this.currentHighlight = null;
-        }
-    }
-}
-
-tileSelected(tile) {
-    if (this.state == "pieceSelected") {
-        if ((this.currentHighlight.getType() == "piece" && this.gameBoard.getCurrentMoves(this.currentPlayer, this.currentHighlight)[0].includes(tile) ||
-            (this.currentHighlight.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.currentHighlight)[0].includes(tile)))) {
-            //animation TODO
-            var result;
-            var jumpedTiles = [];
-            var becomeKing = null;
-            this.unhighlightPieceAndTiles(this.currentHighlight);
-            var originTile = this.currentHighlight.getTile();
-            result = this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
-            jumpedTiles = result[0];
-            becomeKing = result[1];
-            this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing));
-            this.nextPlayer();
-            this.currentHighlight = null;
-            this.state = "gameplay";
-        }
-    }
-}
-
-undo() {
-    if (this.state == "gameplay" && this.gameSequence.moves.length > 0) {
-        this.gameSequence.undo();
-        this.display();
         this.pieceAnimation = true;
         this.cameraAnimation = true;
 
     }
-}
 
-reset() {
 
-    this.currentPlayer = 1;
-    this.cameraAnimation = true;
-    this.gameBoard = new MyGameBoard(this.scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
-    this.gameSequence.moves = [];
-    this.state = "gameplay";
-    this.currentHighlight = null;
-    this.finished = false;
-    this.gameOn = false;
-    this.winner = null;
-    this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
+    highlightPieceAndTiles(piece) {
+        this.gameBoard.highlightPiece(piece);
+        if (piece.getType() == "piece") {
+            for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length; i++) {
+                this.gameBoard.highlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0][i]);
+            }
+        }
+        else {
+            for (var i = 0; i < this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length; i++) {
+                this.gameBoard.highlightTile(this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0][i]);
+            }
+        }
+    }
 
-}
+    unhighlightPieceAndTiles(piece) {
+        if (piece == null) return;
+        this.gameBoard.unhighlightPiece(piece);
+        if (piece.getType() == "piece") {
+            for (var i = 0; i < this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length; i++) {
+                this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0][i]);
+            }
+        }
+        else {
+            for (var i = 0; i < this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length; i++) {
+                this.gameBoard.unhighlightTile(this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0][i]);
+            }
+        }
+    }
+
+    pieceSelected(piece) {
+        if (this.state == "gameplay" || this.state == "pieceSelected") {
+            if (piece.getPlayer() == this.currentPlayer && piece.getType() == "piece" && this.gameBoard.getCurrentMoves(this.currentPlayer, piece)[0].length > 0) {
+                this.unhighlightPieceAndTiles(this.currentHighlight);
+                this.highlightPieceAndTiles(piece);
+                this.currentHighlight = piece;
+                this.state = "pieceSelected";
+            }
+            else if (piece.getPlayer() == this.currentPlayer && piece.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, piece)[0].length > 0) {
+                this.unhighlightPieceAndTiles(this.currentHighlight);
+                this.highlightPieceAndTiles(piece);
+                this.currentHighlight = piece;
+                this.state = "pieceSelected";
+            }
+            else {
+                this.unhighlightPieceAndTiles(this.currentHighlight);
+                this.state = "gameplay";
+                this.currentHighlight = null;
+            }
+        }
+    }
+
+    tileSelected(tile) {
+        if (this.state == "pieceSelected") {
+            if ((this.currentHighlight.getType() == "piece" && this.gameBoard.getCurrentMoves(this.currentPlayer, this.currentHighlight)[0].includes(tile) ||
+                (this.currentHighlight.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.currentHighlight)[0].includes(tile)))) {
+                //animation TODO
+                var result;
+                var jumpedTiles = [];
+                var becomeKing = null;
+                this.unhighlightPieceAndTiles(this.currentHighlight);
+                var originTile = this.currentHighlight.getTile();
+                result = this.gameBoard.movePiece(this.currentHighlight, this.currentHighlight.getTile(), tile);
+                jumpedTiles = result[0];
+                becomeKing = result[1];
+                this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing));
+                this.nextPlayer();
+                this.currentHighlight = null;
+                this.state = "gameplay";
+            }
+        }
+    }
+
+    undo() {
+        if (this.state == "gameplay" && this.gameSequence.moves.length > 0) {
+            this.gameSequence.undo();
+            this.display();
+            this.pieceAnimation = true;
+            this.cameraAnimation = true;
+
+        }
+    }
+
+    reset() {
+
+        this.currentPlayer = 1;
+        this.cameraAnimation = true;
+        this.gameBoard = new MyGameBoard(this.scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);
+        this.gameSequence.moves = [];
+        this.state = "gameplay";
+        this.currentHighlight = null;
+        this.finished = false;
+        this.gameOn = false;
+        this.winner = null;
+        this.gameInterface = new MyGameInterface(this.scene, this.interfaceMaterial);
+
+    }
 }
 
