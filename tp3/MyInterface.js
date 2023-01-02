@@ -63,10 +63,10 @@ export class MyInterface extends CGFinterface {
         this.camerasFolder = this.gui.addFolder("Cameras");
         this.camerasFolder.add(this.scene, 'selectedCamera', this.scene.viewsIds).name('Selected Camera').onChange(this.scene.updateCamera.bind(this.scene));
 
-        this.highlightsFolder = this.gui.addFolder("Highlights");
+        /*this.highlightsFolder = this.gui.addFolder("Highlights");
         for (let i = 0; i < this.scene.highlights.length; i++) {
             this.highlightsFolder.add(this.scene.highlights[i], 'isHighlighted').name(this.scene.highlightsIds[i]).onChange(val => { this.scene.shaderVisibility(i, val); });
-        }
+        }*/
 
     }
 
@@ -84,12 +84,12 @@ export class MyInterface extends CGFinterface {
             }
         }
 
-        if (this.highlightsFolder) {
+        /*if (this.highlightsFolder) {
             this.gui.removeFolder(this.highlightsFolder);
             this.highlightsFolder = this.gui.addFolder("Highlights");
             for (let i = 0; i < this.scene.highlights.length; i++) {
                 this.highlightsFolder.add(this.scene.highlights[i], 'isHighlighted').name(this.scene.highlightsIds[i]).onChange(val => { this.scene.shaderVisibility(i, val); });
             }
-        }
+        }*/
     }
 }

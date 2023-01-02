@@ -761,7 +761,6 @@
             <children>
                 <primitiveref id="legsCylinder" />
             </children>
-            <highlighted r="0.18" g="0.11" b="0.52" scale_h="4.0" />
         </component>
 
         <component id="chairLeg2">
@@ -1149,7 +1148,6 @@
             <children>
                 <primitiveref id="demoRectangle" />
             </children>
-            <highlighted r="0.52" g="0.18" b="0.11" scale_h="2.0" />
         </component>
 
         <component id="tableSideFront2">
@@ -1754,7 +1752,6 @@
             <children>
                 <primitiveref id="demoSphere" />
             </children>
-            <highlighted r="1.0" g="0.0" b="0.0" scale_h="2.0" />
         </component>
 
         <component id="frame_front">

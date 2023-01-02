@@ -7,6 +7,14 @@ import { MyGameMove } from './MyGameMove.js';
 import { MyGameInterface } from './MyGameInterface.js';
 import { MyInterfaceButton } from './MyInterfaceButton.js';
 
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
+
 export class MyGameOrchestrator extends CGFobject {
     constructor(scene, selectedTheme) {
         super(scene);
@@ -315,7 +323,6 @@ export class MyGameOrchestrator extends CGFobject {
         if (this.state == "pieceSelected") {
             if ((this.currentHighlight.getType() == "piece" && this.gameBoard.getCurrentMoves(this.currentPlayer, this.currentHighlight)[0].includes(tile) ||
                 (this.currentHighlight.getType() == "king" && this.gameBoard.getCurrentMovesKing(this.currentPlayer, this.currentHighlight)[0].includes(tile)))) {
-                //animation TODO
                 var result;
                 var jumpedTiles = [];
                 var becomeKing = null;
