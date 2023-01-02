@@ -88,6 +88,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.auxBoardAnimatorTranslation = [0, 0, 0];
         this.pieceAnimation = false;
         this.animatedPiece = null;
+        this.becomeKing = false;
         this.direction = null;
         this.originAnimationTile = null;
         this.destinationAnimationTile = null;
@@ -297,7 +298,11 @@ export class MyGameOrchestrator extends CGFobject {
         else {
             this.gameBoard.addPiece(this.animatedPiece, this.destinationAnimationTile);
             this.pieceAnimation = false;
+            if(this.becomeKing){
+                this.animatedPiece.setType("king");
+            }
             this.animatedPiece = null;
+            this.becomeKing = false;
             this.direction = null;
             this.animatorTranslation = [0, 0, 0];
             this.cameraAnimation = true;
@@ -511,6 +516,7 @@ export class MyGameOrchestrator extends CGFobject {
                     path.push(result[1][i]);
                 }
                 becomeKing = result[2];
+                this.becomeKing = becomeKing;
                 this.gameSequence.addMove(new MyGameMove(originTile, tile, jumpedTiles, this.currentPlayer, becomeKing, this.animatedPiece));
                 this.destinationAnimationTile = tile
                 if (path.length > 1) {
