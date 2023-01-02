@@ -6,16 +6,19 @@ export class MyAnimator extends CGFobject{
         this.gameOrchestrator = gameOrchestrator;
         this.gameSequence = gameSequence;
     }
-    //TODO
-    reset() {
+
+
+    update(time){
+
     }
-    //TODO
-    start() {   
-    }
-    //TODO
-    update(time) {
-    }   
+
     //TODO
     display() {
+        this.scene.pushMatrix();
+        //console.log(this.gameBoard.board[0][0].getPosition());
+        this.scene.setMatrix(this.gameBoard.board[0][1].getPosition());
+        this.scene.translate(0, 0,1);
+        this.testPiece.display();
+        this.scene.popMatrix();
     }
 }

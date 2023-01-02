@@ -9,7 +9,6 @@ export class MyGameBoard extends CGFobject {
         super(scene);
         this.board = [];
         this.boardPieces = [];
-
         this.player1Pieces = 12;
         this.player2Pieces = 12;
         this.boardMaterial1 = boardMaterial1;
@@ -59,6 +58,7 @@ export class MyGameBoard extends CGFobject {
                     } else {
                         if (i % 2 != 0) {
                             this.boardPieces[i][j] = new MyPiece(scene, 1, this.player1Material, this.shader);
+
                         }
                     }
                 } else if (i > 4) {
