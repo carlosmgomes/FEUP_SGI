@@ -176,6 +176,9 @@ export class MyGameOrchestrator extends CGFobject {
             if (obj.id == "undo") {
                 this.undo();
             }
+            if (obj.id == "movie") {
+                this.movie();
+            }
             if (obj.id == "reset") {
                 this.reset();
             }
@@ -197,9 +200,6 @@ export class MyGameOrchestrator extends CGFobject {
                 var text = new CGFtexture(this.scene, "scenes/images/wood.jpg");
                 this.gameBoard.boardMaterial1.setTexture(text);
                 this.scene.updateTheme()
-            }
-            if (obj.id == "movie") {
-                console.log("Movie");
             }
             if (obj.id == "start") {
                 if (this.finished) {
@@ -341,8 +341,11 @@ export class MyGameOrchestrator extends CGFobject {
         }
     }
 
-    reset() {
+    movie(){
+        this.gameSequence.movie();
+    }
 
+    reset() {
         this.currentPlayer = 1;
         this.cameraAnimation = true;
         this.gameBoard = new MyGameBoard(this.scene, this.boardMaterial1, this.boardMaterial2, this.red, this.green_blue, this.blue);

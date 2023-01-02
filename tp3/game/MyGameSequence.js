@@ -27,12 +27,30 @@ export class MyGameSequence {
             lastMove.jumpedTiles[i].setPiece(auxBoard.getLastPiece());
             auxBoard.removePiece();
         }
-
-
         this.orchestrator.currentPlayer = lastMove.player;
 
     }
-    replay() {
-        //TODO
+
+    undoAllMoves() {
+        while (this.moves.length > 0) {
+            this.undo();
+        }
+    }
+
+    makeAllMoves(moves) {
+        while (moves.length > 0) {
+            let move = moves[0];
+            moves.shift();
+            this.orchestrator.gameBoard.movePiece(move.piece, move.originTile, move.destinationTile);
+            this.addMove(move);
+        }
+    }
+
+    movie(){
+        var movesCopy = this.moves.slice();
+        var currentPlayer = this.orchestrator.currentPlayer;
+        this.undoAllMoves();
+        this.makeAllMoves(movesCopy);
+        this.orchestrator.currentPlayer = currentPlayer;
     }
 }
