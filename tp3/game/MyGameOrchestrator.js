@@ -99,7 +99,7 @@ export class MyGameOrchestrator extends CGFobject {
         this.testPiece = new MyPiece(this.scene, 1, this.red, this.shader);
         this.animatorTranslation = [0, 0, 0];
         this.pieceAnimation = false;
-        this.direction = [-1, -1];
+        this.direction = [2,2];
         this.originAnimationTile = null;
         this.destinationAnimationTile = null;
     }
@@ -145,6 +145,10 @@ export class MyGameOrchestrator extends CGFobject {
             }
         }
 
+        this.updatePieceAnimation(time);
+    }
+
+    updatePieceAnimation(time) {
         // up right
         if (this.direction[0] == 1 && this.direction[1] == 1) {
             if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
@@ -168,6 +172,34 @@ export class MyGameOrchestrator extends CGFobject {
         }
         // down left
         if (this.direction[0] == -1 && this.direction[1] == -1) {
+            if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
+                this.animatorTranslation[0] -= time / 15000000000000;
+                this.animatorTranslation[1] += time / 15000000000000;
+            }
+        }
+        // up right eat
+        if (this.direction[0] == 2 && this.direction[1] == 2) {
+            if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
+                this.animatorTranslation[0] += time / 15000000000000;
+                this.animatorTranslation[1] -= time / 15000000000000;
+            }
+        }
+        // up left eat
+        if (this.direction[0] == 2 && this.direction[1] == -2) {
+            if (this.animatorTranslation[0] < this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
+                this.animatorTranslation[0] += time / 15000000000000;
+                this.animatorTranslation[1] += time / 15000000000000;
+            }
+        }
+        // down right eat
+        if (this.direction[0] == -2 && this.direction[1] == 2) {
+            if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] < this.direction[1]) {
+                this.animatorTranslation[0] -= time / 15000000000000;
+                this.animatorTranslation[1] -= time / 15000000000000;
+            }
+        }
+        // down left eat
+        if (this.direction[0] == -2 && this.direction[1] == -2) {
             if (this.animatorTranslation[0] > this.direction[0] && this.animatorTranslation[1] > this.direction[1]) {
                 this.animatorTranslation[0] -= time / 15000000000000;
                 this.animatorTranslation[1] += time / 15000000000000;
