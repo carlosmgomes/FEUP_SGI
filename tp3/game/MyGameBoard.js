@@ -78,27 +78,6 @@ export class MyGameBoard extends CGFobject {
                 }
             }
         }
-        /* for (var i = 0; i < 8; i++) {
-            this.boardPieces[i] = [];
-        }
-
-        //01
-        this.boardPieces[0][2] = new MyPiece(scene, 1, this.player1Material, this.shader);
-        this.board[0][2].setPiece(this.boardPieces[0][2]);
-        this.boardPieces[0][2].setTile(this.board[0][2]);
-
-        //13
-        this.boardPieces[1][3] = new MyPiece(scene, 2, this.player2Material, this.shader);
-        this.board[1][3].setPiece(this.boardPieces[1][3]);
-        this.boardPieces[1][3].setTile(this.board[1][3]);
-        //33
-        this.boardPieces[3][3] = new MyPiece(scene, 2, this.player2Material, this.shader);
-        this.board[3][3].setPiece(this.boardPieces[3][3]);
-        this.boardPieces[3][3].setTile(this.board[3][3]);
-
-        this.boardPieces[7][7] = new MyPiece(scene, 2, this.player2Material, this.shader);
-        this.board[7][7].setPiece(this.boardPieces[7][7]);
-        this.boardPieces[7][7].setTile(this.board[7][7]) */
 
         //add sides to board
         this.side1 = new MyGameBoardSide(scene, "side1", this.boardMaterial2);
@@ -165,13 +144,6 @@ export class MyGameBoard extends CGFobject {
         var colDiff = endCol - startCol;
         var jumpedTile = this.board[startRow + rowDiff / 2][startCol + colDiff / 2];
         var player = jumpedTile.getPiece().getPlayer();
-        if (player == 1) {
-            this.auxBoard1.addPiece(jumpedTile.getPiece());
-        } else {
-            this.auxBoard2.addPiece(jumpedTile.getPiece());
-        }
-
-        this.removePiece(jumpedTile);
         return jumpedTile;
     }
 
@@ -229,8 +201,7 @@ export class MyGameBoard extends CGFobject {
         }
         this.removePiece(startTile);
         becomeKing = this.checkKing(piece, endTile);
-        console.log(jumpedTiles)
-        console.log(path)
+
         return [jumpedTiles, path, becomeKing];
     }
 
